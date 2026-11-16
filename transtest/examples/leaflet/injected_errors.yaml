@@ -1,0 +1,42 @@
+# Ground truth for target_flawed.es.md. Every flawed sentence is fluent, grammatical Spanish.
+- id: E1-weight-polarity
+  kind: meaning shift (comparative flipped)
+  where: "adolescentes que pesen menos de 50 kg"  # source: more than 50 kg
+  doc_level: false
+- id: E2-and-to-or
+  kind: meaning shift (condition scope)
+  where: "problemas de riñón o es mayor de 65 años"  # source: AND
+  doc_level: false
+- id: E3-coreference
+  kind: wrong referent for "It" (needs previous sentence to resolve)
+  where: "La warfarina puede aumentar el efecto de este medicamento"
+  doc_level: true
+- id: E4-alcohol-softened
+  kind: meaning shift (prohibition weakened: 'in excess' added)
+  where: "Evite beber alcohol en exceso"
+  doc_level: false
+- id: E5-term-inconsistency
+  kind: terminology (tabletas / pastillas / comprimidos mixed)
+  where: "tabletas ... pastillas"
+  doc_level: true
+- id: E6-omission
+  kind: omission ("Leave at least 4 hours between doses." dropped)
+  where: section 3
+  doc_level: true
+- id: E7-liver-dose
+  kind: wrong number (liver max 6 tablets / 3,000 mg -> 8 / 4,000)
+  where: "dosis máxima diaria es de 8 comprimidos (4.000 mg)"
+  doc_level: false
+- id: E8-register-switch
+  kind: register (usted -> tú mid-document)
+  where: "Trágate ... te dura ... habla con tu médico"
+  doc_level: true
+- id: E9-overdose-polarity
+  kind: meaning shift ("even if you feel well" -> "if you do not feel well")
+  where: "si no se encuentra bien"
+  doc_level: false
+- id: E10-pain-duration-dropped-verb
+  kind: none (benign ellipsis "el dolor más de 5 días") — NOT an error; tests must not flag it
+  where: section 3
+  doc_level: false
+  benign: true

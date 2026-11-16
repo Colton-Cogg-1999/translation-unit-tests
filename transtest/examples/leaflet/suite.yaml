@@ -1,0 +1,141 @@
+suite: Feverol leaflet — EN→ES document tests
+source: source.en.md
+source_lang: en
+target_lang: es
+defaults:
+  severity: major
+
+glossary:
+  - source: tablet
+    target: [comprimido, comprimidos]
+    forbidden: [tableta, tabletas, pastilla, pastillas]
+  - source: tablets
+    target: [comprimido, comprimidos]
+    forbidden: [tableta, tabletas, pastilla, pastillas]
+  - source: package leaflet
+    target: [prospecto]
+
+dnt: [Feverol]
+
+tests:
+  # ---------- deterministic ----------
+  - type: numbers
+    severity: critical
+    catches: [E7]
+  - type: placeholders
+    severity: minor
+  - type: dnt
+    severity: minor
+  - type: glossary
+    catches: [E5]
+  - id: tablet-consistency
+    type: term_consistency
+    terms:
+      - source: tablet(s)
+        variants: ["comprimido|comprimidos", "tableta|tabletas", "pastilla|pastillas"]
+    catches: [E5]
+
+  # ---------- alignment ----------
+  - type: coverage
+    min_similarity: 0.62
+    catches: [E6]
+
+  # ---------- register ----------
+  - id: usted-register
+    type: register
+    expected: "formal address to the reader with 'usted' forms (e.g. 'tome', 'consulte', 'su médico')"
+    violation: "informal 'tú' address (e.g. 'toma', 'trágate', 'habla', 'tu médico', 'te')"
+    catches: [E8]
+  - id: tu-markers
+    type: forbidden_patterns
+    patterns: ['\btú\b', '\btus?\b', '\bte\b', '\bcontigo\b', '\b(?!\w*mente\b)\w*[áéíó]\w*te\b']
+    severity: minor
+    catches: [E8]
+
+  # ---------- meaning assertions (judge reads ONLY the target) ----------
+  - id: weight-limit
+    type: assert
+    claim: "Adolescents can use the medicine only if they weigh more than 50 kg."
+    severity: critical
+    catches: [E1]
+  - id: kidney-and-age
+    type: assert
+    claim: "The advice to talk to a doctor first applies to people who have kidney problems AND are over 65 at the same time."
+    catches: [E2]
+  - id: kidney-and-age-neg
+    type: assert
+    claim: "Anyone over 65 should talk to their doctor before taking it, even without kidney problems."
+    expect: false
+    catches: [E2]
+  - id: warfarin-direction
+    type: assert
+    claim: "Feverol (the medicine described) can increase the effect of warfarin."
+    severity: critical
+    catches: [E3]
+  - id: warfarin-direction-neg
+    type: assert
+    claim: "Warfarin can increase the effect of Feverol."
+    expect: false
+    severity: critical
+    catches: [E3]
+  - id: alcohol-neg
+    type: assert
+    claim: "Drinking moderate amounts of alcohol is acceptable while taking the medicine."
+    expect: false
+    catches: [E4]
+  - id: overdose-even-if-well
+    type: assert
+    claim: "After taking too much, you must get medical help immediately even if you feel well."
+    severity: critical
+    catches: [E9]
+  - id: overdose-neg
+    type: assert
+    claim: "After taking too much, you only need medical help if you feel unwell."
+    expect: false
+    severity: critical
+    catches: [E9]
+  - id: children-under-12
+    type: assert
+    claim: "The medicine must not be given to children under 12 years old."
+    severity: critical
+  - id: pregnancy
+    type: assert
+    claim: "It may be used in pregnancy if clinically needed, at the lowest dose for the shortest time."
+
+  # added after mutation testing exposed these blind spots (see README)
+  - id: max-daily-dose
+    type: assert
+    claim: "You must not take more than 8 tablets (4,000 mg) in 24 hours."
+    severity: critical
+  - id: max-daily-dose-neg
+    type: assert
+    claim: "Taking more than 8 tablets in 24 hours is allowed or recommended."
+    expect: false
+    severity: critical
+  - id: storage-temp
+    type: assert
+    claim: "The medicine must be stored below 25 °C (not above 25 °C)."
+    severity: minor
+
+  # ---------- QA probes (need cross-sentence reading) ----------
+  - id: qa-liver-max
+    type: qa
+    question: "What is the maximum daily dose for someone with liver problems?"
+    expected: "6 tablets (3,000 mg) per day"
+    severity: critical
+    catches: [E7]
+  - id: qa-gap
+    type: qa
+    question: "What is the minimum time to leave between two doses?"
+    expected: "At least 4 hours"
+    catches: [E6]
+  - id: qa-interaction
+    type: qa
+    question: "Which medicine's effect is increased in the warfarin interaction, and what causes the increase?"
+    expected: "The effect of warfarin is increased, caused by Feverol/paracetamol taken regularly for more than a week"
+    severity: critical
+    catches: [E3]
+  - id: qa-fever-days
+    type: qa
+    question: "After how many days of fever should the patient talk to a doctor?"
+    expected: "If the fever lasts more than 3 days"
