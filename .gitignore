@@ -1,0 +1,18 @@
+# secrets
+.env
+
+# environments / caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.cache/
+
+# downloaded corpora and generated data (rebuild with scripts/download_emea.sh + prepare scripts)
+data/
+
+# optional local llama.cpp binaries / models
+.local/
+
+# run logs
+results/logs/
