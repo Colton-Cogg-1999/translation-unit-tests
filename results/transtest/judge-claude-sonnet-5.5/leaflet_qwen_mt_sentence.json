@@ -1,0 +1,364 @@
+{
+  "meta": {
+    "suite": "Feverol leaflet — EN→ES document tests",
+    "target": "results/transtest/mt/leaflet_mt_sentence__local-qwen3-4b.es.md",
+    "mode": "target"
+  },
+  "summary": {
+    "tests": 22,
+    "passed": 18,
+    "failed": 4,
+    "errors": 0,
+    "skipped": 0,
+    "pass_rate": 0.818,
+    "penalty": 16,
+    "critical_failures": 0,
+    "verdict": "WARN"
+  },
+  "results": [
+    {
+      "test_id": "numbers",
+      "type": "numbers",
+      "status": "pass",
+      "severity": "critical",
+      "message": "22 numbers preserved",
+      "evidence": [],
+      "details": {
+        "missing": {},
+        "extra": {}
+      }
+    },
+    {
+      "test_id": "placeholders",
+      "type": "placeholders",
+      "status": "pass",
+      "severity": "minor",
+      "message": "placeholders/tags intact",
+      "evidence": [],
+      "details": {}
+    },
+    {
+      "test_id": "dnt",
+      "type": "dnt",
+      "status": "pass",
+      "severity": "minor",
+      "message": "1 DNT terms preserved",
+      "evidence": [],
+      "details": {}
+    },
+    {
+      "test_id": "glossary",
+      "type": "glossary",
+      "status": "fail",
+      "severity": "major",
+      "message": "forbidden 'tabletas' used 1× (approved: ['comprimido', 'comprimidos']); forbidden 'pastillas' used 1× (approved: ['comprimido', 'comprimidos']); 'package leaflet' occurs 1× in source but approved ['prospecto'] never used",
+      "evidence": [
+        "Tabletas de Feverol de 500 mg recubiertas con película",
+        "Trague las pastillas enteras con un vaso de agua."
+      ],
+      "details": {}
+    },
+    {
+      "test_id": "tablet-consistency",
+      "type": "term_consistency",
+      "status": "fail",
+      "severity": "major",
+      "message": "'tablet(s)' rendered inconsistently: {'comprimido': 3, 'tableta': 1, 'pastilla': 1}",
+      "evidence": [
+        "La dosis recomendada es de 1 o 2 comprimidos cada 4 a 6 horas según sea necesario.",
+        "Tabletas de Feverol de 500 mg recubiertas con película",
+        "Trague las pastillas enteras con un vaso de agua."
+      ],
+      "details": {}
+    },
+    {
+      "test_id": "coverage",
+      "type": "coverage",
+      "status": "pass",
+      "severity": "major",
+      "message": "all 31 source sentences aligned (min sim 0.87)",
+      "evidence": [],
+      "details": {
+        "src_min": 0.8677104115486145,
+        "tgt_min": 0.8672518134117126
+      }
+    },
+    {
+      "test_id": "usted-register",
+      "type": "register",
+      "status": "fail",
+      "severity": "major",
+      "message": "6 sentence(s) break register: formal address to the reader with 'usted' forms (e.g. 'tome', 'consulte', 'su médico')",
+      "evidence": [
+        "Lee atentamente este folleto antes de comenzar a tomar esta medicación.",
+        "Mantén este folleto.",
+        "Puede que necesites leerlo de nuevo.",
+        "Lo que debes saber antes de tomar Feverol",
+        "Si tu fiebre dura más de 3 días o tu dolor dura más de 5 días, habla con tu médico.",
+        "Mantén este medicamento fuera del alcance y visión de los niños."
+      ],
+      "details": {}
+    },
+    {
+      "test_id": "tu-markers",
+      "type": "forbidden_patterns",
+      "status": "fail",
+      "severity": "minor",
+      "message": "1 forbidden pattern hit(s)",
+      "evidence": [
+        "/\\btus?\\b/ in: Si tu fiebre dura más de 3 días o tu dolor dura más de 5 días, habla con tu médico."
+      ],
+      "details": {}
+    },
+    {
+      "test_id": "weight-limit",
+      "type": "assert",
+      "status": "pass",
+      "severity": "critical",
+      "message": "[MUST state] Adolescents can use the medicine only if they weigh more than 50 kg. → judge: supported (The document says it is used in adults and adolescents weighing over 50 kg, which implies that adolescents are included only when they weigh over 50 kg; the claim's 'only' is a reasonable reading of this restriction, though the document does not explicitly say lighter adolescents cannot use it.)",
+      "evidence": [
+        "Se utiliza para tratar dolores leves a moderados y fiebre en adultos y adolescentes con un peso superior a 50 kg."
+      ],
+      "details": {
+        "evidence": "Se utiliza para tratar dolores leves a moderados y fiebre en adultos y adolescentes con un peso superior a 50 kg.",
+        "evidence_in_english": "It is used to treat mild to moderate pain and fever in adults and adolescents weighing more than 50 kg.",
+        "reasoning": "The document says it is used in adults and adolescents weighing over 50 kg, which implies that adolescents are included only when they weigh over 50 kg; the claim's 'only' is a reasonable reading of this restriction, though the document does not explicitly say lighter adolescents cannot use it.",
+        "verdict": "supported",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "kidney-and-age",
+      "type": "assert",
+      "status": "pass",
+      "severity": "major",
+      "message": "[MUST state] The advice to talk to a doctor first applies to people who have kidney problems AND are over 65 at the same time. → judge: supported (The sentence joins the two conditions with 'y' (and), so the advice to talk to a doctor applies when both kidney problems and age over 65 are present, matching the claim.)",
+      "evidence": [
+        "Hable con su médico antes de tomar Feverol si tiene problemas renales y tiene más de 65 años."
+      ],
+      "details": {
+        "evidence": "Hable con su médico antes de tomar Feverol si tiene problemas renales y tiene más de 65 años.",
+        "evidence_in_english": "Talk to your doctor before taking Feverol if you have kidney problems and are over 65 years old.",
+        "reasoning": "The sentence joins the two conditions with 'y' (and), so the advice to talk to a doctor applies when both kidney problems and age over 65 are present, matching the claim.",
+        "verdict": "supported",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "kidney-and-age-neg",
+      "type": "assert",
+      "status": "pass",
+      "severity": "major",
+      "message": "[must NOT state] Anyone over 65 should talk to their doctor before taking it, even without kidney problems. → judge: not_stated (The document's advice applies only to people who have both kidney problems and are over 65, so it does not say that everyone over 65 without kidney problems should talk to their doctor; the claim extends the condition beyond what is stated.)",
+      "evidence": [
+        "Hable con su médico antes de tomar Feverol si tiene problemas renales y tiene más de 65 años."
+      ],
+      "details": {
+        "evidence": "Hable con su médico antes de tomar Feverol si tiene problemas renales y tiene más de 65 años.",
+        "evidence_in_english": "Talk to your doctor before taking Feverol if you have kidney problems and are over 65 years old.",
+        "reasoning": "The document's advice applies only to people who have both kidney problems and are over 65, so it does not say that everyone over 65 without kidney problems should talk to their doctor; the claim extends the condition beyond what is stated.",
+        "verdict": "not_stated",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "warfarin-direction",
+      "type": "assert",
+      "status": "pass",
+      "severity": "critical",
+      "message": "[MUST state] Feverol (the medicine described) can increase the effect of warfarin. → judge: supported (The sentence follows the warfarin sentence about Feverol and says it (Feverol) can increase warfarin's effect when taken regularly for over a week, which matches the claim, though with a condition.)",
+      "evidence": [
+        "Puede aumentar el efecto de la warfarina cuando se toma de forma regular durante más de una semana."
+      ],
+      "details": {
+        "evidence": "Puede aumentar el efecto de la warfarina cuando se toma de forma regular durante más de una semana.",
+        "evidence_in_english": "It can increase the effect of warfarin when it is taken regularly for more than a week.",
+        "reasoning": "The sentence follows the warfarin sentence about Feverol and says it (Feverol) can increase warfarin's effect when taken regularly for over a week, which matches the claim, though with a condition.",
+        "verdict": "supported",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "warfarin-direction-neg",
+      "type": "assert",
+      "status": "pass",
+      "severity": "critical",
+      "message": "[must NOT state] Warfarin can increase the effect of Feverol. → judge: contradicted (The document says Feverol (paracetamol) may increase warfarin's effect, which is the reverse of the claim that warfarin increases Feverol's effect.)",
+      "evidence": [
+        "Puede aumentar el efecto de la warfarina cuando se toma de forma regular durante más de una semana."
+      ],
+      "details": {
+        "evidence": "Puede aumentar el efecto de la warfarina cuando se toma de forma regular durante más de una semana.",
+        "evidence_in_english": "It can increase the effect of warfarin when it is taken regularly for more than a week.",
+        "reasoning": "The document says Feverol (paracetamol) may increase warfarin's effect, which is the reverse of the claim that warfarin increases Feverol's effect.",
+        "verdict": "contradicted",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "alcohol-neg",
+      "type": "assert",
+      "status": "pass",
+      "severity": "major",
+      "message": "[must NOT state] Drinking moderate amounts of alcohol is acceptable while taking the medicine. → judge: contradicted (The document tells users to avoid alcohol entirely with no exception for moderate amounts, which is incompatible with the claim that moderate drinking is acceptable.)",
+      "evidence": [
+        "Evite beber alcohol mientras está tomando este medicamento."
+      ],
+      "details": {
+        "evidence": "Evite beber alcohol mientras está tomando este medicamento.",
+        "evidence_in_english": "Avoid drinking alcohol while you are taking this medicine.",
+        "reasoning": "The document tells users to avoid alcohol entirely with no exception for moderate amounts, which is incompatible with the claim that moderate drinking is acceptable.",
+        "verdict": "contradicted",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "overdose-even-if-well",
+      "type": "assert",
+      "status": "pass",
+      "severity": "critical",
+      "message": "[MUST state] After taking too much, you must get medical help immediately even if you feel well. → judge: supported (The section is titled for taking more Feverol than should be taken, and the sentence instructs immediate medical contact even when feeling well, matching the claim.)",
+      "evidence": [
+        "Póngase en contacto con su médico o acuda al hospital más cercano inmediatamente, incluso si se siente bien."
+      ],
+      "details": {
+        "evidence": "Póngase en contacto con su médico o acuda al hospital más cercano inmediatamente, incluso si se siente bien.",
+        "evidence_in_english": "Contact your doctor or go to the nearest hospital immediately, even if you feel well.",
+        "reasoning": "The section is titled for taking more Feverol than should be taken, and the sentence instructs immediate medical contact even when feeling well, matching the claim.",
+        "verdict": "supported",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "overdose-neg",
+      "type": "assert",
+      "status": "pass",
+      "severity": "critical",
+      "message": "[must NOT state] After taking too much, you only need medical help if you feel unwell. → judge: contradicted (The document says to seek medical help immediately even when feeling well, which is incompatible with the claim that help is only needed if you feel unwell.)",
+      "evidence": [
+        "Póngase en contacto con su médico o acuda al hospital más cercano inmediatamente, incluso si se siente bien."
+      ],
+      "details": {
+        "evidence": "Póngase en contacto con su médico o acuda al hospital más cercano inmediatamente, incluso si se siente bien.",
+        "evidence_in_english": "Contact your doctor or go to the nearest hospital immediately, even if you feel well.",
+        "reasoning": "The document says to seek medical help immediately even when feeling well, which is incompatible with the claim that help is only needed if you feel unwell.",
+        "verdict": "contradicted",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "children-under-12",
+      "type": "assert",
+      "status": "pass",
+      "severity": "critical",
+      "message": "[MUST state] The medicine must not be given to children under 12 years old. → judge: supported (The sentence prohibits giving the medicine to children under 12, which is exactly what the claim states.)",
+      "evidence": [
+        "No administre Feverol a niños menores de 12 años."
+      ],
+      "details": {
+        "evidence": "No administre Feverol a niños menores de 12 años.",
+        "evidence_in_english": "Do not give Feverol to children under 12 years old.",
+        "reasoning": "The sentence prohibits giving the medicine to children under 12, which is exactly what the claim states.",
+        "verdict": "supported",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "pregnancy",
+      "type": "assert",
+      "status": "pass",
+      "severity": "major",
+      "message": "[MUST state] It may be used in pregnancy if clinically needed, at the lowest dose for the shortest time. → judge: supported (The sentence says exactly what the claim says: use in pregnancy if clinically needed, at the lowest dose for the shortest time.)",
+      "evidence": [
+        "Feverol puede utilizarse durante el embarazo si es necesario clínicamente, pero debe usarse con la dosis más baja posible durante el tiempo más breve posible."
+      ],
+      "details": {
+        "evidence": "Feverol puede utilizarse durante el embarazo si es necesario clínicamente, pero debe usarse con la dosis más baja posible durante el tiempo más breve posible.",
+        "evidence_in_english": "Feverol may be used during pregnancy if clinically necessary, but it must be used at the lowest possible dose for the shortest possible time.",
+        "reasoning": "The sentence says exactly what the claim says: use in pregnancy if clinically needed, at the lowest dose for the shortest time.",
+        "verdict": "supported",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "qa-liver-max",
+      "type": "qa",
+      "status": "pass",
+      "severity": "critical",
+      "message": "Q: What is the maximum daily dose for someone with liver problems? | expected: 6 tablets (3,000 mg) per day | got: 6 tablets (3,000 mg) per day",
+      "evidence": [
+        "Si tiene problemas hepáticos, la dosis máxima diaria es de 6 comprimidos (3.000 mg)."
+      ],
+      "details": {
+        "answer": {
+          "evidence": "Si tiene problemas hepáticos, la dosis máxima diaria es de 6 comprimidos (3.000 mg).",
+          "answer": "6 tablets (3,000 mg) per day"
+        },
+        "grade": {
+          "reason": "The reader's answer is identical to the expected answer, with the same number of tablets (6), the same dose (3,000 mg), and the same time span (per day).",
+          "match": true
+        }
+      }
+    },
+    {
+      "test_id": "qa-gap",
+      "type": "qa",
+      "status": "pass",
+      "severity": "major",
+      "message": "Q: What is the minimum time to leave between two doses? | expected: At least 4 hours | got: At least 4 hours between doses.",
+      "evidence": [
+        "Deje al menos 4 horas entre dosis."
+      ],
+      "details": {
+        "answer": {
+          "evidence": "Deje al menos 4 horas entre dosis.",
+          "answer": "At least 4 hours between doses."
+        },
+        "grade": {
+          "reason": "The reader's answer states the same minimum of at least 4 hours between doses, matching the expected answer in number, unit, and condition.",
+          "match": true
+        }
+      }
+    },
+    {
+      "test_id": "qa-interaction",
+      "type": "qa",
+      "status": "pass",
+      "severity": "critical",
+      "message": "Q: Which medicine's effect is increased in the warfarin interaction, and what causes the increase? | expected: The effect of warfarin is increased, caused by Feverol/paracetamol taken regularly for more than a week | got: The effect of warfarin is increased (the text says it 'may' increase), and this happens when Feverol (paracetamol) is taken regularly for more than a week.",
+      "evidence": [
+        "Si está tomando warfarina, su médico puede necesitar controlar su sangre con más frecuencia.\nPuede aumentar el efecto de la warfarina cuando se toma de forma regular durante más de una semana."
+      ],
+      "details": {
+        "answer": {
+          "evidence": "Si está tomando warfarina, su médico puede necesitar controlar su sangre con más frecuencia.\nPuede aumentar el efecto de la warfarina cuando se toma de forma regular durante más de una semana.",
+          "answer": "The effect of warfarin is increased (the text says it 'may' increase), and this happens when Feverol (paracetamol) is taken regularly for more than a week."
+        },
+        "grade": {
+          "reason": "The reader identifies warfarin's effect as increased by Feverol (paracetamol) taken regularly for more than a week, matching the expected answer; the added 'may' hedge is harmless detail from the text.",
+          "match": true
+        }
+      }
+    },
+    {
+      "test_id": "qa-fever-days",
+      "type": "qa",
+      "status": "pass",
+      "severity": "major",
+      "message": "Q: After how many days of fever should the patient talk to a doctor? | expected: If the fever lasts more than 3 days | got: If the fever lasts more than 3 days.",
+      "evidence": [
+        "Si tu fiebre dura más de 3 días o tu dolor dura más de 5 días, habla con tu médico."
+      ],
+      "details": {
+        "answer": {
+          "evidence": "Si tu fiebre dura más de 3 días o tu dolor dura más de 5 días, habla con tu médico.",
+          "answer": "If the fever lasts more than 3 days."
+        },
+        "grade": {
+          "reason": "The reader's answer is identical to the expected answer: fever lasting more than 3 days, with the same number, unit, and condition.",
+          "match": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="llama-4-scout__document" tests="92" failures="12">
+  <testcase classname="negation" name="negation-01"></testcase>
+  <testcase classname="negation" name="negation-02"></testcase>
+  <testcase classname="negation" name="negation-03"></testcase>
+  <testcase classname="negation" name="negation-04"></testcase>
+  <testcase classname="negation" name="negation-05"></testcase>
+  <testcase classname="negation" name="negation-06"></testcase>
+  <testcase classname="negation" name="negation-07"></testcase>
+  <testcase classname="negation" name="negation-08"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-01"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-02"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-03"><failure message="contains: none of ['999,50 $', '999,50 dólares', '999,50 USD', '999,50 $'] found; not_contains: found ['$999', '999.50']">["Precio original $1,299.99, ahora solo $999.50", "¡Ahorra un 23,5% hoy!"]</failure></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-04"><failure message="contains: none of ['50 €', '50 €', '50 euros'] found">["Entrega gratuita en pedidos superiores a 50€, con llegada en 2-3 días.", "Oferta válida hasta 25/12/2024."]</failure></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-05"><failure message="contains: none of ['2500,00 $', '2.500,00 $', '2500 $', '2.500 $', '2.500,00 dólares', '2500,00 dólares', '2.500 dólares', '2.500,00 USD', '2500,00 USD'] found">["El Cliente deberá pagar una tarifa de demora del 1,5% mensual sobre cualquier saldo superior a $2.500,00.", "El pago vence dentro de los 30 días siguientes a la fecha de la factura."]</failure></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-06"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-07"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-08"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-01"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-02"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-03"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-04"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-05"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-06"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-07"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-08"></testcase>
+  <testcase classname="dnt" name="dnt-02"></testcase>
+  <testcase classname="dnt" name="dnt-03"><failure message="preserve: missing ['`git commit -m &quot;Fix login bug&quot;`']; judge: The command inside backticks was altered because the commit message &quot;Fix login bug&quot; was translated into Spanish, so it is not unchanged, even though the rest of the sentence is in Spanish.">["Ejecute `git commit -m \"Solucionar bug de inicio de sesión\"` en la terminal y, a continuación, abra Ajustes &gt; Herramientas para desarrolladores."]</failure></testcase>
+  <testcase classname="dnt" name="dnt-04"></testcase>
+  <testcase classname="dnt" name="dnt-05"><failure message="preserve: missing ['&quot;Dream Yard&quot;']">["Descarga la aplicación Home &amp; Garden desde el App Store o Google Play.", "Toca \"Jardín soñado\" para diseñar tu espacio exterior."]</failure></testcase>
+  <testcase classname="dnt" name="dnt-06"></testcase>
+  <testcase classname="dnt" name="dnt-07"></testcase>
+  <testcase classname="dnt" name="dnt-08"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-01"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-02"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-03"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-04"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-05"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-06"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-07"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-08"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-01"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-02"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-03"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-04"><failure message="contains: none of ['pídelas', 'pídalas', 'encárgalas', 'cómpralas', 'solicítalas', 'pedirlas', 'pídelas hoy', 'haz tu pedido'] found">["Nuestros nuevos sneakers son ligeros y transpirables.", "Ordena los tuyos hoy mismo y llegan mañana."]</failure></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-05"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-06"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-07"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-08"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-01"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-02"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-03"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-04"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-05"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-07"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-08"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-01"><failure message="judge: Segments 1 and 2 use informal tú (inicia, Has olvidado, tu), while segment 3 switches to formal usted (Haga, le, su), so the register is inconsistent.">["¡Volver! Por favor, inicia sesión para continuar.", "¿Has olvidado tu contraseña?", "Haga clic en Restablecer y le enviaremos un enlace a su correo electrónico."]</failure></testcase>
+  <testcase classname="register_consistency" name="register_consistency-02"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-03"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-04"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-05"><failure message="judge: The translation uses informal tú forms throughout (aceptas, Eres, tus, estás, utilices, contactarte, proporcionaste) instead of the expected formal usted forms.; not_contains: found [' tus ']">["Al utilizar el Servicio, aceptas estos Términos.", "Eres responsable de mantener tus credenciales de cuenta confidenciales.", "Si no estás de acuerdo, por favor no utilices el Servicio.", "Podemos contactarte en la dirección de correo electrónico que proporcionaste."]</failure></testcase>
+  <testcase classname="register_consistency" name="register_consistency-06"><skipped message="judge evidence not grounded"/></testcase>
+  <testcase classname="register_consistency" name="register_consistency-07"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-08"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-01"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-02"><failure message="contains: none of ['cierre', 'cierra', 'cerrarlo', 'ciérrelo', 'ciérralo', 'cerrar el panel'] found; not_contains: found ['ciérrela']">["1. Abra el panel de Configuración.", "2. Desplácese hasta la parte inferior y ciérrela cuando haya terminado."]</failure></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-03"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-04"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-05"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-06"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-07"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-08"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-01"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-02"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-03"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-04"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-05"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-06"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-07"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-08"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-01"><failure message="contains: none of ['escala', 'tamaño', 'zoom'] found">["1. Abra el menú de Configuración y seleccione Almacenamiento. 2. Mueva el control deslizante para ajustar la escala de la vista previa.", ""]</failure></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-02"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-03"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-04"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-05"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-06"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-07"><failure message="contains: none of ['comprimido', 'pastilla'] found; not_contains: found ['tableta']">["Tomar una tableta dos veces al día con alimentos.", "No triturar la tableta antes de tragarse."]</failure></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-08"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-01"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-02"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-03"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-05"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-06"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-07"><failure message="contains: none of ['Iniciar'] found; contains: none of ['Iniciar'] found">["1. Inicio", "2. Para iniciar su infusión, pulse Inicio en la pantalla de la bomba.", "3. Para pausar, pulse Parar. Para reanudar, pulse Inicio de nuevo."]</failure></testcase>
+</testsuite>

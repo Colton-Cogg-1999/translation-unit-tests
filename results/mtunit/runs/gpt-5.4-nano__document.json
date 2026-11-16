@@ -1,0 +1,6176 @@
+[
+ {
+  "id": "negation-01",
+  "capability": "negation",
+  "cross_segment": false,
+  "domain": "software_ui_help",
+  "src": [
+   "Do not turn off your device until the update is complete."
+  ],
+  "tgt": [
+   "No apagues tu dispositivo hasta que la actualización se complete."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "no apague",
+     "no apagues",
+     "no desconecte",
+     "no desactive",
+     "no lo apague",
+     "no apagar",
+     "no se debe apagar",
+     "no debe apagar",
+     "no desconectes",
+     "no lo apagues"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The sentence is a prohibition: the device must NOT be turned off before the update finishes, with 'hasta que' (or equivalent) correctly scoping the prohibition."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['no apague', 'no apagues']"
+   },
+   {
+    "status": "pass",
+    "detail": "The negative imperative 'No apagues' prohibits turning off the device, and 'hasta que la actualización se complete' (with correct subjunctive) properly limits the prohibition to the period before the update finishes.",
+    "evidence": "No apagues tu dispositivo hasta que la actualización se complete."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "negation-02",
+  "capability": "negation",
+  "cross_segment": false,
+  "domain": "software_ui_help",
+  "src": [
+   "You can no longer sync files with versions older than 3.0.",
+   "Files that were already synced will not be deleted."
+  ],
+  "tgt": [
+   "Ya no puedes sincronizar archivos con versiones anteriores a la 3.0.",
+   "Los archivos que ya se hayan sincronizado no se eliminarán."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "ya no puede",
+     "ya no es posible",
+     "no puede sincronizar",
+     "ya no podrá",
+     "ya no se pueden",
+     "ya no puedes",
+     "ya no podrás"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "no se eliminarán",
+     "no se borrarán",
+     "no serán eliminados",
+     "no serán borrados",
+     "no se eliminan",
+     "no se borran",
+     "no se suprimirán"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['ya no puede', 'ya no puedes']"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['no se eliminarán']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "negation-03",
+  "capability": "negation",
+  "cross_segment": false,
+  "domain": "marketing",
+  "src": [
+   "Never pay for shipping again!",
+   "No hidden fees, no contracts, and no commitment."
+  ],
+  "tgt": [
+   "¡No vuelvas a pagar nunca los gastos de envío!",
+   "Sin gastos ocultos, sin contratos y sin compromiso."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "nunca más",
+     "nunca vuelva",
+     "nunca volverá",
+     "nunca vuelvas",
+     "nunca volverás",
+     "no vuelva a pagar",
+     "no vuelvas a pagar",
+     "jamás"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 2,
+    "property": "All three items (hidden fees, contracts, commitment) are negated, e.g. 'sin comisiones ocultas, sin contratos y sin compromiso' or 'no hay...'; none is rendered as positive."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['no vuelvas a pagar']"
+   },
+   {
+    "status": "pass",
+    "detail": "Each of the three items (gastos ocultos, contratos, compromiso) is negated by its own 'sin', so none is rendered as positive.",
+    "evidence": "Sin gastos ocultos, sin contratos y sin compromiso."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "negation-04",
+  "capability": "negation",
+  "cross_segment": false,
+  "domain": "marketing",
+  "src": [
+   "Free returns, no questions asked, unless the item is used."
+  ],
+  "tgt": [
+   "Devoluciones gratuitas, sin preguntas, salvo que el artículo esté usado."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "a menos que",
+     "salvo que",
+     "excepto si",
+     "salvo si",
+     "a no ser que",
+     "excepto que",
+     "excepto cuando",
+     "salvo cuando"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The meaning is that returns are free without questions, EXCEPT when the item has been used; used items are not covered."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['salvo que']"
+   },
+   {
+    "status": "pass",
+    "detail": "The Spanish conveys free, no-questions returns with the exception 'salvo que el artículo esté usado' (unless the item is used), matching the source meaning that used items are not covered.",
+    "evidence": "Devoluciones gratuitas, sin preguntas, salvo que el artículo esté usado."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "style/register",
+      "severity": "minor",
+      "span": "sin preguntas",
+      "explanation": "Slightly literal rendering of 'no questions asked'. The more idiomatic Spanish is 'sin hacer preguntas' or 'sin ningún tipo de preguntas'. The meaning is preserved and the phrase is acceptable, so this is a very minor stylistic point."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "negation-05",
+  "capability": "negation",
+  "cross_segment": false,
+  "domain": "legal_terms",
+  "src": [
+   "The Provider shall not be liable for any indirect damages unless caused by gross negligence."
+  ],
+  "tgt": [
+   "El Proveedor no será responsable de ningún daño indirecto salvo que esté causado por negligencia grave."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "no será responsable",
+     "no se hará responsable",
+     "no responderá",
+     "no tendrá responsabilidad",
+     "no serán responsables",
+     "no asumirá responsabilidad",
+     "no será responsable"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "a menos que",
+     "salvo que",
+     "salvo si",
+     "excepto si",
+     "a no ser que",
+     "excepto que",
+     "salvo cuando"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The Provider is NOT liable for indirect damages, the only exception being damages caused by gross negligence (negligencia grave)."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['no será responsable', 'no será responsable']"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['salvo que']"
+   },
+   {
+    "status": "pass",
+    "detail": "The Spanish states the Provider is not liable for any indirect damage except where caused by gross negligence (\"negligencia grave\"), which matches the property.",
+    "evidence": "El Proveedor no será responsable de ningún daño indirecto salvo que esté causado por negligencia grave."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "negation-06",
+  "capability": "negation",
+  "cross_segment": false,
+  "domain": "legal_terms",
+  "src": [
+   "You may not use the Service without our prior written consent.",
+   "Nothing in these Terms excludes liability that cannot be excluded by law."
+  ],
+  "tgt": [
+   "No puedes utilizar el Servicio sin nuestro consentimiento previo por escrito.",
+   "Nada en estas Condiciones excluye la responsabilidad que no pueda excluirse por ley."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "Use of the Service is prohibited unless prior written consent is given (e.g. 'no podrá usar ... sin nuestro consentimiento previo por escrito'); it does not permit use without consent."
+   },
+   {
+    "kind": "judge",
+    "segment": 2,
+    "property": "The sentence states that no provision of the Terms excludes liability that by law cannot be excluded (the 'cannot' negation on the excludable liability is preserved, and the main verb 'excludes' is negated by 'Nothing')."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "The translation negates use of the Service without prior written consent, so use is prohibited unless consent is given, matching the property (the informal 'puedes' register does not change the meaning).",
+    "evidence": "No puedes utilizar el Servicio sin nuestro consentimiento previo por escrito."
+   },
+   {
+    "status": "pass",
+    "detail": "'Nada ... excluye' preserves the negation of the main verb, and 'que no pueda excluirse por ley' preserves the 'cannot be excluded by law' negation on the liability.",
+    "evidence": "Nada en estas Condiciones excluye la responsabilidad que no pueda excluirse por ley."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "style/register",
+      "severity": "minor",
+      "span": "No puedes utilizar",
+      "explanation": "The informal 'tú' form (puedes) is used in a legal Terms of Service context, where the formal 'usted' form (No puede utilizar) or an impersonal construction is typically expected. The meaning is preserved, so the issue is one of register only."
+     }
+    ]
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "negation-07",
+  "capability": "negation",
+  "cross_segment": false,
+  "domain": "medical_patient",
+  "src": [
+   "Do not take this medicine if you are not able to swallow tablets whole.",
+   "Contact your doctor if symptoms do not improve."
+  ],
+  "tgt": [
+   "No tome este medicamento si no puede tragar los comprimidos enteros.",
+   "Póngase en contacto con su médico si los síntomas no mejoran."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "Both negations are preserved: the patient must not take the medicine if they are unable to swallow tablets whole (e.g. 'no tome ... si no puede tragar los comprimidos enteros')."
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "no mejoran",
+     "no mejoran",
+     "no mejoran los síntomas",
+     "no mejora",
+     "no experimentan mejoría",
+     "no remiten",
+     "no mejoren",
+     "no mejorasen",
+     "no desaparecen",
+     "no ceden"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "The Spanish keeps both negations: 'No tome' (do not take) and 'si no puede tragar' (if you are not able to swallow), with 'enteros' for 'whole', so the meaning matches the source.",
+    "evidence": "No tome este medicamento si no puede tragar los comprimidos enteros."
+   },
+   {
+    "status": "pass",
+    "detail": "found ['no mejoran', 'no mejoran', 'no mejora']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "negation-08",
+  "capability": "negation",
+  "cross_segment": false,
+  "domain": "medical_patient",
+  "src": [
+   "The patient cannot operate the pump without assistance.",
+   "If the alarm sounds, do not ignore it."
+  ],
+  "tgt": [
+   "El paciente no puede manejar la bomba sin ayuda.",
+   "Si suena la alarma, no la ignore."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The patient is unable to operate the pump alone / needs assistance; the output does not say the patient can operate it, and 'without assistance' (sin ayuda/asistencia) is preserved."
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "no lo ignore",
+     "no la ignore",
+     "no ignore",
+     "no lo ignores",
+     "no la ignores",
+     "no ignores",
+     "no haga caso omiso",
+     "no lo pase por alto",
+     "no la pase por alto",
+     "no hacer caso omiso",
+     "no desatienda",
+     "no la desatienda"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "The translation says the patient cannot operate the pump and keeps 'sin ayuda' (without assistance), so it conveys that the patient needs assistance and does not claim the patient can operate it alone.",
+    "evidence": "El paciente no puede manejar la bomba sin ayuda."
+   },
+   {
+    "status": "pass",
+    "detail": "found ['no la ignore']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "numbers_locale-01",
+  "capability": "numbers_locale",
+  "cross_segment": false,
+  "domain": "software_ui_help",
+  "src": [
+   "Your file is 1,024.5 MB, which exceeds the limit of 1,000 MB."
+  ],
+  "tgt": [
+   "Tu archivo tiene 1.024,5 MB y supera el límite de 1.000 MB."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "1024,5 MB",
+     "1.024,5 MB",
+     "1024,5 MB",
+     "1.024,5 MB"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 1,
+    "any_of": [
+     "1,024.5",
+     "1.024.5",
+     "1,024,5"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['1.024,5 MB', '1.024,5 MB']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['1,024.5', '1.024.5', '1,024,5'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "numbers_locale-02",
+  "capability": "numbers_locale",
+  "cross_segment": false,
+  "domain": "software_ui_help",
+  "src": [
+   "Last synced on 03/04/2024 at 6:30 PM."
+  ],
+  "tgt": [
+   "Última sincronización el 03/04/2024 a las 18:30."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "18:30",
+     "18.30"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 1,
+    "any_of": [
+     "PM",
+     "p. m.",
+     "pm"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['18:30']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['PM', 'p. m.', 'pm'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "numbers_locale-03",
+  "capability": "numbers_locale",
+  "cross_segment": false,
+  "domain": "marketing",
+  "src": [
+   "Was $1,299.99, now only $999.50!",
+   "Save 23.5% today."
+  ],
+  "tgt": [
+   "¡Antes 1.299,99 $, ahora solo 999,50 $!",
+   "Ahorra 23,5% hoy."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "999,50 $",
+     "999,50 dólares",
+     "999,50 USD",
+     "999,50 $"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 1,
+    "any_of": [
+     "$999",
+     "$ 999",
+     "999.50"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "23,5 %",
+     "23,5%",
+     "23,5 %",
+     "23,5 por ciento"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['999,50 $', '999,50 $']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['$999', '$ 999', '999.50'] found"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['23,5%']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "numbers_locale-04",
+  "capability": "numbers_locale",
+  "cross_segment": false,
+  "domain": "marketing",
+  "src": [
+   "Free delivery on orders over €50, arriving in 2–3 days.",
+   "Offer ends 12/25/2024."
+  ],
+  "tgt": [
+   "Envío gratuito en pedidos superiores a 50 €, con llegada en 2 a 3 días.",
+   "La oferta finaliza el 25/12/2024."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "50 €",
+     "50 €",
+     "50 euros"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 1,
+    "any_of": [
+     "€50",
+     "€ 50"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "25/12/2024",
+     "25 de diciembre de 2024",
+     "25-12-2024",
+     "25.12.2024"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['50 €', '50 €']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['€50', '€ 50'] found"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['25/12/2024']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "fluency",
+      "severity": "minor",
+      "span": "con llegada en 2 a 3 días",
+      "explanation": "Slightly stilted, calque-like phrasing; a more natural rendering would be 'entrega en 2-3 días' or 'que llegan en 2-3 días'. Meaning is preserved."
+     }
+    ]
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "numbers_locale-05",
+  "capability": "numbers_locale",
+  "cross_segment": false,
+  "domain": "legal_terms",
+  "src": [
+   "The Customer shall pay a late fee of 1.5% per month on any balance over $2,500.00.",
+   "Payment is due within 30 days of the invoice date."
+  ],
+  "tgt": [
+   "El Cliente deberá abonar un recargo por mora del 1,5% al mes sobre cualquier saldo superior a 2.500,00 $.",
+   "El pago debe efectuarse dentro de los 30 días siguientes a la fecha de la factura."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "1,5 %",
+     "1,5%",
+     "1,5 %",
+     "1,5 por ciento"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "2500,00 $",
+     "2.500,00 $",
+     "2500 $",
+     "2.500 $",
+     "2.500,00 dólares",
+     "2500,00 dólares",
+     "2.500 dólares",
+     "2.500,00 USD",
+     "2500,00 USD"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "30 días",
+     "treinta (30) días"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['1,5%']"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['2.500,00 $']"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['30 días']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "fluency",
+      "severity": "minor",
+      "span": "2.500,00 $",
+      "explanation": "The currency is ambiguous. The source says $ (US dollars), and in Spanish the bare symbol \"$\" placed after the number is not clearly USD. Spanish convention would use \"USD\" or \"US$\", or the text should say \"dólares estadounidenses\". Number formatting (2.500,00) and 1,5% follow Spanish conventions. The placement of the symbol after the amount is acceptable in Spain but could be read as another currency, so this is a minor issue."
+     }
+    ]
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "numbers_locale-06",
+  "capability": "numbers_locale",
+  "cross_segment": false,
+  "domain": "legal_terms",
+  "src": [
+   "This Agreement takes effect on July 4, 2025 and expires on 06/30/2026."
+  ],
+  "tgt": [
+   "Este Acuerdo entra en vigor el 4 de julio de 2025 y expira el 30/06/2026."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "4 de julio de 2025"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "30/06/2026",
+     "30 de junio de 2026",
+     "30-06-2026",
+     "30.06.2026"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 1,
+    "any_of": [
+     "06/30/2026"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['4 de julio de 2025']"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['30/06/2026']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['06/30/2026'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "numbers_locale-07",
+  "capability": "numbers_locale",
+  "cross_segment": false,
+  "domain": "medical_patient",
+  "src": [
+   "Take 0.5 mg twice daily, at 8:00 AM and 8:00 PM.",
+   "Do not exceed 1.5 mg in 24 hours."
+  ],
+  "tgt": [
+   "1. Tome 0,5 mg dos veces al día, a las 8:00 a. m. y a las 8:00 p. m.",
+   "2. No exceda 1,5 mg en 24 horas."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "0,5 mg"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "20:00",
+     "20.00"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "1,5 mg"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['0,5 mg']"
+   },
+   {
+    "status": "fail",
+    "detail": "none of ['20:00', '20.00'] found"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['1,5 mg']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation begins with a numbered-list marker ('1.') that is not in the source. The meaning is otherwise preserved, but the marker is an extraneous addition."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation begins with a list number \"2.\" that does not appear in the source. This is an addition, though the dosing instruction itself is still correct."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "numbers_locale-08",
+  "capability": "numbers_locale",
+  "cross_segment": false,
+  "domain": "medical_patient",
+  "src": [
+   "Store the device between 36°F and 77°F (2°C to 25°C).",
+   "The battery lasts about 1,200 hours and the device weighs 2.2 lb (1 kg)."
+  ],
+  "tgt": [
+   "Almacene el dispositivo entre 36°F y 77°F (2°C y 25°C).",
+   "La batería dura aproximadamente 1.200 horas y el dispositivo pesa 2,2 lb (1 kg)."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "2 °C",
+     "2°C",
+     "2 °C"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "1200 horas",
+     "1.200 horas"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "2,2 lb",
+     "2,2 libras"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['2°C']"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['1.200 horas']"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['2,2 lb']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "placeholders_tags-01",
+  "capability": "placeholders_tags",
+  "cross_segment": false,
+  "domain": "software_ui_help",
+  "src": [
+   "Delete {count} files from <b>{folderName}</b>?"
+  ],
+  "tgt": [
+   "¿Eliminar {count} archivos de <b>{folderName}</b>?"
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "{count}",
+     "<b>{folderName}</b>"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "eliminar",
+     "borrar",
+     "suprimir"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['eliminar']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "placeholders_tags-02",
+  "capability": "placeholders_tags",
+  "cross_segment": false,
+  "domain": "software_ui_help",
+  "src": [
+   "Showing %1$d of %2$d results for \"%3$s\"."
+  ],
+  "tgt": [
+   "Mostrando %1$d de %2$d resultados para \"%3$s\"."
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "%1$d",
+     "%2$d",
+     "%3$s"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The Spanish sentence conveys 'showing X of Y results for Z' with the three placeholders in a grammatical, sensible order and no placeholder duplicated or lost."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   },
+   {
+    "status": "pass",
+    "detail": "The Spanish keeps all three placeholders (%1$d, %2$d, %3$s) exactly once, in the same order as the source, and reads grammatically as 'showing X of Y results for Z'.",
+    "evidence": "Mostrando %1$d de %2$d resultados para \"%3$s\"."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "placeholders_tags-03",
+  "capability": "placeholders_tags",
+  "cross_segment": false,
+  "domain": "software_ui_help",
+  "src": [
+   "Click <a href=\"https://example.com/help\">Help Center</a> to reset your password.<br/>Then sign in again."
+  ],
+  "tgt": [
+   "Haz clic en <a href=\"https://example.com/help\">Centro de ayuda</a> para restablecer tu contraseña.<br/>Después, inicia sesión de nuevo."
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "<a href=\"https://example.com/help\">",
+     "</a>",
+     "<br/>"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The link text inside the <a> tag is translated into Spanish (e.g., Centro de ayuda) while the href URL remains unchanged."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   },
+   {
+    "status": "pass",
+    "detail": "The link text \"Help Center\" is translated as \"Centro de ayuda\" and the href URL \"https://example.com/help\" is identical to the source.",
+    "evidence": "<a href=\"https://example.com/help\">Centro de ayuda</a>"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "placeholders_tags-04",
+  "capability": "placeholders_tags",
+  "cross_segment": false,
+  "domain": "marketing",
+  "src": [
+   "Hi {{firstName}}, your order #{orderId} has shipped!",
+   "Get **20% off** your next purchase with code %s."
+  ],
+  "tgt": [
+   "¡Hola {{firstName}}, tu pedido n.º {orderId} ya ha sido enviado!",
+   "Aprovecha un **20% de descuento** en tu próxima compra con el código %s."
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "{{firstName}}",
+     "{orderId}",
+     "**",
+     "%s"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 1,
+    "any_of": [
+     "{{ firstName }}",
+     "{{nombre}}",
+     "{{primerNombre}}"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['{{ firstName }}', '{{nombre}}', '{{primerNombre}}'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "placeholders_tags-05",
+  "capability": "placeholders_tags",
+  "cross_segment": false,
+  "domain": "marketing",
+  "src": [
+   "Only <span class=\"price\">{0}</span> for a limited time – <strong>free shipping</strong> included."
+  ],
+  "tgt": [
+   "Solo <span class=\"price\">{0}</span> durante tiempo limitado: incluye <strong>envío gratis</strong>."
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "<span class=\"price\">{0}</span>",
+     "<strong>",
+     "</strong>"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "envío gratis",
+     "envío gratuito",
+     "gastos de envío gratis",
+     "envío incluido"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['envío gratis']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "placeholders_tags-06",
+  "capability": "placeholders_tags",
+  "cross_segment": false,
+  "domain": "legal_terms",
+  "src": [
+   "By clicking <b>\"I Agree\"</b>, you accept the <a href=\"{termsUrl}\">Terms of Service</a> and the <a href=\"{privacyUrl}\">Privacy Policy</a>."
+  ],
+  "tgt": [
+   "Al hacer clic en <b>\"Acepto\"</b>, usted acepta los <a href=\"{termsUrl}\">Términos del servicio</a> y la <a href=\"{privacyUrl}\">Política de privacidad</a>."
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "<a href=\"{termsUrl}\">",
+     "<a href=\"{privacyUrl}\">",
+     "</a>",
+     "<b>",
+     "</b>"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The link with {termsUrl} wraps text meaning 'Terms of Service' (Términos/Condiciones de servicio/uso) and the link with {privacyUrl} wraps text meaning 'Privacy Policy' (Política de privacidad)."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   },
+   {
+    "status": "pass",
+    "detail": "The {termsUrl} link wraps 'Términos del servicio' (Terms of Service) and the {privacyUrl} link wraps 'Política de privacidad' (Privacy Policy), so both links wrap the correct text.",
+    "evidence": "<a href=\"{termsUrl}\">Términos del servicio</a> y la <a href=\"{privacyUrl}\">Política de privacidad</a>"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "placeholders_tags-07",
+  "capability": "placeholders_tags",
+  "cross_segment": false,
+  "domain": "legal_terms",
+  "src": [
+   "This Agreement between {{companyName}} and %s becomes effective on {effectiveDate}."
+  ],
+  "tgt": [
+   "Este Acuerdo entre {{companyName}} y %s entra en vigor el {effectiveDate}."
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "{{companyName}}",
+     "%s",
+     "{effectiveDate}"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "entra en vigor",
+     "entrará en vigor",
+     "entrará en vigencia",
+     "será efectivo",
+     "surte efecto",
+     "surtirá efecto",
+     "tendrá efecto"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['entra en vigor']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "placeholders_tags-08",
+  "capability": "placeholders_tags",
+  "cross_segment": false,
+  "domain": "medical_patient",
+  "src": [
+   "Take <b>%d</b> tablets every {hours} hours.",
+   "Do not exceed <b>%d</b> tablets in 24 hours.<br/>Consult your doctor if symptoms persist."
+  ],
+  "tgt": [
+   "1. Tome <b>%d</b> comprimidos cada {hours} horas.",
+   "2. No exceda <b>%d</b> comprimidos en 24 horas.<br/>Consulte a su médico si los síntomas persisten."
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "<b>%d</b>",
+     "{hours}",
+     "<br/>"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "médico",
+     "medico"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['médico']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation adds a list number \"1.\" at the start that does not appear in the source. This is extraneous content and could cause display problems or confusion."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation begins with \"2. \", a numeral that does not appear in the source. It looks like a stray list number and could confuse the reader."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "dnt-02",
+  "capability": "dnt",
+  "cross_segment": false,
+  "domain": "software_ui_help",
+  "src": [
+   "If you see error ERR_CONNECTION_TIMED_OUT, delete the file C:\\Users\\Public\\config.json and restart the app.",
+   "Visit https://help.nimbusdocs.com/sync for more details."
+  ],
+  "tgt": [
+   "Si ves el error ERR_CONNECTION_TIMED_OUT, elimina el archivo C:\\Users\\Public\\config.json y reinicia la aplicación.",
+   "Visita https://help.nimbusdocs.com/sync para más detalles."
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "ERR_CONNECTION_TIMED_OUT",
+     "C:\\Users\\Public\\config.json",
+     "https://help.nimbusdocs.com/sync"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "dnt-03",
+  "capability": "dnt",
+  "cross_segment": false,
+  "domain": "software_ui_help",
+  "src": [
+   "Run `git commit -m \"Fix login bug\"` in the terminal, then open Settings > Developer Tools."
+  ],
+  "tgt": [
+   "Ejecuta `git commit -m \"Fix login bug\"` en la terminal y, a continuación, abre Configuración > Herramientas para desarrolladores."
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "`git commit -m \"Fix login bug\"`"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The command inside backticks is unchanged, while the rest of the sentence is in Spanish."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   },
+   {
+    "status": "pass",
+    "detail": "The backticked command `git commit -m \"Fix login bug\"` is identical to the source, and the rest of the sentence (including the UI path) is rendered in Spanish.",
+    "evidence": "Ejecuta `git commit -m \"Fix login bug\"` en la terminal y, a continuación, abre Configuración > Herramientas para desarrolladores."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "dnt-04",
+  "capability": "dnt",
+  "cross_segment": false,
+  "domain": "marketing",
+  "src": [
+   "Meet the new SmartGlow Pro, powered by AuraSense technology.",
+   "Order today and get free shipping with code SUMMER24."
+  ],
+  "tgt": [
+   "Conoce el nuevo SmartGlow Pro, impulsado por la tecnología AuraSense.",
+   "Haz tu pedido hoy y consigue el envío gratis con el código SUMMER24."
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "SmartGlow Pro",
+     "AuraSense",
+     "SUMMER24"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 1,
+    "any_of": [
+     "Brillo Inteligente",
+     "SmartGlow Profesional"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['Brillo Inteligente', 'SmartGlow Profesional'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "dnt-05",
+  "capability": "dnt",
+  "cross_segment": false,
+  "domain": "marketing",
+  "src": [
+   "Download the Home & Garden app from the App Store or Google Play.",
+   "Tap \"Dream Yard\" to design your outdoor space."
+  ],
+  "tgt": [
+   "Descarga la aplicación Home & Garden desde la App Store o Google Play.",
+   "Pulsa en \"Dream Yard\" para diseñar tu espacio al aire libre."
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "App Store",
+     "Google Play",
+     "\"Dream Yard\""
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The app name 'Home & Garden' is left in English, not translated as 'Casa y Jardín'."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   },
+   {
+    "status": "pass",
+    "detail": "The app name 'Home & Garden' appears unchanged in English in the Spanish segment and is not rendered as 'Casa y Jardín'.",
+    "evidence": "Descarga la aplicación Home & Garden desde la App Store o Google Play."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "dnt-06",
+  "capability": "dnt",
+  "cross_segment": false,
+  "domain": "legal_terms",
+  "src": [
+   "By using WorkflowHub Cloud, you agree to the terms posted at www.workflowhub.com/legal.",
+   "Contact privacy@workflowhub.com with any request under Section 4.2."
+  ],
+  "tgt": [
+   "1. Al utilizar WorkflowHub Cloud, usted acepta los términos publicados en www.workflowhub.com/legal.",
+   "2. Póngase en contacto con privacy@workflowhub.com para cualquier solicitud en virtud de la Sección 4.2."
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "WorkflowHub Cloud",
+     "www.workflowhub.com/legal",
+     "privacy@workflowhub.com"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation begins with a list number \"1.\" that is not in the source. This is an addition and could be mistaken for part of a numbered list."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation begins with a numeral \"2.\" that does not appear in the source. It looks like a stray list number and could be confused with a section reference."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "dnt-07",
+  "capability": "dnt",
+  "cross_segment": false,
+  "domain": "legal_terms",
+  "src": [
+   "The \"Data Vault\" feature is provided by Northwind Systems, Inc. and is subject to the GDPR."
+  ],
+  "tgt": [
+   "La función «Data Vault» la proporciona Northwind Systems, Inc. y está sujeta al RGPD."
+  ],
+  "assertions": [
+   {
+    "kind": "not_contains",
+    "segment": 1,
+    "any_of": [
+     "Bóveda de datos",
+     "Caja fuerte"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "none of ['Bóveda de datos', 'Caja fuerte'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "dnt-08",
+  "capability": "dnt",
+  "cross_segment": false,
+  "domain": "medical_patient",
+  "src": [
+   "If the CardioTrack 300 displays error E-47, press Shift+F2 and contact support.",
+   "Do not use the device until the message disappears."
+  ],
+  "tgt": [
+   "Si el CardioTrack 300 muestra el error E-47, pulse Shift+F2 y póngase en contacto con el servicio de asistencia.",
+   "No utilice el dispositivo hasta que desaparezca el mensaje."
+  ],
+  "assertions": [
+   {
+    "kind": "preserve",
+    "strings": [
+     "CardioTrack 300",
+     "E-47",
+     "Shift+F2"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 1,
+    "any_of": [
+     "Mayús+F2",
+     "E-47 error",
+     "CardioSeguimiento"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "all preserved"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['Mayús+F2', 'E-47 error', 'CardioSeguimiento'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "condition_scope-01",
+  "capability": "condition_scope",
+  "cross_segment": false,
+  "domain": "software_ui_help",
+  "src": [
+   "Delete files only if they are not shared and not older than 30 days."
+  ],
+  "tgt": [
+   "Elimina archivos solo si no se comparten y si tienen menos de 30 días."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "solo si",
+     "sólo si",
+     "únicamente si",
+     "solamente si"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "Both conditions (not shared AND not older than 30 days) must hold for deletion; the Spanish keeps 'y' (or equivalent) joining two negated conditions and does not turn it into 'o' or make deletion allowed when only one condition holds."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['solo si']"
+   },
+   {
+    "status": "pass",
+    "detail": "The Spanish keeps 'y' joining the two conditions (not shared AND fewer than 30 days old), so deletion requires both; 'menos de 30 días' is a near-equivalent of 'not older than 30 days' (differing only at exactly 30 days), and no 'o' or single-condition deletion is introduced.",
+    "evidence": "Elimina archivos solo si no se comparten y si tienen menos de 30 días."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/mistranslation",
+      "severity": "minor",
+      "span": "si tienen menos de 30 días",
+      "explanation": "\"Not older than 30 days\" includes files exactly 30 days old (≤30), but \"menos de 30 días\" excludes them (<30). A more faithful rendering would be \"no tienen más de 30 días\"."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "condition_scope-02",
+  "capability": "condition_scope",
+  "cross_segment": false,
+  "domain": "software_ui_help",
+  "src": [
+   "You can sign in with either your email or your phone number, but not both."
+  ],
+  "tgt": [
+   "Puedes iniciar sesión con tu correo electrónico o con tu número de teléfono, pero no con ambos a la vez."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The sentence expresses an exclusive choice between email and phone number (one or the other, not both), using 'o' / 'bien...o' correctly."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "The translation uses 'o' to present the two options and adds 'pero no con ambos a la vez', which clearly conveys the exclusive choice between email and phone number.",
+    "evidence": "Puedes iniciar sesión con tu correo electrónico o con tu número de teléfono, pero no con ambos a la vez."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "condition_scope-03",
+  "capability": "condition_scope",
+  "cross_segment": false,
+  "domain": "marketing",
+  "src": [
+   "Free shipping on all orders over $50, except when items are shipped to Canary Islands, Ceuta or Melilla."
+  ],
+  "tgt": [
+   "Envío gratuito en todos los pedidos superiores a 50 $, excepto cuando los artículos se envíen a las Islas Canarias, Ceuta o Melilla."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "excepto cuando",
+     "salvo cuando",
+     "excepto si",
+     "salvo que",
+     "excepto que",
+     "salvo si"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The exception applies to all three destinations (Canary Islands, Ceuta and Melilla), and the threshold is strictly more than 50 dollars (más de / superior a), not 'at least'."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['excepto cuando']"
+   },
+   {
+    "status": "pass",
+    "detail": "\"superiores a 50 $\" expresa un umbral estrictamente mayor que 50, y la excepción \"excepto cuando... se envíen a las Islas Canarias, Ceuta o Melilla\" abarca los tres destinos.",
+    "evidence": "Envío gratuito en todos los pedidos superiores a 50 $, excepto cuando los artículos se envíen a las Islas Canarias, Ceuta o Melilla."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "fluency",
+      "severity": "minor",
+      "span": "50 $",
+      "explanation": "In Spanish, the dollar symbol is normally written before the amount in many regions, and the Spanish convention for a number followed by a currency symbol with a space is acceptable in Spain. However, the figure may be ambiguous, since 50 $ could be read as a different currency in a Spain-targeted text. This is a minor stylistic or localization issue."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "condition_scope-04",
+  "capability": "condition_scope",
+  "cross_segment": false,
+  "domain": "marketing",
+  "src": [
+   "Get at least 20% off, and at most three items per customer."
+  ],
+  "tgt": [
+   "Consigue al menos un 20 % de descuento y, como máximo, tres artículos por cliente."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "al menos",
+     "como mínimo",
+     "mínimo",
+     "por lo menos"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "como máximo",
+     "máximo",
+     "a lo sumo",
+     "hasta un máximo",
+     "no más de",
+     "un máximo"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The discount is a minimum of 20% and the limit of three items per customer is a maximum, not reversed."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['al menos']"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['como máximo', 'máximo']"
+   },
+   {
+    "status": "pass",
+    "detail": "\"al menos un 20 % de descuento\" correctly expresses a minimum 20% discount, and \"como máximo, tres artículos por cliente\" correctly expresses a maximum of three items per customer, so the two are not reversed.",
+    "evidence": "Consigue al menos un 20 % de descuento y, como máximo, tres artículos por cliente."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "condition_scope-05",
+  "capability": "condition_scope",
+  "cross_segment": false,
+  "domain": "legal_terms",
+  "src": [
+   "The Supplier shall not be liable for any delay unless the Customer has notified it in writing before the delivery date."
+  ],
+  "tgt": [
+   "El Proveedor no será responsable de cualquier retraso, salvo que el Cliente le haya notificado por escrito antes de la fecha de entrega."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "a menos que",
+     "salvo que",
+     "salvo si",
+     "excepto que",
+     "excepto si",
+     "a no ser que"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "antes de la fecha",
+     "con anterioridad a la fecha",
+     "antes del"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The Supplier is not liable for delays unless written notice was given by the Customer prior to delivery; the logic is not inverted."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['salvo que']"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['antes de la fecha']"
+   },
+   {
+    "status": "pass",
+    "detail": "\"No será responsable... salvo que el Cliente le haya notificado por escrito antes de la fecha de entrega\" preserves the original logic: the Supplier is not liable unless the Customer gave prior written notice, so nothing is inverted.",
+    "evidence": "El Proveedor no será responsable de cualquier retraso, salvo que el Cliente le haya notificado por escrito antes de la fecha de entrega."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "condition_scope-06",
+  "capability": "condition_scope",
+  "cross_segment": false,
+  "domain": "legal_terms",
+  "src": [
+   "Either party may terminate this Agreement if the other party breaches any obligation and fails to remedy the breach within 30 days after written notice."
+  ],
+  "tgt": [
+   "Cualquiera de las partes podrá rescindir este Acuerdo si la otra parte incumple cualquier obligación y no subsana dicho incumplimiento dentro de los 30 días siguientes a la notificación por escrito."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "cualquiera de las partes",
+     "cualquiera de las dos partes",
+     "cualquiera de ellas",
+     "cada una de las partes"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "Termination requires both a breach and failure to remedy it within 30 days after (después de) written notice; 'y' is kept cumulative and the period runs from the notice."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['cualquiera de las partes']"
+   },
+   {
+    "status": "pass",
+    "detail": "The cumulative 'y' joins the breach and the failure to remedy, and 'dentro de los 30 días siguientes a la notificación por escrito' makes the 30-day period run from the written notice, matching 'después de'.",
+    "evidence": "si la otra parte incumple cualquier obligación y no subsana dicho incumplimiento dentro de los 30 días siguientes a la notificación por escrito"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "condition_scope-07",
+  "capability": "condition_scope",
+  "cross_segment": false,
+  "domain": "medical_patient",
+  "src": [
+   "Do not take this medicine if you are allergic to penicillin or to any of the other ingredients."
+  ],
+  "tgt": [
+   "No tome este medicamento si es alérgico a la penicilina o a cualquiera de los demás componentes."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "alérgico",
+     "alérgica",
+     "alergia"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The prohibition applies if the patient is allergic to penicillin OR to any other ingredient (either one suffices); the Spanish retains 'o' and 'cualquiera de los demás/otros componentes'."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['alérgico']"
+   },
+   {
+    "status": "pass",
+    "detail": "The translation keeps the disjunctive 'o' and 'cualquiera de los demás componentes', so allergy to either penicillin or any other ingredient is enough to trigger the prohibition.",
+    "evidence": "No tome este medicamento si es alérgico a la penicilina o a cualquiera de los demás componentes."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "condition_scope-08",
+  "capability": "condition_scope",
+  "cross_segment": false,
+  "domain": "medical_patient",
+  "src": [
+   "Use the device only after the battery is fully charged, and never before you have read the manual."
+  ],
+  "tgt": [
+   "Utilice el dispositivo solo después de que la batería esté completamente cargada y nunca antes de haber leído el manual."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": 1,
+    "property": "The device may be used only after full charging, and must never be used before reading the manual (nunca/no ... antes de haber leído); before/after are not swapped."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "The translation keeps 'solo después de' for full charging and 'nunca antes de haber leído el manual' for the manual, so before/after are not swapped and the restriction is preserved.",
+    "evidence": "Utilice el dispositivo solo después de que la batería esté completamente cargada y nunca antes de haber leído el manual."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false
+  ]
+ },
+ {
+  "id": "coreference_agreement-01",
+  "capability": "coreference_agreement",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "Open the Settings app.",
+   "Then tap the icon to launch it."
+  ],
+  "tgt": [
+   "1. Abre la aplicación Configuración.",
+   "2. Luego, toca el icono para iniciarla."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "iniciarla",
+     "abrirla",
+     "lanzarla",
+     "ejecutarla",
+     "iniciarla.",
+     "abrirla."
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "iniciarlo",
+     "abrirlo",
+     "lanzarlo",
+     "ejecutarlo"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['iniciarla', 'iniciarla.']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['iniciarlo', 'abrirlo', 'lanzarlo', 'ejecutarlo'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation adds a list number '1.' that is not in the source segment. The meaning is unaffected."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "fluency",
+      "severity": "minor",
+      "span": "iniciarla",
+      "explanation": "The feminine clitic 'la' does not agree with the masculine 'icono', which is the only antecedent in the sentence. 'iniciarlo' would agree. 'la' is only correct if it refers to an unmentioned 'aplicación'."
+     },
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2.",
+      "explanation": "The list number '2.' does not appear in the source text."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "coreference_agreement-02",
+  "capability": "coreference_agreement",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "Select the file you want to share.",
+   "Once it is uploaded, it will appear in your library."
+  ],
+  "tgt": [
+   "1. Selecciona el archivo que quieres compartir.",
+   "2. Cuando se cargue, aparecerá en tu biblioteca."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "subido",
+     "cargado",
+     "guardado"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "subida",
+     "cargada",
+     "guardada"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "fail",
+    "detail": "none of ['subido', 'cargado', 'guardado'] found"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['subida', 'cargada', 'guardada'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation begins with a list number \"1.\" that does not appear in the source. This may be an artifact, and it does not change the meaning."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation begins with a list number, \"2.\", that does not appear in the source. It is probably a stray artifact, but it is added content."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "coreference_agreement-03",
+  "capability": "coreference_agreement",
+  "cross_segment": true,
+  "domain": "marketing",
+  "src": [
+   "Meet Clara, our new brand ambassador.",
+   "She is known for her energy and she is thrilled to join us."
+  ],
+  "tgt": [
+   "Conoce a Clara, nuestra nueva embajadora de la marca.",
+   "Se la conoce por su energía y está encantada de unirse a nosotros."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "encantada",
+     "emocionada",
+     "entusiasmada",
+     "ilusionada",
+     "feliz"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "encantado",
+     "emocionado",
+     "entusiasmado",
+     "ilusionado"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['encantada']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['encantado', 'emocionado', 'entusiasmado', 'ilusionado'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "coreference_agreement-04",
+  "capability": "coreference_agreement",
+  "cross_segment": true,
+  "domain": "marketing",
+  "src": [
+   "Our new sneakers are lightweight and breathable.",
+   "Order them today, and they arrive tomorrow."
+  ],
+  "tgt": [
+   "Nuestros nuevos tenis son ligeros y transpirables.",
+   "Pídeselos hoy y te llegarán mañana."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "pídelas",
+     "pídalas",
+     "encárgalas",
+     "cómpralas",
+     "solicítalas",
+     "pedirlas",
+     "pídelas hoy",
+     "haz tu pedido"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "pídelos",
+     "pídalos",
+     "cómpralos",
+     "encárgalos",
+     "solicítalos"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "fail",
+    "detail": "none of ['pídelas', 'pídalas', 'encárgalas', 'cómpralas', 'solicítalas', 'pedirlas', 'pídelas hoy', 'haz tu pedido'] found"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['pídelos', 'pídalos', 'cómpralos', 'encárgalos', 'solicítalos'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/mistranslation",
+      "severity": "major",
+      "span": "Pídeselos",
+      "explanation": "The added indirect object pronoun 'se' means 'ask him/her/them for them', which implies a third-party recipient not present in the source. The correct form is 'Pídelos'."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   true
+  ]
+ },
+ {
+  "id": "coreference_agreement-05",
+  "capability": "coreference_agreement",
+  "cross_segment": true,
+  "domain": "legal_terms",
+  "src": [
+   "The Company may modify the Agreement at any time.",
+   "It will notify you of any changes, and it remains valid until terminated."
+  ],
+  "tgt": [
+   "La Empresa puede modificar el Acuerdo en cualquier momento.",
+   "Le notificará cualquier cambio y permanecerá vigente hasta que se rescinda."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "válido",
+     "vigente"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "válida",
+     "vigenta"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 2,
+    "property": "The subject of 'will notify' is the Company (la Empresa) and the term 'valid' refers to the Agreement (el Contrato), with correct gender agreement."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['vigente']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['válida', 'vigenta'] found"
+   },
+   {
+    "status": "pass",
+    "detail": "The omitted subject of 'notificará' is naturally the Company from segment 1, and 'vigente' is gender-neutral so it agrees with the Agreement (el Acuerdo, masculine; 'se rescinda' is a neutral singular impersonal). The property's 'el Contrato' differs from the translation's 'el Acuerdo', but this is a consistent rendering of 'Agreement', and the agreement is correct.",
+    "evidence": "Le notificará cualquier cambio y permanecerá vigente hasta que se rescinda."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "coreference_agreement-06",
+  "capability": "coreference_agreement",
+  "cross_segment": true,
+  "domain": "legal_terms",
+  "src": [
+   "The User must provide a valid password.",
+   "It must be kept confidential and changed regularly."
+  ],
+  "tgt": [
+   "1. El usuario debe proporcionar una contraseña válida.",
+   "2. Debe mantenerse en secreto y cambiarse periódicamente."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "confidencial",
+     "mantenerse",
+     "mantenerla",
+     "guardarse",
+     "cambiarse",
+     "cambiarla",
+     "cambiada",
+     "mantenida"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 2,
+    "property": "Any participle or pronoun referring to the password is feminine singular (e.g. 'mantenida', 'cambiada', 'la'), not masculine."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['mantenerse', 'cambiarse']"
+   },
+   {
+    "status": "pass",
+    "detail": "The translation uses impersonal/reflexive infinitive constructions ('mantenerse', 'cambiarse') with no participles or gendered pronouns referring to the password, so no masculine form appears and the property is not violated.",
+    "evidence": "Debe mantenerse en secreto y cambiarse periódicamente."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation begins with a list number \"1.\" that does not appear in the source text. It does not change the meaning, but it is extraneous."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation begins with a list number \"2.\" that does not appear in the source. This is an added element, though it does not change the meaning."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "coreference_agreement-07",
+  "capability": "coreference_agreement",
+  "cross_segment": true,
+  "domain": "medical_patient",
+  "src": [
+   "Your doctor has prescribed a new inhaler.",
+   "Shake it well before use and keep it upright."
+  ],
+  "tgt": [
+   "Su médico le ha recetado un nuevo inhalador.",
+   "Agítelo bien antes de usarlo y manténgalo en posición vertical."
+  ],
+  "assertions": [
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "agítela",
+     "agítala",
+     "manténgala",
+     "mantenla"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 2,
+    "property": "Pronouns referring to the inhaler are masculine (e.g. 'agítelo', 'manténgalo') or the object is explicitly named as 'el inhalador'."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "none of ['agítela', 'agítala', 'manténgala', 'mantenla'] found"
+   },
+   {
+    "status": "pass",
+    "detail": "The pronouns referring to the inhaler ('Agítelo', 'usarlo', 'manténgalo') are all masculine singular, matching 'inhalador'.",
+    "evidence": "Agítelo bien antes de usarlo y manténgalo en posición vertical."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "coreference_agreement-08",
+  "capability": "coreference_agreement",
+  "cross_segment": true,
+  "domain": "medical_patient",
+  "src": [
+   "The nurse will place the sensor on your arm.",
+   "She will then check that it is secure."
+  ],
+  "tgt": [
+   "1. La enfermera colocará el sensor en su brazo.",
+   "2. A continuación, comprobará que está bien sujeto."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "seguro",
+     "bien colocado",
+     "fijo",
+     "sujeto",
+     "firme"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "segura",
+     "colocada",
+     "fija",
+     "sujeta"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['sujeto']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['segura', 'colocada', 'fija', 'sujeta'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation begins with a list number that is not in the source text. This is a formatting artifact and does not change the meaning."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2.",
+      "explanation": "The list number does not appear in the source segment and was added to the translation."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "term_consistency-01",
+  "capability": "term_consistency",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "Create a new workspace from the sidebar.",
+   "Each workspace can have up to 50 members.",
+   "To delete a workspace, open Settings > General."
+  ],
+  "tgt": [
+   "1. Crea un nuevo espacio de trabajo desde la barra lateral.",
+   "2. Cada espacio de trabajo puede tener hasta 50 miembros.",
+   "3. Para eliminar un espacio de trabajo, abre Configuración > General."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "espacio de trabajo",
+     "área de trabajo",
+     "entorno de trabajo",
+     "espacio"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "The term 'workspace' is translated with the same Spanish term (e.g., always 'espacio de trabajo') in all three segments, with no alternation among synonyms like 'área de trabajo' or 'entorno de trabajo'."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['espacio de trabajo', 'espacio']"
+   },
+   {
+    "status": "pass",
+    "detail": "'Workspace' is rendered as 'espacio de trabajo' in all three segments, with no synonyms such as 'área de trabajo' or 'entorno de trabajo'.",
+    "evidence": "1. Crea un nuevo espacio de trabajo desde la barra lateral. / 2. Cada espacio de trabajo puede tener hasta 50 miembros. / 3. Para eliminar un espacio de trabajo, abre Configuración > General."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation adds a list number that is not in the source text. The meaning is unaffected, but the numbering is unwarranted."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation begins with a numeral and period (\"2.\") that does not appear in the source. This is a spurious list number and adds content not in the original. The meaning of the sentence is preserved."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation begins with the numeral \"3.\", which does not appear in the source. It looks like a stray list number and adds content that was not there."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "term_consistency-02",
+  "capability": "term_consistency",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "Your subscription renews automatically every month.",
+   "To cancel your subscription, go to Billing.",
+   "After cancellation, your subscription stays active until the end of the billing period."
+  ],
+  "tgt": [
+   "1. Su suscripción se renueva automáticamente cada mes.",
+   "2. Para cancelar su suscripción, vaya a Facturación.",
+   "3. Tras la cancelación, su suscripción permanece activa hasta el final del periodo de facturación."
+  ],
+  "assertions": [
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "abono",
+     "membresía"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "'subscription' is rendered with the same Spanish noun in all three segments (e.g., 'suscripción'), with no switch to 'abono', 'membresía' or similar."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "none of ['abono', 'membresía'] found"
+   },
+   {
+    "status": "pass",
+    "detail": "'Subscription' is translated as 'suscripción' in all three segments, with no variation to 'abono', 'membresía' or any other noun.",
+    "evidence": "Su suscripción se renueva automáticamente cada mes. / Para cancelar su suscripción, vaya a Facturación. / Tras la cancelación, su suscripción permanece activa hasta el final del periodo de facturación."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation begins with a list number that is not in the source. It is a stray artifact and does not change the meaning."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation begins with a numeral \"2.\" that does not appear in the source. It looks like a stray list number and adds content that was not in the original. The meaning of the sentence is unchanged."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation begins with a numeral \"3.\" that is not in the source. It is a stray list number and adds content that does not belong."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "term_consistency-03",
+  "capability": "term_consistency",
+  "cross_segment": true,
+  "domain": "marketing",
+  "src": [
+   "Join our loyalty program and earn points on every order.",
+   "Points never expire while you remain a member of the program.",
+   "Redeem your points for exclusive rewards."
+  ],
+  "tgt": [
+   "Únete a nuestro programa de fidelización y gana puntos en cada pedido.",
+   "Los puntos no caducan mientras sigas siendo miembro del programa.",
+   "Canjea tus puntos por recompensas exclusivas."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "puntos"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "'loyalty program' is rendered consistently (same term for 'programa de fidelización'/'de lealtad' etc.) wherever it is referred to, and 'points' is always 'puntos' without alternatives such as 'créditos'."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['puntos']"
+   },
+   {
+    "status": "pass",
+    "detail": "'Loyalty program' is rendered as 'programa de fidelización' in segment 1 and referred to only as 'el programa' in segment 2, which is consistent with no conflicting term, and 'points' is always 'puntos' with no alternatives like 'créditos'.",
+    "evidence": "Únete a nuestro programa de fidelización y gana puntos en cada pedido. Los puntos no caducan mientras sigas siendo miembro del programa. Canjea tus puntos por recompensas exclusivas."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "term_consistency-04",
+  "capability": "term_consistency",
+  "cross_segment": true,
+  "domain": "marketing",
+  "src": [
+   "Free shipping on every order over €50.",
+   "Your order ships within 24 hours.",
+   "Track your order from your account at any time."
+  ],
+  "tgt": [
+   "Envío gratuito en cada pedido a partir de 50 €.",
+   "Tu pedido se envía en un plazo de 24 horas.",
+   "Consulta el estado de tu pedido desde tu cuenta en cualquier momento."
+  ],
+  "assertions": [
+   {
+    "kind": "not_contains",
+    "segment": 1,
+    "any_of": [
+     "orden"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "'order' is translated as 'pedido' in all three segments, consistently, with no use of 'orden' or 'encargo' in any of them."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "none of ['orden'] found"
+   },
+   {
+    "status": "pass",
+    "detail": "Each of the three segments translates 'order' as 'pedido', and neither 'orden' nor 'encargo' appears anywhere in the translation.",
+    "evidence": "Envío gratuito en cada pedido a partir de 50 €. / Tu pedido se envía en un plazo de 24 horas. / Consulta el estado de tu pedido desde tu cuenta en cualquier momento."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/mistranslation",
+      "severity": "minor",
+      "span": "a partir de 50 €",
+      "explanation": "\"Over €50\" means more than 50, while \"a partir de 50 €\" includes exactly 50 €. This slightly changes the threshold condition; \"superior a 50 €\" or \"de más de 50 €\" would be more accurate."
+     },
+     {
+      "category": "fluency",
+      "severity": "minor",
+      "span": "en cada pedido",
+      "explanation": "A literal rendering of \"every order\"; \"en todos los pedidos\" sounds more natural in Spanish promotional copy."
+     }
+    ]
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/mistranslation",
+      "severity": "minor",
+      "span": "Consulta el estado de tu pedido",
+      "explanation": "\"Track your order\" is rendered as \"check the status of your order\". The meaning is preserved and this is a natural localization for order tracking, but it is slightly more explicit than the source (\"estado\" is added). It is an acceptable, idiomatic rendering."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "term_consistency-05",
+  "capability": "term_consistency",
+  "cross_segment": true,
+  "domain": "legal_terms",
+  "src": [
+   "\"Customer\" means any person who registers for the Service.",
+   "The Customer shall keep their login credentials confidential.",
+   "The Company may suspend the Customer's access in case of breach."
+  ],
+  "tgt": [
+   "1. «Cliente» se refiere a cualquier persona que se registra en el Servicio.",
+   "2. El Cliente deberá mantener confidenciales sus credenciales de inicio de sesión.",
+   "3. La Empresa podrá suspender el acceso del Cliente en caso de incumplimiento."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "cliente"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "The defined term 'Customer' is rendered with the same Spanish term (e.g., 'Cliente') in segments 1, 2 and 3, not alternating with 'usuario' or 'consumidor'."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['cliente']"
+   },
+   {
+    "status": "pass",
+    "detail": "'Customer' is rendered as 'Cliente' in all three segments, with no alternation with 'usuario' or 'consumidor'.",
+    "evidence": "«Cliente» se refiere a cualquier persona que se registra en el Servicio. / El Cliente deberá mantener confidenciales sus credenciales de inicio de sesión. / La Empresa podrá suspender el acceso del Cliente en caso de incumplimiento."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation begins with a numbering \"1.\" that does not appear in the source, so it adds content. It may be a formatting artifact."
+     },
+     {
+      "category": "fluency",
+      "severity": "minor",
+      "span": "se registra",
+      "explanation": "Legal definitions in Spanish normally use the subjunctive for a generic, hypothetical referent: \"se registre\". The indicative sounds less formal and less precise."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation adds a numeral '2.' that is not in the source. It looks like a stray list number, but the meaning is not affected."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation adds a numeral '3.' that does not appear in the source text. It looks like a stray clause number, but the meaning is unaffected."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "term_consistency-07",
+  "capability": "term_consistency",
+  "cross_segment": true,
+  "domain": "medical_patient",
+  "src": [
+   "Each tablet contains 10 mg of active ingredient.",
+   "Do not exceed the recommended dose.",
+   "If you miss a dose, take it as soon as you remember.",
+   "Never take a double dose to make up for a forgotten one."
+  ],
+  "tgt": [
+   "1. Cada comprimido contiene 10 mg de principio activo.",
+   "2. No exceda la dosis recomendada.",
+   "3. Si olvida una dosis, tómela tan pronto como lo recuerde.",
+   "4. No tome nunca una dosis doble para compensar una dosis olvidada."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "dosis"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "'dose' is rendered as 'dosis' consistently across segments 2, 3 and 4, with no alternation with 'toma' or 'cantidad'."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['dosis']"
+   },
+   {
+    "status": "pass",
+    "detail": "Every occurrence of 'dose' in segments 2, 3 and 4 is translated as 'dosis', with no use of 'toma' or 'cantidad' as an alternative.",
+    "evidence": "No exceda la dosis recomendada. / Si olvida una dosis, tómela tan pronto como lo recuerde. / No tome nunca una dosis doble para compensar una dosis olvidada."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation begins with a numbered list marker \"1.\" that does not appear in the source. It is a stray addition, though the meaning of the sentence is preserved."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation adds a list number \"2.\" that does not appear in the source. The meaning of the instruction is unchanged, but the numbering is extra content that was not in the original."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation begins with a list number \"3.\" that does not appear in the source. This is an addition, likely an artifact of the source segmentation. The meaning is not affected."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "4.",
+      "explanation": "The translation begins with a list number \"4.\" that does not appear in the source, so it adds content. It is probably a formatting artifact, and the meaning is unaffected."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "term_consistency-08",
+  "capability": "term_consistency",
+  "cross_segment": true,
+  "domain": "medical_patient",
+  "src": [
+   "Attach the sensor to the patient's skin.",
+   "The sensor transmits readings to the monitor every minute.",
+   "Replace the sensor every seven days.",
+   "Do not reuse the sensor."
+  ],
+  "tgt": [
+   "1. Conecte el sensor a la piel del paciente.",
+   "2. El sensor transmite las lecturas al monitor cada minuto.",
+   "3. Sustituya el sensor cada siete días.",
+   "4. No reutilice el sensor."
+  ],
+  "assertions": [
+   {
+    "kind": "not_contains",
+    "segment": 3,
+    "any_of": [
+     "detector",
+     "electrodo",
+     "captador"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "'sensor' is translated with the same Spanish term (e.g., 'sensor') in all four segments, without synonyms like 'detector' or 'electrodo'."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "none of ['detector', 'electrodo', 'captador'] found"
+   },
+   {
+    "status": "pass",
+    "detail": "All four segments render 'sensor' as 'sensor', with no synonyms such as 'detector' or 'electrodo'.",
+    "evidence": "Conecte el sensor a la piel del paciente. / El sensor transmite las lecturas al monitor cada minuto. / Sustituya el sensor cada siete días. / No reutilice el sensor."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation begins with a list number \"1.\" that is not in the source, so it adds content."
+     },
+     {
+      "category": "terminology",
+      "severity": "minor",
+      "span": "Conecte",
+      "explanation": "\"Conectar\" means to connect, as in plugging in. For attaching a sensor to skin, \"Coloque\", \"Fije\" or \"Adhiera\" is more precise. The meaning is still understandable, so this is minor."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation begins with a numbering artifact, \"2.\", that does not appear in the source. It does not change the meaning but should be removed."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation begins with a list number ('3.') that does not appear in the source text. It is an extra element, though it does not change the meaning of the instruction."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "4.",
+      "explanation": "The target begins with a number, '4.', that is not in the source. This is probably a list number added to the target. The meaning of the sentence is unaffected."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "register_consistency-01",
+  "capability": "register_consistency",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "Welcome back! Please sign in to continue.",
+   "Forgot your password?",
+   "Click Reset and we will send you a link to your email."
+  ],
+  "tgt": [
+   "¡Bienvenido de nuevo! Inicia sesión para continuar.",
+   "¿Has olvidado tu contraseña?",
+   "Haz clic en Restablecer y te enviaremos un enlace a tu correo electrónico."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "All three segments address the reader with the same register (all tú or all usted), including imperatives (inicia/iniciá vs inicie; haz/haga) and possessives (tu vs su)."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "All segments consistently use informal tú forms (inicia, has olvidado, tu, haz, te, tu), with no usted forms mixed in.",
+    "evidence": "Inicia sesión para continuar. / ¿Has olvidado tu contraseña? / Haz clic en Restablecer y te enviaremos un enlace a tu correo electrónico."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "style/register",
+      "severity": "minor",
+      "span": "¡Bienvenido de nuevo!",
+      "explanation": "The masculine form 'Bienvenido' assumes a male user. A gender-neutral form such as '¡Te damos la bienvenida de nuevo!' or '¡Qué bueno verte de nuevo!' would be more inclusive for UI text. The meaning is preserved."
+     }
+    ]
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "register_consistency-02",
+  "capability": "register_consistency",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "To change your language, open Settings.",
+   "Select Language and choose an option from the list.",
+   "If you need help, contact our support team."
+  ],
+  "tgt": [
+   "Para cambiar el idioma, abre Configuración.",
+   "Selecciona Idioma y elige una opción de la lista.",
+   "Si necesitas ayuda, contacta con nuestro equipo de soporte."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "The imperatives in segments 1-3 (abre/abra, selecciona/seleccione, elige/elija, contacta/contacte) all use the same register, and the possessive in segment 1 (tu/su) matches it."
+   },
+   {
+    "kind": "judge",
+    "segment": 3,
+    "property": "The verb form and pronouns in segment 3 (necesitas vs necesita) agree with the register used in segments 1 and 2."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "All imperatives (abre, selecciona, elige, contacta) and 'necesitas' consistently use informal tú, and segment 1 has no possessive (uses 'el idioma'), so there is no mismatch.",
+    "evidence": "Para cambiar el idioma, abre Configuración. / Selecciona Idioma y elige una opción de la lista. / Si necesitas ayuda, contacta con nuestro equipo de soporte."
+   },
+   {
+    "status": "pass",
+    "detail": "Segments 1 and 2 use informal tú imperatives (abre, Selecciona, elige), and segment 3 consistently uses tú forms (necesitas, contacta), so the register is the same.",
+    "evidence": "Si necesitas ayuda, contacta con nuestro equipo de soporte."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "register_consistency-03",
+  "capability": "register_consistency",
+  "cross_segment": true,
+  "domain": "marketing",
+  "src": [
+   "Treat yourself this summer.",
+   "Your skin deserves the best care.",
+   "Order now and get free shipping on your first purchase.",
+   "Don't miss out: your discount expires soon!"
+  ],
+  "tgt": [
+   "Date un capricho este verano.",
+   "Tu piel merece el mejor cuidado.",
+   "Haz tu pedido ahora y consigue el envío gratuito en tu primera compra.",
+   "No te lo pierdas: ¡tu descuento caduca pronto!"
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "All four segments use a single register consistently (tú: cuídate/tu/pide/no te pierdas; or usted: cuídese/su/pida/no se pierda), with no mixing."
+   },
+   {
+    "kind": "not_contains",
+    "segment": null,
+    "any_of": [
+     "vosotros",
+     "vuestra",
+     "vuestro",
+     "vuestras",
+     "vuestros"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "All segments consistently use informal tú forms (Date, Tu, Haz/consigue, No te lo pierdas, tu) with no usted forms mixed in.",
+    "evidence": "Date un capricho este verano. / Tu piel merece el mejor cuidado. / Haz tu pedido ahora y consigue el envío gratuito en tu primera compra. / No te lo pierdas: ¡tu descuento caduca pronto!"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['vosotros', 'vuestra', 'vuestro', 'vuestras', 'vuestros'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "register_consistency-04",
+  "capability": "register_consistency",
+  "cross_segment": true,
+  "domain": "marketing",
+  "src": [
+   "Hi Laura, thanks for shopping with us!",
+   "Here is your order summary.",
+   "Please check your address and let us know if anything is wrong."
+  ],
+  "tgt": [
+   "¡Hola, Laura! ¡Gracias por comprar con nosotros!",
+   "Aquí tienes el resumen de tu pedido.",
+   "Por favor, revisa tu dirección y háznos saber si hay algo que no esté bien."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "The register is consistent across all segments; given the first-name greeting, tú is expected (tu pedido, revisa, avísanos), and no segment uses usted forms such as su, revise, avísenos."
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "tu pedido",
+     "tu resumen",
+     "el resumen de tu",
+     "tu resumen de"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "Segments 2 and 3 consistently use informal tú forms (tienes, tu, revisa, háznos) and no usted forms appear; the subjunctive 'esté' is third person only because it follows 'algo'.",
+    "evidence": "Aquí tienes el resumen de tu pedido. Por favor, revisa tu dirección y háznos saber si hay algo que no esté bien."
+   },
+   {
+    "status": "pass",
+    "detail": "found ['tu pedido', 'el resumen de tu']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "register_consistency-05",
+  "capability": "register_consistency",
+  "cross_segment": true,
+  "domain": "legal_terms",
+  "src": [
+   "By using the Service, you agree to these Terms.",
+   "You are responsible for keeping your account credentials confidential.",
+   "If you do not agree, please do not use the Service.",
+   "We may contact you at the email address you provided."
+  ],
+  "tgt": [
+   "1. Al utilizar el Servicio, aceptas estos Términos.",
+   "2. Eres responsable de mantener confidenciales las credenciales de tu cuenta.",
+   "3. Si no estás de acuerdo, no utilices el Servicio.",
+   "4. Podemos ponernos en contacto contigo en la dirección de correo electrónico que has proporcionado."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "All segments use the same register consistently (formal usted is expected: usted/su/no utilice/le), with no tú forms (tu, tus, no uses, te) in any segment."
+   },
+   {
+    "kind": "not_contains",
+    "segment": null,
+    "any_of": [
+     " tu ",
+     " tus ",
+     "no uses",
+     "te contact",
+     "vosotros"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "fail",
+    "detail": "All four segments use informal tú forms (aceptas, Eres, tu, estás, no utilices, contigo, has proporcionado) instead of formal usted, so the property fails.",
+    "evidence": "Al utilizar el Servicio, aceptas estos Términos. / Eres responsable de mantener confidenciales las credenciales de tu cuenta. / Si no estás de acuerdo, no utilices el Servicio. / Podemos ponernos en contacto contigo en la dirección de correo electrónico que has proporcionado."
+   },
+   {
+    "status": "fail",
+    "detail": "found [' tu ']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation begins with a numbering marker \"1.\" that does not appear in the source text."
+     },
+     {
+      "category": "style/register",
+      "severity": "minor",
+      "span": "aceptas",
+      "explanation": "Terms of Service are legal text and normally use the formal register (\"usted\": \"acepta\"). The informal \"tú\" form is less appropriate here, though the meaning is preserved and some brands do use \"tú\" deliberately."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2.",
+      "explanation": "The translation begins with a list number \"2.\" that does not appear in the source, so it is an addition."
+     },
+     {
+      "category": "style/register",
+      "severity": "minor",
+      "span": "Eres responsable de mantener confidenciales las credenciales de tu cuenta.",
+      "explanation": "The informal \"tú\" form is used for what is likely a terms-of-service or legal-style text, where formal \"usted\" (\"Usted es responsable...\") is usually expected. The English source does not specify register, so this is only a possible mismatch."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation begins with a list number \"3.\" that does not appear in the source, so it adds content."
+     },
+     {
+      "category": "style/register",
+      "severity": "minor",
+      "span": "Si no estás de acuerdo, no utilices el Servicio.",
+      "explanation": "The informal \"tú\" form is used in what is probably a formal legal or Terms of Service context, where \"usted\" would be expected. The source also says \"please\", which is omitted, so the polite tone is lost."
+     },
+     {
+      "category": "accuracy/omission",
+      "severity": "minor",
+      "span": "no utilices",
+      "explanation": "\"Please\" is not translated, so the courteous tone of the source is lost. An example of a fix is \"por favor, no utilice\"."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "4. ",
+      "explanation": "The translation begins with a numeral '4.' that does not appear in the source. It looks like a stray list number and is an unwarranted addition."
+     },
+     {
+      "category": "style/register",
+      "severity": "minor",
+      "span": "contigo en la dirección de correo electrónico que has proporcionado",
+      "explanation": "The informal 'tú' form (contigo, has proporcionado) is used. Legal or privacy-policy text normally takes a formal register (usted: con usted, que ha proporcionado). The source is neutral, but this register is likely inappropriate for the context."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "register_consistency-06",
+  "capability": "register_consistency",
+  "cross_segment": true,
+  "domain": "legal_terms",
+  "src": [
+   "Privacy Notice",
+   "You have the right to access your personal data.",
+   "To exercise this right, send us a written request.",
+   "Please include a copy of your ID so we can verify your identity."
+  ],
+  "tgt": [
+   "1. Aviso de privacidad",
+   "2. Tiene derecho a acceder a sus datos personales.",
+   "3. Para ejercer este derecho, envíenos una solicitud por escrito.",
+   "4. Incluya una copia de su documento de identidad para que podamos verificar su identidad."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "Segments 2-4 use one consistent register: usted (usted tiene, envíenos, incluya, su documento) or tú (tienes, envíanos, incluye, tu documento), with no mixing of forms."
+   },
+   {
+    "kind": "judge",
+    "segment": 4,
+    "property": "The imperative and possessive in segment 4 match the register used in segments 2 and 3."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "Segments 2-4 consistently use formal usted forms (Tiene, sus, envíenos, Incluya, su) with no tú forms mixed in.",
+    "evidence": "Tiene derecho a acceder a sus datos personales. / envíenos una solicitud por escrito. / Incluya una copia de su documento de identidad para que podamos verificar su identidad."
+   },
+   {
+    "status": "pass",
+    "detail": "Segment 4 uses the formal usted imperative \"Incluya\" and the possessive \"su\", matching the formal usted register of \"Tiene\", \"sus datos\" and \"envíenos\" in segments 2 and 3.",
+    "evidence": "Incluya una copia de su documento de identidad para que podamos verificar su identidad."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation adds a numeral \"1.\" that does not appear in the source. The meaning is preserved, but the numbering is an unjustified addition and may not fit the document structure."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The target begins with a numeral '2.' that does not appear in the source. It is an added list number, but the meaning of the sentence is preserved."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation begins with a numeral and period (\"3.\") that does not appear in the source. It looks like a list-numbering artifact, so it is an addition. Meaning is unaffected."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "4. ",
+      "explanation": "The translation begins with a numeral and period (\"4.\") that is not in the source. This looks like a stray list number and does not belong in the text."
+     },
+     {
+      "category": "style/register",
+      "severity": "minor",
+      "span": "Incluya",
+      "explanation": "The source says \"Please include\", but the translation drops the politeness marker and uses a bare imperative. \"Por favor, incluya\" would keep the courteous tone."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "register_consistency-07",
+  "capability": "register_consistency",
+  "cross_segment": true,
+  "domain": "medical_patient",
+  "src": [
+   "Before using the device, wash your hands.",
+   "Place the sensor on your finger and press Start.",
+   "Do not use the device if you feel dizzy.",
+   "Ask your doctor if you have any questions."
+  ],
+  "tgt": [
+   "Antes de utilizar el dispositivo, lávese las manos.",
+   "Coloque el sensor en su dedo y pulse Inicio.",
+   "No utilice el dispositivo si se siente mareado/a.",
+   "Consulte a su médico si tiene alguna duda."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "All imperatives (lávese/lávate, coloque/coloca, pulse/pulsa, no use/no uses, consulte/consulta) and possessives (su/tu) across all four segments use one single register."
+   },
+   {
+    "kind": "not_contains",
+    "segment": null,
+    "any_of": [
+     "vosotros",
+     "vuestro",
+     "vuestra",
+     "lavaos",
+     "colocad"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "Every imperative (lávese, coloque, pulse, utilice, consulte) and possessive (su dedo, su médico) uses the formal usted register, and no tú forms appear.",
+    "evidence": "lávese las manos; Coloque el sensor en su dedo y pulse Inicio; No utilice el dispositivo si se siente mareado/a; Consulte a su médico si tiene alguna duda"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['vosotros', 'vuestro', 'vuestra', 'lavaos', 'colocad'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "register_consistency-08",
+  "capability": "register_consistency",
+  "cross_segment": true,
+  "domain": "medical_patient",
+  "src": [
+   "Dear patient,",
+   "Take one tablet every morning with water.",
+   "Do not take more than your prescribed dose.",
+   "If your symptoms get worse, tell your pharmacist."
+  ],
+  "tgt": [
+   "1. Estimado/a paciente,",
+   "2. Tome un comprimido cada mañana con agua.",
+   "3. No tome más de la dosis prescrita.",
+   "4. Si sus síntomas empeoran, dígaselo a su farmacéutico."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "Register is consistent across all segments; imperatives (tome/toma, no tome/no tomes, informe/informa) and possessives (su/tu) all use the same form, with no mixing."
+   },
+   {
+    "kind": "judge",
+    "segment": 4,
+    "property": "Segment 4 uses the same register as segments 2 and 3 for the verb and the possessive (síntomas: sus/tus; empeoran; informe/informa)."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "All imperatives (Tome, No tome, dígaselo) and possessives (sus, su) consistently use the formal usted register, with no tú forms mixed in.",
+    "evidence": "Estimado/a paciente, | Tome un comprimido cada mañana con agua. | No tome más de la dosis prescrita. | Si sus síntomas empeoran, dígaselo a su farmacéutico."
+   },
+   {
+    "status": "pass",
+    "detail": "Segment 4 uses formal usted forms (sus, empeoran, dígaselo imperative), matching the formal usted imperatives 'Tome' in segments 2 and 3.",
+    "evidence": "Si sus síntomas empeoran, dígaselo a su farmacéutico."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation adds a list number \"1.\" that does not appear in the source. This is a formatting artifact. It does not change the meaning, but it should not be there."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2.",
+      "explanation": "The translation begins with a numeral \"2.\" that does not appear in the source. It is an extraneous list number. The meaning of the instruction is unchanged, so the severity is minor."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The target begins with a list number '3.' that is not in the source. It is an extraneous addition, though the meaning is unaffected."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "4. ",
+      "explanation": "The translation adds a list number '4.' that is not in the source text. Meaning is unaffected, but it is an extraneous element."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "implicit_subject_ellipsis-01",
+  "capability": "implicit_subject_ellipsis",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "Select the report you want to export.",
+   "Then click Share.",
+   "Do the same for the other one."
+  ],
+  "tgt": [
+   "1. Selecciona el informe que quieras exportar.",
+   "2. A continuación, haz clic en Compartir.",
+   "3. Haz lo mismo con el otro."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 3,
+    "any_of": [
+     "el otro",
+     "otro informe"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 3,
+    "property": "The translation expresses repeating the same action (selecting and sharing) for another report, using masculine 'otro' to agree with 'informe', not a feminine form."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['el otro']"
+   },
+   {
+    "status": "pass",
+    "detail": "Segment 3 tells the reader to repeat the same action with 'el otro', which is masculine and agrees with 'informe', so it refers to the other report and uses no feminine form.",
+    "evidence": "3. Haz lo mismo con el otro."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation adds a list number \"1.\" that is not in the source. The meaning is unchanged, but the numbering is extra content."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The target begins with a step number '2.' that does not appear in the source. This is an addition, though the meaning is not affected."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3.",
+      "explanation": "The numeral '3.' does not appear in the source. It is an added list number that the source text does not contain."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "implicit_subject_ellipsis-02",
+  "capability": "implicit_subject_ellipsis",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "Open the Settings panel.",
+   "Scroll to the bottom and close it when you are done."
+  ],
+  "tgt": [
+   "Abre el panel de Ajustes.",
+   "Desplázate hasta la parte inferior y ciérralo cuando hayas terminado."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "cierre",
+     "cierra",
+     "cerrarlo",
+     "ciérrelo",
+     "ciérralo",
+     "cerrar el panel"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "cerrarla",
+     "ciérrala",
+     "ciérrela",
+     "cierre la",
+     "cierra la"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['ciérralo']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['cerrarla', 'ciérrala', 'ciérrela', 'cierre la', 'cierra la'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "implicit_subject_ellipsis-03",
+  "capability": "implicit_subject_ellipsis",
+  "cross_segment": true,
+  "domain": "marketing",
+  "src": [
+   "Try our new moisturizing cream for 30 days.",
+   "If you don't love it, send it back.",
+   "This also applies to the travel size."
+  ],
+  "tgt": [
+   "Prueba nuestra nueva crema hidratante durante 30 días.",
+   "Si no te encanta, devuélvela.",
+   "Esto también se aplica al formato de viaje."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": 3,
+    "property": "The sentence conveys that the return/money-back offer also applies to the travel-size version (e.g. 'Esto también se aplica al formato de viaje'), with the implied scope clear."
+   },
+   {
+    "kind": "judge",
+    "segment": 2,
+    "property": "Any pronoun referring to the cream is feminine (la), e.g. 'devuélvela' or 'la', not masculine 'lo'."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "Following the segment about returning the product, 'Esto también se aplica al formato de viaje' naturally conveys that the return offer extends to the travel size, mirroring the source's equivalent ambiguity of 'This'.",
+    "evidence": "Esto también se aplica al formato de viaje."
+   },
+   {
+    "status": "pass",
+    "detail": "The only pronoun referring to the cream is the clitic 'la' in 'devuélvela', which is feminine and agrees with 'crema'; 'te encanta' has no object pronoun for the cream, so there is no masculine 'lo'.",
+    "evidence": "Si no te encanta, devuélvela."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/mistranslation",
+      "severity": "minor",
+      "span": "devuélvela",
+      "explanation": "The Spanish feminine pronoun 'la' assumes a feminine referent, while the English 'it' is gender-neutral. Without context this gender assumption is arbitrary and could be wrong, though it is a common choice and the meaning is largely preserved. Also, 'te encanta' lacks an object pronoun, but this is natural in Spanish."
+     }
+    ]
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "implicit_subject_ellipsis-04",
+  "capability": "implicit_subject_ellipsis",
+  "cross_segment": true,
+  "domain": "marketing",
+  "src": [
+   "Buy two pairs of sneakers and get 20% off.",
+   "Buy three and get 30%."
+  ],
+  "tgt": [
+   "Compra dos pares de zapatillas y obtén un 20% de descuento.",
+   "Compra tres y obtén un 30%."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "30 %",
+     "30%",
+     "30 por ciento"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 2,
+    "property": "The segment means that buying three (pairs) gives a 30% discount, and does not misread it as paying 30% or getting 30 items; 'tres' is feminine if 'pares' is expressed or implied as 'tres' alone."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['30%']"
+   },
+   {
+    "status": "pass",
+    "detail": "In context, 'obtén un 30%' is naturally read as a 30% discount following the previous segment, and 'tres' is invariable in gender (no feminine form exists), so there is no agreement error; it does not suggest paying 30% or receiving 30 items.",
+    "evidence": "Compra tres y obtén un 30%."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": [
+     {
+      "category": "fluency",
+      "severity": "minor",
+      "span": "obtén un 30%",
+      "explanation": "The Spanish is elliptical and unclear without 'de descuento'. It mirrors the incomplete source, but reads unnaturally and could be misunderstood."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "implicit_subject_ellipsis-05",
+  "capability": "implicit_subject_ellipsis",
+  "cross_segment": true,
+  "domain": "legal_terms",
+  "src": [
+   "The Provider may terminate this Agreement upon thirty days' written notice.",
+   "The Customer may do the same.",
+   "This also applies to any Order Form."
+  ],
+  "tgt": [
+   "El Proveedor puede rescindir este Acuerdo mediante un preaviso por escrito de treinta días.",
+   "El Cliente puede hacer lo mismo.",
+   "Esto también se aplica a cualquier formulario de pedido."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": 2,
+    "property": "The translation states that the Customer may also terminate the Agreement (with the same notice), e.g. 'El Cliente podrá hacer lo mismo' or an explicit 'resolver el Contrato'; it is not about a different action."
+   },
+   {
+    "kind": "judge",
+    "segment": 3,
+    "property": "The sentence is understood to extend the termination right to any Order Form (Formulario/Orden de Pedido), with consistent terminology for 'Order Form'."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "\"hacer lo mismo\" refers back to the Provider's action in segment 1 (rescindir el Acuerdo con preaviso de treinta días), so the Customer is given the same termination right rather than a different action.",
+    "evidence": "El Cliente puede hacer lo mismo."
+   },
+   {
+    "status": "pass",
+    "detail": "\"Esto también se aplica\" keeps the anaphoric reference to the termination right in the preceding sentences, and \"formulario de pedido\" is an acceptable rendering of \"Order Form\"; it is the only occurrence of the term, so there is no inconsistency, though it is lowercase rather than capitalized as a defined term.",
+    "evidence": "Esto también se aplica a cualquier formulario de pedido."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": [
+     {
+      "category": "terminology",
+      "severity": "minor",
+      "span": "formulario de pedido",
+      "explanation": "\"Order Form\" is capitalized in the source, which marks it as a defined contractual term. The Spanish translation is lowercase, so it loses that defined-term status. \"Formulario de pedido\" is acceptable, but the capitalization should be kept (\"Formulario de Pedido\"). In legal contracts, \"Order Form\" is also often rendered as \"Orden de Compra\" or \"Formulario de Pedido\", so the term should be used consistently."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "implicit_subject_ellipsis-06",
+  "capability": "implicit_subject_ellipsis",
+  "cross_segment": true,
+  "domain": "legal_terms",
+  "src": [
+   "We collect your email address and phone number.",
+   "We do not share the latter with third parties."
+  ],
+  "tgt": [
+   "Recopilamos tu dirección de correo electrónico y tu número de teléfono.",
+   "No compartimos este último con terceros."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "este último",
+     "el último",
+     "el segundo",
+     "número de teléfono",
+     "teléfono"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": 2,
+    "property": "The Spanish refers to the phone number (the second item) and uses a masculine singular form consistent with 'número', e.g. 'este último'."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['este último']"
+   },
+   {
+    "status": "pass",
+    "detail": "'Este último' is masculine singular, agreeing with 'número' (the last-mentioned item, the phone number), so it correctly refers to the second item.",
+    "evidence": "No compartimos este último con terceros."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "implicit_subject_ellipsis-07",
+  "capability": "implicit_subject_ellipsis",
+  "cross_segment": true,
+  "domain": "medical_patient",
+  "src": [
+   "Remove the cap from the insulin pen.",
+   "Attach a new needle.",
+   "Then replace it after use."
+  ],
+  "tgt": [
+   "1. Retire el capuchón de la pluma de insulina.",
+   "2. Coloque una aguja nueva.",
+   "3. A continuación, vuelva a colocar el capuchón después de usarla."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": 3,
+    "property": "The pronoun for 'it' is feminine singular ('la', e.g. 'Colóquela', 'vuelva a ponerla') matching tapa or aguja, and not masculine 'lo'."
+   },
+   {
+    "kind": "not_contains",
+    "segment": 3,
+    "any_of": [
+     "colóquelo",
+     "póngalo",
+     "ponerlo",
+     "colocarlo"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "fail",
+    "detail": "The translation does not use a feminine pronoun for 'it' as the object of replacing; it repeats the masculine noun 'el capuchón' and only has 'usarla' (feminine, likely referring to the needle), so the pronoun 'la' appears but is inconsistent with its masculine antecedent 'capuchón' and the required clitic pairing with the replacing verb is absent.",
+    "evidence": "A continuación, vuelva a colocar el capuchón después de usarla."
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['colóquelo', 'póngalo', 'ponerlo', 'colocarlo'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation adds a step number \"1.\" that does not appear in the source. The meaning of the instruction is preserved, but the numbering is an unwarranted addition."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation adds the step number \"2.\", which is not in the source. The meaning of the instruction is unchanged, but the numbering is an unwarranted addition."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "List number does not appear in the source."
+     },
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "el capuchón",
+      "explanation": "The source has the pronoun 'it'; the translation introduces a specific noun not present in the source text."
+     },
+     {
+      "category": "fluency",
+      "severity": "minor",
+      "span": "usarla",
+      "explanation": "Gender disagreement: 'capuchón' is masculine, so the pronoun should be 'usarlo'."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "implicit_subject_ellipsis-08",
+  "capability": "implicit_subject_ellipsis",
+  "cross_segment": true,
+  "domain": "medical_patient",
+  "src": [
+   "Take one tablet in the morning with water.",
+   "Take the same dose in the evening.",
+   "This also applies to patients over 65."
+  ],
+  "tgt": [
+   "1. Tome un comprimido por la mañana con agua.",
+   "2. Tome la misma dosis por la tarde.",
+   "3. Esto también se aplica a los pacientes mayores de 65 años."
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": 2,
+    "property": "The translation clearly instructs taking the same dose (one tablet) in the evening, e.g. 'la misma dosis'."
+   },
+   {
+    "kind": "judge",
+    "segment": 3,
+    "property": "The sentence states that the dosing instructions also apply to patients over 65 (mayores de 65 años), with 'esto' clearly referring to the dosing regimen."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "The segment explicitly instructs taking 'la misma dosis' (the same dose as the one-tablet morning dose) in the evening ('por la tarde'), matching the source meaning.",
+    "evidence": "2. Tome la misma dosis por la tarde."
+   },
+   {
+    "status": "pass",
+    "detail": "The sentence says 'Esto también se aplica a los pacientes mayores de 65 años', which follows the dosing instructions in segments 1 and 2, so 'esto' naturally refers to that regimen and 'mayores de 65 años' correctly renders 'over 65'.",
+    "evidence": "3. Esto también se aplica a los pacientes mayores de 65 años."
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1.",
+      "explanation": "The translation adds a list number that is not in the source. It could be read as a step number, but the meaning of the instruction is unchanged."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2.",
+      "explanation": "The numeral '2.' does not appear in the source and was added to the translation."
+     },
+     {
+      "category": "accuracy/mistranslation",
+      "severity": "major",
+      "span": "por la tarde",
+      "explanation": "'Evening' in medication instructions is normally 'por la noche'. 'Tarde' means afternoon, so the dose timing could be misread."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation begins with a list number \"3.\" that is not in the source. It is an extraneous addition, but the meaning of the sentence is unchanged."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   true,
+   false
+  ]
+ },
+ {
+  "id": "list_inheritance-01",
+  "capability": "list_inheritance",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "You cannot publish the page if:",
+   "the title field is empty",
+   "you have not saved your changes",
+   "another user is editing it"
+  ],
+  "tgt": [
+   "No puedes publicar la página si:",
+   "el campo de título está vacío",
+   "no has guardado los cambios",
+   "otro usuario la está editando"
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "si:",
+     "cuando:",
+     "en los siguientes casos:",
+     "en los siguientes supuestos:"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "Segments 2-4 read as grammatical continuations of the lead-in in segment 1: they are conditions (e.g. 'el campo del título está vacío', 'no has guardado tus cambios', 'otro usuario la está editando') and are not independent imperatives or sentences that lose the 'if' condition."
+   },
+   {
+    "kind": "judge",
+    "segment": 3,
+    "property": "The verb is in the second person singular informal (has/tienes) or a consistent form matching the register used in segment 1, and keeps the negation 'no'."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['si:']"
+   },
+   {
+    "status": "pass",
+    "detail": "Each of segments 2-4 is a clause that reads naturally after 'si:' as a condition (indicative present/perfect), with no imperatives or independent sentences that lose the 'if' condition.",
+    "evidence": "No puedes publicar la página si: / el campo de título está vacío / no has guardado los cambios / otro usuario la está editando"
+   },
+   {
+    "status": "pass",
+    "detail": "The verb 'has guardado' is second person singular informal, matches the informal 'puedes' in segment 1, and keeps the negation 'no'.",
+    "evidence": "no has guardado los cambios"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": [
+     {
+      "category": "style/register",
+      "severity": "minor",
+      "span": "no has guardado los cambios",
+      "explanation": "The informal tú form ('has guardado') is used where software UI messages usually take a formal or neutral register. This is a minor stylistic point, since tú is common in Spanish UI text. The translation is otherwise accurate and fluent, and the lack of capitalization and punctuation matches the source."
+     }
+    ]
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "list_inheritance-02",
+  "capability": "list_inheritance",
+  "cross_segment": true,
+  "domain": "medical_patient",
+  "src": [
+   "Do not use the device if you:",
+   "are pregnant",
+   "have a pacemaker",
+   "are allergic to nickel"
+  ],
+  "tgt": [
+   "No utilice el dispositivo si:",
+   "está embarazada",
+   "tiene un marcapasos",
+   "es alérgico al níquel"
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "está embarazada",
+     "estás embarazada",
+     "esté embarazada",
+     "estéis embarazadas",
+     "se encuentra embarazada",
+     "está embarazada o",
+     "esté embarazada o"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "Segments 2-4 use the same grammatical person and mood as the lead-in in segment 1 (e.g. if the lead-in is 'si usted...', items use 'está/tiene/es alérgico' consistently), so each item completes the sentence grammatically."
+   },
+   {
+    "kind": "contains",
+    "segment": 4,
+    "any_of": [
+     "alérgico",
+     "alérgica",
+     "alergia",
+     "alérgicos"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['está embarazada']"
+   },
+   {
+    "status": "pass",
+    "detail": "The lead-in uses formal usted (utilice), and items 2-4 use third-person singular indicative (está, tiene, es), which agree with usted and complete the sentence grammatically; the gender mismatch (embarazada vs. alérgico) does not affect person or mood.",
+    "evidence": "No utilice el dispositivo si: | está embarazada | tiene un marcapasos | es alérgico al níquel"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['alérgico']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/mistranslation",
+      "severity": "major",
+      "span": "está embarazada",
+      "explanation": "Source 'are' indicates plural or second person (you/they are), but the translation uses third-person singular 'está' (she is), changing the subject's person/number. Expected e.g. 'están embarazadas' or 'estás embarazada'."
+     }
+    ]
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/mistranslation",
+      "severity": "minor",
+      "span": "es alérgico",
+      "explanation": "The source verb 'are' is plural (or second person), but the translation uses third-person singular 'es alérgico'. It should be 'son alérgicos' (or 'eres/es alérgico' if addressing 'you'). The number does not agree with the source."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   true,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "list_inheritance-03",
+  "capability": "list_inheritance",
+  "cross_segment": true,
+  "domain": "legal_terms",
+  "src": [
+   "You may terminate this Agreement only if:",
+   "the other party materially breaches it;",
+   "the other party becomes insolvent; or",
+   "a force majeure event lasts more than 90 days."
+  ],
+  "tgt": [
+   "1. Podrá poner fin a este Acuerdo únicamente si:",
+   "2. la otra parte lo incumple de forma material;",
+   "3. la otra parte se declara insolvente; o",
+   "4. un caso de fuerza mayor se prolonga más de 90 días."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "únicamente",
+     "solo",
+     "sólo",
+     "solamente",
+     "exclusivamente"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "Segments 2-4 are grammatical continuations of segment 1 as alternative conditions (consistent mood, e.g. subjunctive 'incumpla', 'sea declarada insolvente' or indicative consistently after the lead-in), preserving the list punctuation and the 'o' connector at the end of segment 3."
+   },
+   {
+    "kind": "contains",
+    "segment": 4,
+    "any_of": [
+     "fuerza mayor",
+     "caso fortuito"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['únicamente']"
+   },
+   {
+    "status": "pass",
+    "detail": "After 'únicamente si:', segments 2-4 all use the present indicative (incumple, se declara, se prolonga), which is grammatically correct and consistent, and they keep the semicolons and the 'o' connector at the end of segment 3.",
+    "evidence": "1. Podrá poner fin a este Acuerdo únicamente si:\n2. la otra parte lo incumple de forma material;\n3. la otra parte se declara insolvente; o\n4. un caso de fuerza mayor se prolonga más de 90 días."
+   },
+   {
+    "status": "pass",
+    "detail": "found ['fuerza mayor']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation adds a list number \"1.\" that does not appear in the source. This is a formatting addition, and the meaning is preserved."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2.",
+      "explanation": "The translation begins with a list number \"2.\" that does not appear in the source. This is an addition, although it is probably a list artifact and does not change the meaning."
+     },
+     {
+      "category": "style/register",
+      "severity": "minor",
+      "span": "de forma material",
+      "explanation": "\"Materially breaches\" is normally rendered in Spanish legal drafting as \"incumple de manera sustancial\" or \"incumple materialmente\". \"De forma material\" is understandable but less idiomatic, and could be read as \"in material form\" rather than \"substantially\"."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation adds a list number \"3.\" that is not in the source segment."
+     },
+     {
+      "category": "accuracy/mistranslation",
+      "severity": "minor",
+      "span": "se declara insolvente",
+      "explanation": "\"becomes insolvent\" describes a change in financial state (\"pasa a ser insolvente\" or \"cae en insolvencia\"). \"se declara insolvente\" means the party formally declares itself insolvent, which is a narrower, more active meaning. The core sense is mostly preserved."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "4.",
+      "explanation": "The translation adds a list number that does not appear in the source text."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "list_inheritance-04",
+  "capability": "list_inheritance",
+  "cross_segment": true,
+  "domain": "marketing",
+  "src": [
+   "Why you'll love our blender:",
+   "Crushes ice in seconds",
+   "Is dishwasher safe",
+   "Comes with a 5-year warranty"
+  ],
+  "tgt": [
+   "1. Por qué te va a encantar nuestra batidora:",
+   "2. Tritura el hielo en segundos",
+   "3. Apta para lavavajillas",
+   "4. Incluye una garantía de 5 años"
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 3,
+    "any_of": [
+     "lavavajillas"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['lavavajillas']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation adds a list number that is not in the source text. The meaning of the sentence is unchanged."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation adds the list number \"2.\", which is not in the source. It may be an artifact, but it is extra content. The meaning of the sentence is preserved."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation adds a list number, \"3.\", that does not appear in the source. The meaning is otherwise preserved."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "4. ",
+      "explanation": "The translation begins with a numeral and period (\"4. \") that does not appear in the source. It looks like a list number and adds spurious content. The meaning of the sentence is preserved, so the severity is minor."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "list_inheritance-05",
+  "capability": "list_inheritance",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "To reset your password, you must:",
+   "open the Settings menu",
+   "select Security",
+   "click Reset"
+  ],
+  "tgt": [
+   "Para restablecer tu contraseña, debes:",
+   "abrir el menú Ajustes",
+   "seleccionar Seguridad",
+   "hacer clic en Restablecer"
+  ],
+  "assertions": [
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "The items in segments 2-4 use one consistent verb form that fits the lead-in in segment 1 (either infinitives after 'debes/debe/tienes que', or imperatives consistent in register with the lead-in), with no mixture of forms and no register mismatch (tú vs usted)."
+   },
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "debes",
+     "debe",
+     "tienes que",
+     "tiene que",
+     "debe usted",
+     "es necesario",
+     "deberá",
+     "deberás",
+     "necesita",
+     "necesitas"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "Segment 1 uses the tú form 'debes' and segments 2-4 are all infinitives ('abrir', 'seleccionar', 'hacer clic'), which fit grammatically after 'debes' with no mixture of forms and no tú/usted mismatch.",
+    "evidence": "Para restablecer tu contraseña, debes: / abrir el menú Ajustes / seleccionar Seguridad / hacer clic en Restablecer"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['debes', 'debe']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "list_inheritance-06",
+  "capability": "list_inheritance",
+  "cross_segment": true,
+  "domain": "medical_patient",
+  "src": [
+   "Contact your doctor immediately if you experience:",
+   "chest pain",
+   "difficulty breathing",
+   "swelling of the face or throat"
+  ],
+  "tgt": [
+   "1. Póngase en contacto con su médico de inmediato si experimenta:",
+   "2. dolor en el pecho",
+   "3. dificultad para respirar",
+   "4. hinchazón de la cara o de la garganta"
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "si presenta",
+     "si experimenta",
+     "si tiene",
+     "si nota",
+     "si siente",
+     "si presentas",
+     "si experimentas",
+     "si tienes",
+     "si notas",
+     "si sientes",
+     "si padece"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "Segments 2-4 are noun phrases (symptoms) that grammatically complete the lead-in's verb, with no added verbs or articles that break the sentence, and the register in segment 1 is consistent (usted or tú) throughout."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['si experimenta']"
+   },
+   {
+    "status": "pass",
+    "detail": "Segments 2-4 are plain noun phrases that complete 'experimenta' with no added verbs, and the lead-in uses formal usted forms ('Póngase', 'su', 'experimenta') consistently; the '1.', '2.' numbering prefixes are list markers rather than words that break the grammar, and the articles inside 'el pecho' and 'de la garganta' are part of the noun phrases, not additions that disrupt the sentence.",
+    "evidence": "Póngase en contacto con su médico de inmediato si experimenta: / dolor en el pecho / dificultad para respirar / hinchazón de la cara o de la garganta"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation adds a list number \"1.\" that does not appear in the source text. The meaning is preserved, but the numbering is an unwarranted addition."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation begins with a list number \"2.\" that does not appear in the source text. The core meaning of \"dolor en el pecho\" is correct."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3.",
+      "explanation": "The translation adds a list number \"3.\" that is not in the source. The meaning of the phrase is unaffected, but the numbering is extraneous."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "4.",
+      "explanation": "The translation adds a list number \"4.\" that is not in the source. The meaning is unchanged, but it is extraneous content."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "list_inheritance-07",
+  "capability": "list_inheritance",
+  "cross_segment": true,
+  "domain": "legal_terms",
+  "src": [
+   "We will not share your personal data with third parties, except:",
+   "where required by law;",
+   "with your explicit consent; or",
+   "to protect our legal rights."
+  ],
+  "tgt": [
+   "No compartiremos sus datos personales con terceros, excepto:",
+   "cuando lo exija la ley;",
+   "con su consentimiento expreso; o",
+   "para proteger nuestros derechos legales."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "salvo",
+     "excepto",
+     "con excepción de",
+     "a excepción de"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "The items in segments 2-4 read as exceptions to the prohibition in segment 1 (cases where data may be shared) and are grammatically coherent with 'salvo/excepto' (e.g. 'cuando lo exija la ley', 'con su consentimiento explícito', 'para proteger...'), keeping the 'o' connector at the end of segment 3."
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['excepto']"
+   },
+   {
+    "status": "pass",
+    "detail": "Segments 2-4 are grammatically coherent continuations of 'excepto:' and read as exceptions allowing sharing, with the 'o' connector retained at the end of segment 3; 'expreso' is an acceptable equivalent of 'explícito'.",
+    "evidence": "No compartiremos sus datos personales con terceros, excepto: cuando lo exija la ley; con su consentimiento expreso; o para proteger nuestros derechos legales."
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "list_inheritance-08",
+  "capability": "list_inheritance",
+  "cross_segment": true,
+  "domain": "marketing",
+  "src": [
+   "Free shipping applies only to orders that:",
+   "are over $50",
+   "ship within Spain",
+   "do not include oversized items"
+  ],
+  "tgt": [
+   "El envío gratuito se aplica solo a pedidos que:",
+   "superen los 50 $",
+   "se envíen dentro de España",
+   "no incluyan artículos voluminosos"
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "pedidos"
+    ]
+   },
+   {
+    "kind": "judge",
+    "segment": null,
+    "property": "Segments 2-4 are plural verb phrases agreeing with 'pedidos' (e.g. 'superen/superan los 50 $', 'se envíen/envían a España', 'no incluyan/incluyen artículos voluminosos'), with consistent mood after the relative clause, and segment 4 retains its negation."
+   },
+   {
+    "kind": "contains",
+    "segment": 4,
+    "any_of": [
+     "no incluy",
+     "no contengan",
+     "no contienen",
+     "no lleven",
+     "no lleven",
+     "no incorporen",
+     "sin "
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['pedidos']"
+   },
+   {
+    "status": "pass",
+    "detail": "All three segments use third-person plural subjunctive verbs (superen, se envíen, incluyan) that agree with 'pedidos' and have consistent mood after 'pedidos que:', and segment 4 keeps its negation with 'no'.",
+    "evidence": "superen los 50 $ / se envíen dentro de España / no incluyan artículos voluminosos"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['no incluy']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": [
+     {
+      "category": "fluency",
+      "severity": "minor",
+      "span": "los 50 $",
+      "explanation": "The currency symbol placement and the article are unnatural. 'Superen los 50 $' is an awkward way to render 'over $50'. The more natural Spanish form would be 'superen los 50 $' or 'superen 50 dólares', depending on region, and the added article 'los' is not in the source. The source's dollar-before-number convention is reversed, which is acceptable in Spain but ambiguous for a dollar amount."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/mistranslation",
+      "severity": "minor",
+      "span": "se envíen",
+      "explanation": "The source is a bare verb phrase ('ship'), but the translation uses a subjunctive plural passive-reflexive form. This presupposes a context, such as 'que se envíen', that the source does not give. A neutral form like 'enviar dentro de España' or 'envíos dentro de España' would fit better. The core meaning is preserved."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/mistranslation",
+      "severity": "minor",
+      "span": "voluminosos",
+      "explanation": "\"Oversized\" means larger than the permitted or standard size. \"Voluminosos\" means bulky, which is close but not identical, since it stresses volume rather than exceeding size limits. A closer rendering would be \"de gran tamaño\" or \"de tamaño excesivo\". The core meaning is preserved."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "context_disambiguation-01",
+  "capability": "context_disambiguation",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "Open the Settings menu and select Storage.",
+   "Move the slider to adjust the scale of the preview."
+  ],
+  "tgt": [
+   "Abre el menú Ajustes y selecciona Almacenamiento.",
+   "Mueve el control deslizante para ajustar la escala de la vista previa."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "escala",
+     "tamaño",
+     "zoom"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "báscula",
+     "balanza",
+     "escama",
+     "pesa"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['escala']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['báscula', 'balanza', 'escama', 'pesa'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "context_disambiguation-02",
+  "capability": "context_disambiguation",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "Your team is preparing a new version of the app.",
+   "The release will be available to all users on Friday."
+  ],
+  "tgt": [
+   "1. Su equipo está preparando una nueva versión de la aplicación.",
+   "2. El lanzamiento estará disponible para todos los usuarios el viernes."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "lanzamiento",
+     "versión",
+     "publicación",
+     "actualización"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "liberación",
+     "liberará",
+     "libertad",
+     "liberado"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['lanzamiento']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['liberación', 'liberará', 'libertad', 'liberado'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The numbering '1.' does not appear in the source and was added to the translation."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation adds a numeral \"2.\" that is not in the source. It looks like a stray list-numbering artifact. The meaning of the sentence is unaffected."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "context_disambiguation-03",
+  "capability": "context_disambiguation",
+  "cross_segment": true,
+  "domain": "marketing",
+  "src": [
+   "Explore our new range of 10-inch Android devices with stunning displays.",
+   "This tablet is perfect for streaming and gaming."
+  ],
+  "tgt": [
+   "Descubre nuestra nueva gama de dispositivos Android de 10 pulgadas con pantallas impresionantes.",
+   "Esta tablet es perfecta para hacer streaming y jugar."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "tableta",
+     "tablet"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "comprimido",
+     "pastilla",
+     "píldora"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['tablet']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['comprimido', 'pastilla', 'píldora'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "context_disambiguation-04",
+  "capability": "context_disambiguation",
+  "cross_segment": true,
+  "domain": "marketing",
+  "src": [
+   "Join the legendary vinyl collectors' club.",
+   "Every record in our catalog is pressed on 180-gram vinyl."
+  ],
+  "tgt": [
+   "Únete al legendario club de coleccionistas de vinilo.",
+   "Cada disco de nuestro catálogo está prensado en vinilo de 180 gramos."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "disco",
+     "discos",
+     "álbum",
+     "álbumes",
+     "LP"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "registro",
+     "récord",
+     "marca"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['disco']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['registro', 'récord', 'marca'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "context_disambiguation-05",
+  "capability": "context_disambiguation",
+  "cross_segment": true,
+  "domain": "legal_terms",
+  "src": [
+   "The cardholder authorizes the merchant to debit the account.",
+   "Any charge not disputed within 30 days is deemed accepted."
+  ],
+  "tgt": [
+   "1. El titular de la tarjeta autoriza al comerciante a adeudar la cuenta.",
+   "2. Cualquier cargo no impugnado en el plazo de 30 días se considerará aceptado."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "cargo",
+     "cargos"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "acusación",
+     "imputación",
+     "carga ",
+     "cobrar"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['cargo']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['acusación', 'imputación', 'carga ', 'cobrar'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The numeral '1.' does not appear in the source. It looks like a list-numbering artifact, and it does not change the meaning."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The target begins with a numeral '2.' that does not appear in the source. It looks like a stray list number, but it does not change the meaning."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "context_disambiguation-06",
+  "capability": "context_disambiguation",
+  "cross_segment": true,
+  "domain": "legal_terms",
+  "src": [
+   "The defendant was arrested on March 3.",
+   "The court dismissed the charge for lack of evidence."
+  ],
+  "tgt": [
+   "1. El acusado fue arrestado el 3 de marzo.",
+   "2. El tribunal desestimó el cargo por falta de pruebas."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "cargo",
+     "cargos cr",
+     "acusación",
+     "imputación",
+     "cargos"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "tarifa",
+     "comisión",
+     "recargo",
+     "carga eléctrica"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['cargo']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['tarifa', 'comisión', 'recargo', 'carga eléctrica'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation begins with a list number \"1.\" that does not appear in the source. It is an extraneous artifact, though the meaning of the sentence is unaffected."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation begins with a numbering artifact ('2.') that is not in the source text. The meaning is preserved."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "context_disambiguation-07",
+  "capability": "context_disambiguation",
+  "cross_segment": true,
+  "domain": "medical_patient",
+  "src": [
+   "Take one tablet twice daily with food.",
+   "Do not crush the tablet before swallowing it."
+  ],
+  "tgt": [
+   "Tome un comprimido dos veces al día con comida.",
+   "No triture el comprimido antes de tragarlo."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "comprimido",
+     "pastilla"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "tableta"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['comprimido']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['tableta'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "context_disambiguation-08",
+  "capability": "context_disambiguation",
+  "cross_segment": true,
+  "domain": "medical_patient",
+  "src": [
+   "The glucose meter must be recharged before first use.",
+   "Connect the device to the wall outlet until the charge indicator turns green."
+  ],
+  "tgt": [
+   "El medidor de glucosa debe recargarse antes del primer uso.",
+   "Conecte el dispositivo a la toma de corriente de la pared hasta que el indicador de carga se ponga en verde."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "carga"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 2,
+    "any_of": [
+     "cargo",
+     "tarifa",
+     "acusación",
+     "cobro"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['carga']"
+   },
+   {
+    "status": "pass",
+    "detail": "none of ['cargo', 'tarifa', 'acusación', 'cobro'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": [
+     {
+      "category": "fluency",
+      "severity": "minor",
+      "span": "se ponga en verde",
+      "explanation": "The phrasing is unidiomatic. A more natural rendering would be \"se ponga verde\" or \"cambie a verde\"."
+     },
+     {
+      "category": "style/register",
+      "severity": "minor",
+      "span": "toma de corriente de la pared",
+      "explanation": "This is slightly redundant, since \"toma de corriente\" already means a wall outlet. \"Toma de corriente\" alone, or \"enchufe de pared\", would be more concise."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false
+  ]
+ },
+ {
+  "id": "ui_reference_consistency-01",
+  "capability": "ui_reference_consistency",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "Export",
+   "To save your report, click Export.",
+   "Then choose a folder and click Export again."
+  ],
+  "tgt": [
+   "1. Exportar",
+   "2. Para guardar el informe, haz clic en Exportar.",
+   "3. A continuación, elige una carpeta y haz clic de nuevo en Exportar."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "Exportar"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "Exportar"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 3,
+    "any_of": [
+     "Exportar"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['Exportar']"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['Exportar']"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['Exportar']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1.",
+      "explanation": "The translation adds a list number \"1.\" that is not in the source text \"Export\". The meaning is preserved, but the numbering is extra content. \"Exportar\" is otherwise a correct translation of the UI label."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The numeral '2.' does not appear in the source. It adds a list number that is not part of the original text."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation adds a list number that is not in the source segment. It is likely a formatting artifact, and it does not change the meaning."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "ui_reference_consistency-02",
+  "capability": "ui_reference_consistency",
+  "cross_segment": true,
+  "domain": "software_ui_help",
+  "src": [
+   "Settings",
+   "Open the Settings menu and select Privacy.",
+   "You can return to Settings at any time."
+  ],
+  "tgt": [
+   "1. Ajustes",
+   "2. Abre el menú de Ajustes y selecciona Privacidad.",
+   "3. Puedes volver a Ajustes en cualquier momento."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "Configuración"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "Configuración"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 3,
+    "any_of": [
+     "Configuración"
+    ]
+   },
+   {
+    "kind": "not_contains",
+    "segment": 3,
+    "any_of": [
+     "Ajustes",
+     "Preferencias"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "fail",
+    "detail": "none of ['Configuración'] found"
+   },
+   {
+    "status": "fail",
+    "detail": "none of ['Configuración'] found"
+   },
+   {
+    "status": "fail",
+    "detail": "none of ['Configuración'] found"
+   },
+   {
+    "status": "fail",
+    "detail": "found ['Ajustes']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation adds a list number (\"1. \") that does not appear in the source. The meaning of \"Ajustes\" is preserved, but the extra numbering is unwarranted and could clutter a UI label."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The target begins with a list number, \"2.\", that is not in the source. This looks like an artifact of the original list formatting. The meaning of the sentence is unchanged."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation begins with a list number \"3.\" that does not appear in the source, so it adds content. The meaning of the sentence itself is unchanged."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "ui_reference_consistency-03",
+  "capability": "ui_reference_consistency",
+  "cross_segment": true,
+  "domain": "marketing",
+  "src": [
+   "Add to Cart",
+   "Found something you love? Click Add to Cart and check out in seconds.",
+   "Remember: items are only reserved after you click Add to Cart."
+  ],
+  "tgt": [
+   "Añadir al carrito",
+   "¿Has encontrado algo que te encanta? Haz clic en Añadir al carrito y completa la compra en segundos.",
+   "Recuerda: los artículos solo quedan reservados después de que hagas clic en Añadir al carrito."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "Añadir a la cesta",
+     "Añadir al carrito",
+     "Añadir al carro"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['Añadir al carrito']"
+   }
+  ],
+  "qe": [
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   },
+   {
+    "errors": []
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "ui_reference_consistency-05",
+  "capability": "ui_reference_consistency",
+  "cross_segment": true,
+  "domain": "legal_terms",
+  "src": [
+   "I Accept",
+   "By clicking I Accept, you agree to these Terms of Service.",
+   "If you do not agree, do not click I Accept."
+  ],
+  "tgt": [
+   "1. Acepto 2. Al hacer clic en Acepto, acepta estos Términos de servicio. 3. Si no está de acuerdo, no haga clic en Acepto.",
+   "",
+   ""
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "Acepto"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "Acepto"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 3,
+    "any_of": [
+     "Acepto"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "found ['Acepto']"
+   },
+   {
+    "status": "fail",
+    "detail": "none of ['Acepto'] found"
+   },
+   {
+    "status": "fail",
+    "detail": "none of ['Acepto'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "major",
+      "span": "1. Acepto 2. Al hacer clic en Acepto, acepta estos Términos de servicio. 3. Si no está de acuerdo, no haga clic en Acepto.",
+      "explanation": "The source is only the short button label \"I Accept\". The translation adds two extra sentences about the Terms of Service and a numbered list, none of which appear in the source. This is a substantial addition of content that changes the legal meaning."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/omission",
+      "severity": "critical",
+      "span": "",
+      "explanation": "empty translation"
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/omission",
+      "severity": "critical",
+      "span": "",
+      "explanation": "empty translation"
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   true,
+   true,
+   true
+  ]
+ },
+ {
+  "id": "ui_reference_consistency-06",
+  "capability": "ui_reference_consistency",
+  "cross_segment": true,
+  "domain": "legal_terms",
+  "src": [
+   "Manage Cookies",
+   "You may change your preferences at any time by selecting Manage Cookies in the footer.",
+   "Selecting Manage Cookies does not delete cookies already stored."
+  ],
+  "tgt": [
+   "1. Gestionar cookies",
+   "2. Puede cambiar sus preferencias en cualquier momento seleccionando Gestionar cookies en el pie de página.",
+   "3. Al seleccionar Gestionar cookies, no se eliminan las cookies ya almacenadas."
+  ],
+  "assertions": [
+   {
+    "kind": "not_contains",
+    "segment": 3,
+    "any_of": [
+     "Administrar"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "pass",
+    "detail": "none of ['Administrar'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation adds a list number \"1.\" that is not in the source. It is an extraneous element, though the meaning of the text is preserved."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation begins with a list number ('2.') that is not in the source. It is a stray artifact and does not change the meaning."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation adds a list number that does not appear in the source text."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "id": "ui_reference_consistency-07",
+  "capability": "ui_reference_consistency",
+  "cross_segment": true,
+  "domain": "medical_patient",
+  "src": [
+   "Start",
+   "To begin your infusion, press Start on the pump display.",
+   "To pause, press Stop. To resume, press Start again."
+  ],
+  "tgt": [
+   "1. Inicio",
+   "2. Para iniciar su perfusión, pulse Inicio en la pantalla de la bomba.",
+   "3. Para pausar, pulse Parar. Para reanudar, pulse Inicio de nuevo."
+  ],
+  "assertions": [
+   {
+    "kind": "contains",
+    "segment": 1,
+    "any_of": [
+     "Iniciar"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 2,
+    "any_of": [
+     "Iniciar"
+    ]
+   },
+   {
+    "kind": "contains",
+    "segment": 3,
+    "any_of": [
+     "Iniciar"
+    ]
+   }
+  ],
+  "results": [
+   {
+    "status": "fail",
+    "detail": "none of ['Iniciar'] found"
+   },
+   {
+    "status": "pass",
+    "detail": "found ['Iniciar']"
+   },
+   {
+    "status": "fail",
+    "detail": "none of ['Iniciar'] found"
+   }
+  ],
+  "qe": [
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "1. ",
+      "explanation": "The translation adds a list number \"1.\" that is not in the source. The meaning of \"Inicio\" is preserved, but the numbering is extra content and could affect UI or menu consistency."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "2. ",
+      "explanation": "The translation begins with a step number \"2.\" that does not appear in the source, so it is an addition. It could confuse the reader or break the numbering sequence."
+     }
+    ]
+   },
+   {
+    "errors": [
+     {
+      "category": "accuracy/addition",
+      "severity": "minor",
+      "span": "3. ",
+      "explanation": "The translation begins with a step number \"3.\" that does not appear in the source, so it adds content."
+     },
+     {
+      "category": "terminology",
+      "severity": "minor",
+      "span": "Inicio",
+      "explanation": "The source button \"Start\" is rendered as \"Inicio\" (home/beginning) instead of \"Iniciar\" or \"Comenzar\". It is also inconsistent with the \"Parar\" verb form used for \"Stop\" in the same sentence pair, and the button label could be misidentified."
+     }
+    ]
+   }
+  ],
+  "qe_flagged": [
+   false,
+   false,
+   false
+  ]
+ }
+]

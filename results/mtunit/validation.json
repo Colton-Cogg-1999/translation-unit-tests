@@ -1,0 +1,248 @@
+{
+ "generated_cases": 96,
+ "valid_cases": 92,
+ "generated_assertions": 207,
+ "valid_assertions": 194,
+ "log": [
+  {
+   "case": "numbers_locale-02",
+   "dropped": [
+    {
+     "assertion": {
+      "kind": "judge",
+      "segment": 1,
+      "property": "The date is interpreted as US month/day (March 4, 2024) and is rendered for Spain as day-month, i.e. 4/3/2024, 04/03/2024 or '4 de marzo de 2024', not as 3 April."
+     },
+     "result": {
+      "status": "fail",
+      "detail": "The source 03/04/2024 read as US format is March 4, but the translation keeps 03/04/2024, which in Spain's day/month format means 3 April, so it was not converted to 04/03/2024.",
+      "evidence": "Última sincronización el 03/04/2024 a las 18:30."
+     }
+    }
+   ]
+  },
+  {
+   "dropped_case": "dnt-01",
+   "why": "no assertion held on gold",
+   "dropped": [
+    {
+     "assertion": {
+      "kind": "preserve",
+      "strings": [
+       "Ctrl+Shift+E",
+       "\"Quick Export\""
+      ]
+     },
+     "result": {
+      "status": "fail",
+      "detail": "missing ['Ctrl+Shift+E', '\"Quick Export\"']"
+     }
+    },
+    {
+     "assertion": {
+      "kind": "not_contains",
+      "segment": 1,
+      "any_of": [
+       "Exportación rápida",
+       "Exportar rápido",
+       "Ctrl+Mayús+E"
+      ]
+     },
+     "result": {
+      "status": "fail",
+      "detail": "found ['Exportación rápida', 'Ctrl+Mayús+E']"
+     }
+    }
+   ]
+  },
+  {
+   "case": "dnt-07",
+   "dropped": [
+    {
+     "assertion": {
+      "kind": "preserve",
+      "strings": [
+       "\"Data Vault\"",
+       "Northwind Systems, Inc."
+      ]
+     },
+     "result": {
+      "status": "fail",
+      "detail": "missing ['\"Data Vault\"']"
+     }
+    }
+   ]
+  },
+  {
+   "case": "condition_scope-02",
+   "dropped": [
+    {
+     "assertion": {
+      "kind": "contains",
+      "segment": 1,
+      "any_of": [
+       "pero no ambos",
+       "pero no ambas",
+       "pero no los dos",
+       "pero no las dos",
+       "no ambos",
+       "no ambas",
+       "no los dos",
+       "no las dos"
+      ]
+     },
+     "result": {
+      "status": "fail",
+      "detail": "none of ['pero no ambos', 'pero no ambas', 'pero no los dos', 'pero no las dos', 'no ambos', 'no ambas', 'no los dos', 'no las dos'] found"
+     }
+    }
+   ]
+  },
+  {
+   "case": "condition_scope-08",
+   "dropped": [
+    {
+     "assertion": {
+      "kind": "contains",
+      "segment": 1,
+      "any_of": [
+       "solo después",
+       "sólo después",
+       "únicamente después",
+       "solamente después",
+       "solo cuando",
+       "sólo cuando",
+       "solo una vez",
+       "sólo una vez"
+      ]
+     },
+     "result": {
+      "status": "fail",
+      "detail": "none of ['solo después', 'sólo después', 'únicamente después', 'solamente después', 'solo cuando', 'sólo cuando', 'solo una vez', 'sólo una vez'] found"
+     }
+    }
+   ]
+  },
+  {
+   "dropped_case": "term_consistency-06",
+   "why": "no assertion held on gold",
+   "dropped": [
+    {
+     "assertion": {
+      "kind": "judge",
+      "segment": null,
+      "property": "'Effective Date' is translated with the same Spanish expression (e.g., 'Fecha de Entrada en Vigor') in all three segments, used as a defined term, with no variants such as 'fecha de efecto' or 'fecha de inicio'."
+     },
+     "result": {
+      "status": "unverified",
+      "detail": "ungrounded evidence: 1: \"en la Fecha de Entrada en Vigor\"; 2: \"La Fecha de Entrada en Vigor es la fecha en la que usted acepta\"; 3: \"a partir"
+     }
+    }
+   ]
+  },
+  {
+   "case": "register_consistency-01",
+   "dropped": [
+    {
+     "assertion": {
+      "kind": "not_contains",
+      "segment": null,
+      "any_of": [
+       "vosotros",
+       "vuestro",
+       "vuestra",
+       "os "
+      ]
+     },
+     "result": {
+      "status": "fail",
+      "detail": "found ['os ']"
+     }
+    }
+   ]
+  },
+  {
+   "case": "list_inheritance-04",
+   "dropped": [
+    {
+     "assertion": {
+      "kind": "judge",
+      "segment": null,
+      "property": "Items in segments 2-4 are consistently phrased as third-person statements about the blender (e.g. 'Tritura', 'Es apto para lavavajillas', 'Incluye') or consistently as noun phrases, and none is an imperative addressed to the user; the form is uniform across all three."
+     },
+     "result": {
+      "status": "fail",
+      "detail": "Segments 2 and 4 are finite third-person verb statements ('Tritura', 'Incluye'), while segment 3 is a bare adjectival phrase ('Apta para lavavajillas') with no verb, so the form is not uniform across all three, though none is an imperative.",
+      "evidence": "Tritura hielo en segundos / Apta para lavavajillas / Incluye una garantía de 5 años"
+     }
+    }
+   ]
+  },
+  {
+   "case": "ui_reference_consistency-03",
+   "dropped": [
+    {
+     "assertion": {
+      "kind": "judge",
+      "segment": null,
+      "property": "The button text 'Add to Cart' is translated identically in all three segments (same wording, e.g. 'Añadir al carrito'), with no variation in verb or noun."
+     },
+     "result": {
+      "status": "unverified",
+      "detail": "ungrounded evidence: 1: «Añadir al carrito» | 2: «Añadir al carrito» | 3: «Añadir al carrito»"
+     }
+    }
+   ]
+  },
+  {
+   "dropped_case": "ui_reference_consistency-04",
+   "why": "no assertion held on gold",
+   "dropped": [
+    {
+     "assertion": {
+      "kind": "judge",
+      "segment": null,
+      "property": "The label 'Subscribe' in segments 2 and 3 uses exactly the same Spanish string as the label in segment 1 (e.g. 'Suscribirse' or 'Suscríbete' in all three)."
+     },
+     "result": {
+      "status": "unverified",
+      "detail": "ungrounded evidence: 1: «Suscribirse» | 2: Pulsa «Suscribirse» a continuación. | 3: Después de pulsar «Suscribirse», revisa tu bandeja"
+     }
+    }
+   ]
+  },
+  {
+   "case": "ui_reference_consistency-06",
+   "dropped": [
+    {
+     "assertion": {
+      "kind": "judge",
+      "segment": null,
+      "property": "The label 'Manage Cookies' is translated with identical wording in segments 1, 2 and 3 (e.g. 'Gestionar cookies' each time)."
+     },
+     "result": {
+      "status": "unverified",
+      "detail": "ungrounded evidence: 1. Gestionar cookies / 2. seleccionando Gestionar cookies en el pie de página / 3. Al seleccionar Gestionar cookies, no "
+     }
+    }
+   ]
+  },
+  {
+   "dropped_case": "ui_reference_consistency-08",
+   "why": "no assertion held on gold",
+   "dropped": [
+    {
+     "assertion": {
+      "kind": "judge",
+      "segment": null,
+      "property": "The label 'Silence Alarm' is translated with the same Spanish wording in segments 1, 2 and 3 (e.g. 'Silenciar alarma'), with no synonym such as 'Apagar alarma' or 'Silenciar la alarma' variation."
+     },
+     "result": {
+      "status": "unverified",
+      "detail": "ungrounded evidence: 1. Silenciar alarma; 2. pulse Silenciar alarma una vez; 3. No pulse Silenciar alarma más de dos veces"
+     }
+    }
+   ]
+  }
+ ]
+}

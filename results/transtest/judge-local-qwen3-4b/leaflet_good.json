@@ -1,0 +1,348 @@
+{
+  "meta": {
+    "suite": "Feverol leaflet — EN→ES document tests",
+    "target": "transtest/examples/leaflet/target_good.es.md",
+    "mode": "target"
+  },
+  "summary": {
+    "tests": 22,
+    "passed": 22,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass_rate": 1.0,
+    "penalty": 0,
+    "critical_failures": 0,
+    "verdict": "PASS"
+  },
+  "results": [
+    {
+      "test_id": "numbers",
+      "type": "numbers",
+      "status": "pass",
+      "severity": "critical",
+      "message": "22 numbers preserved",
+      "evidence": [],
+      "details": {
+        "missing": {},
+        "extra": {}
+      }
+    },
+    {
+      "test_id": "placeholders",
+      "type": "placeholders",
+      "status": "pass",
+      "severity": "minor",
+      "message": "placeholders/tags intact",
+      "evidence": [],
+      "details": {}
+    },
+    {
+      "test_id": "dnt",
+      "type": "dnt",
+      "status": "pass",
+      "severity": "minor",
+      "message": "1 DNT terms preserved",
+      "evidence": [],
+      "details": {}
+    },
+    {
+      "test_id": "glossary",
+      "type": "glossary",
+      "status": "pass",
+      "severity": "major",
+      "message": "glossary respected",
+      "evidence": [],
+      "details": {}
+    },
+    {
+      "test_id": "tablet-consistency",
+      "type": "term_consistency",
+      "status": "pass",
+      "severity": "major",
+      "message": "terms rendered consistently",
+      "evidence": [],
+      "details": {}
+    },
+    {
+      "test_id": "coverage",
+      "type": "coverage",
+      "status": "pass",
+      "severity": "major",
+      "message": "all 31 source sentences aligned (min sim 0.79)",
+      "evidence": [],
+      "details": {
+        "src_min": 0.7901456356048584,
+        "tgt_min": 0.7901456356048584
+      }
+    },
+    {
+      "test_id": "usted-register",
+      "type": "register",
+      "status": "pass",
+      "severity": "major",
+      "message": "register consistent (formal address to the reader with 'usted' forms (e.g. 'tome', 'consulte', 'su médico'))",
+      "evidence": [],
+      "details": {}
+    },
+    {
+      "test_id": "tu-markers",
+      "type": "forbidden_patterns",
+      "status": "pass",
+      "severity": "minor",
+      "message": "no forbidden patterns",
+      "evidence": [],
+      "details": {}
+    },
+    {
+      "test_id": "weight-limit",
+      "type": "assert",
+      "status": "pass",
+      "severity": "critical",
+      "message": "[MUST state] Adolescents can use the medicine only if they weigh more than 50 kg. → judge: supported (The evidence states that adolescents can use the medicine only if they weigh more than 50 kg, which matches exactly with the claim.)",
+      "evidence": [
+        "Se utiliza para tratar el dolor leve o moderado y la fiebre en adultos y adolescentes que pesen más de 50 kg."
+      ],
+      "details": {
+        "evidence": "Se utiliza para tratar el dolor leve o moderado y la fiebre en adultos y adolescentes que pesen más de 50 kg.",
+        "evidence_in_english": "It is used to treat mild or moderate pain and fever in adults and adolescents who weigh more than 50 kg.",
+        "reasoning": "The evidence states that adolescents can use the medicine only if they weigh more than 50 kg, which matches exactly with the claim.",
+        "verdict": "supported",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "kidney-and-age",
+      "type": "assert",
+      "status": "pass",
+      "severity": "major",
+      "message": "[MUST state] The advice to talk to a doctor first applies to people who have kidney problems AND are over 65 at the same time. → judge: supported (The evidence states that consultation with a doctor is required if a person has kidney problems AND is over 65 years old. This matches exactly with the claim that the advice to talk to a doctor first applies to people who have kidney problems AND are over 65 at the same time.)",
+      "evidence": [
+        "Consulte a su médico antes de tomar Feverol si tiene problemas de riñón y es mayor de 65 años."
+      ],
+      "details": {
+        "evidence": "Consulte a su médico antes de tomar Feverol si tiene problemas de riñón y es mayor de 65 años.",
+        "evidence_in_english": "Consult your doctor before taking Feverol if you have kidney problems and are over 65 years old.",
+        "reasoning": "The evidence states that consultation with a doctor is required if a person has kidney problems AND is over 65 years old. This matches exactly with the claim that the advice to talk to a doctor first applies to people who have kidney problems AND are over 65 at the same time.",
+        "verdict": "supported",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "kidney-and-age-neg",
+      "type": "assert",
+      "status": "pass",
+      "severity": "major",
+      "message": "[must NOT state] Anyone over 65 should talk to their doctor before taking it, even without kidney problems. → judge: not_stated (The evidence specifies that consultation with a doctor is required only if someone has kidney problems and is over 65. It does not state that anyone over 65 should consult a doctor regardless of kidney problems. The claim generalizes the requirement to all people over 65 without kidney issues, which is not mentioned or implied in the document.)",
+      "evidence": [
+        "Consulte a su médico antes de tomar Feverol si tiene problemas de riñón y es mayor de 65 años."
+      ],
+      "details": {
+        "evidence": "Consulte a su médico antes de tomar Feverol si tiene problemas de riñón y es mayor de 65 años.",
+        "evidence_in_english": "Consult your doctor before taking Feverol if you have kidney problems and are over 65 years old.",
+        "reasoning": "The evidence specifies that consultation with a doctor is required only if someone has kidney problems and is over 65. It does not state that anyone over 65 should consult a doctor regardless of kidney problems. The claim generalizes the requirement to all people over 65 without kidney issues, which is not mentioned or implied in the document.",
+        "verdict": "not_stated",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "warfarin-direction",
+      "type": "assert",
+      "status": "pass",
+      "severity": "critical",
+      "message": "[MUST state] Feverol (the medicine described) can increase the effect of warfarin. → judge: supported (The evidence states that Feverol can increase the effect of warfarin if taken regularly for more than one week, which directly matches the claim that 'Feverol (the medicine described) can increase the effect of warfarin'. The condition (regular use for more than one week) is specified, but the core claim—that Feverol can increase the effect of warfarin—is explicitly stated.)",
+      "evidence": [
+        "Si está tomando warfarina, es posible que su médico tenga que controlar su sangre con más frecuencia. Feverol puede aumentar el efecto de la warfarina si se toma de forma regular durante más de una semana."
+      ],
+      "details": {
+        "evidence": "Si está tomando warfarina, es posible que su médico tenga que controlar su sangre con más frecuencia. Feverol puede aumentar el efecto de la warfarina si se toma de forma regular durante más de una semana.",
+        "evidence_in_english": "If you are taking warfarin, it is possible that your doctor may have to check your blood more frequently. Feverol can increase the effect of warfarin if taken regularly for more than one week.",
+        "reasoning": "The evidence states that Feverol can increase the effect of warfarin if taken regularly for more than one week, which directly matches the claim that 'Feverol (the medicine described) can increase the effect of warfarin'. The condition (regular use for more than one week) is specified, but the core claim—that Feverol can increase the effect of warfarin—is explicitly stated.",
+        "verdict": "supported",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "warfarin-direction-neg",
+      "type": "assert",
+      "status": "pass",
+      "severity": "critical",
+      "message": "[must NOT state] Warfarin can increase the effect of Feverol. → judge: contradicted (The evidence states that Feverol can increase the effect of warfarina when taken regularly for more than one week, which directly matches the claim that 'Warfarin can increase the effect of Feverol' in terms of the mutual interaction, though the direction of the effect is reversed. However, the document does not state that warfarin increases the effect of Feverol; instead, it states that Feverol increases the effect of warfarin. Therefore, the claim is not supported by the document as written.)",
+      "evidence": [
+        "Feverol can increase the effect of the warfarina if taken regularly for more than one week."
+      ],
+      "details": {
+        "evidence": "Feverol can increase the effect of the warfarina if taken regularly for more than one week.",
+        "evidence_in_english": "Feverol can increase the effect of the warfarina if taken regularly for more than one week.",
+        "reasoning": "The evidence states that Feverol can increase the effect of warfarina when taken regularly for more than one week, which directly matches the claim that 'Warfarin can increase the effect of Feverol' in terms of the mutual interaction, though the direction of the effect is reversed. However, the document does not state that warfarin increases the effect of Feverol; instead, it states that Feverol increases the effect of warfarin. Therefore, the claim is not supported by the document as written.",
+        "verdict": "contradicted",
+        "grounded": false
+      }
+    },
+    {
+      "test_id": "alcohol-neg",
+      "type": "assert",
+      "status": "pass",
+      "severity": "major",
+      "message": "[must NOT state] Drinking moderate amounts of alcohol is acceptable while taking the medicine. → judge: contradicted (The evidence states that alcohol should be avoided while taking Feverol, which directly contradicts the claim that drinking moderate amounts of alcohol is acceptable.)",
+      "evidence": [
+        "Evite beber alcohol mientras esté tomando este medicamento."
+      ],
+      "details": {
+        "evidence": "Evite beber alcohol mientras esté tomando este medicamento.",
+        "evidence_in_english": "Avoid drinking alcohol while taking this medication.",
+        "reasoning": "The evidence states that alcohol should be avoided while taking Feverol, which directly contradicts the claim that drinking moderate amounts of alcohol is acceptable.",
+        "verdict": "contradicted",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "overdose-even-if-well",
+      "type": "assert",
+      "status": "pass",
+      "severity": "critical",
+      "message": "[MUST state] After taking too much, you must get medical help immediately even if you feel well. → judge: supported (The evidence states that if someone takes too much Feverol, they must consult a doctor or go to the nearest hospital immediately, even if they feel well. This directly matches the claim that 'after taking too much, you must get medical help immediately even if you feel well.' The who (the person taking too much), what (must consult a doctor or go to hospital), and condition (even if feeling well) are all present and consistent.)",
+      "evidence": [
+        "Consulte inmediatamente a su médico o acuda al hospital más cercano, incluso si se encuentra bien."
+      ],
+      "details": {
+        "evidence": "Consulte inmediatamente a su médico o acuda al hospital más cercano, incluso si se encuentra bien.",
+        "evidence_in_english": "Consult immediately with your doctor or go to the nearest hospital, even if you feel well.",
+        "reasoning": "The evidence states that if someone takes too much Feverol, they must consult a doctor or go to the nearest hospital immediately, even if they feel well. This directly matches the claim that 'after taking too much, you must get medical help immediately even if you feel well.' The who (the person taking too much), what (must consult a doctor or go to hospital), and condition (even if feeling well) are all present and consistent.",
+        "verdict": "supported",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "overdose-neg",
+      "type": "assert",
+      "status": "pass",
+      "severity": "critical",
+      "message": "[must NOT state] After taking too much, you only need medical help if you feel unwell. → judge: contradicted (The evidence states that medical help is required immediately even if the person feels well, which directly contradicts the claim that 'you only need medical help if you feel unwell'.)",
+      "evidence": [
+        "Consulte inmediatamente a su médico o acuda al hospital más cercano, incluso si se encuentra bien."
+      ],
+      "details": {
+        "evidence": "Consulte inmediatamente a su médico o acuda al hospital más cercano, incluso si se encuentra bien.",
+        "evidence_in_english": "Consult your doctor immediately or go to the nearest hospital, even if you feel well.",
+        "reasoning": "The evidence states that medical help is required immediately even if the person feels well, which directly contradicts the claim that 'you only need medical help if you feel unwell'.",
+        "verdict": "contradicted",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "children-under-12",
+      "type": "assert",
+      "status": "pass",
+      "severity": "critical",
+      "message": "[MUST state] The medicine must not be given to children under 12 years old. → judge: supported (The evidence states that Feverol should not be administered to children under 12 years old, which directly matches the claim that 'the medicine must not be given to children under 12 years old'. The wording, negation, and age threshold are identical.)",
+      "evidence": [
+        "No administre Feverol a niños menores de 12 años."
+      ],
+      "details": {
+        "evidence": "No administre Feverol a niños menores de 12 años.",
+        "evidence_in_english": "Do not administer Feverol to children under 12 years old.",
+        "reasoning": "The evidence states that Feverol should not be administered to children under 12 years old, which directly matches the claim that 'the medicine must not be given to children under 12 years old'. The wording, negation, and age threshold are identical.",
+        "verdict": "supported",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "pregnancy",
+      "type": "assert",
+      "status": "pass",
+      "severity": "major",
+      "message": "[MUST state] It may be used in pregnancy if clinically needed, at the lowest dose for the shortest time. → judge: supported (The evidence states that Feverol can be used during pregnancy if clinically necessary, and that the lowest possible dose should be used for the shortest possible time. This matches exactly with the claim that 'it may be used in pregnancy if clinically needed, at the lowest dose for the shortest time'. The wording, including the condition 'if clinically necessary', the use of 'lowest dose', and 'shortest time' are all preserved in the evidence.)",
+      "evidence": [
+        "Feverol puede utilizarse durante el embarazo si es clínicamente necesario, pero debe utilizar la dosis más baja posible durante el menor tiempo posible."
+      ],
+      "details": {
+        "evidence": "Feverol puede utilizarse durante el embarazo si es clínicamente necesario, pero debe utilizar la dosis más baja posible durante el menor tiempo posible.",
+        "evidence_in_english": "Feverol can be used during pregnancy if it is clinically necessary, but it must use the lowest possible dose for the shortest possible time.",
+        "reasoning": "The evidence states that Feverol can be used during pregnancy if clinically necessary, and that the lowest possible dose should be used for the shortest possible time. This matches exactly with the claim that 'it may be used in pregnancy if clinically needed, at the lowest dose for the shortest time'. The wording, including the condition 'if clinically necessary', the use of 'lowest dose', and 'shortest time' are all preserved in the evidence.",
+        "verdict": "supported",
+        "grounded": true
+      }
+    },
+    {
+      "test_id": "qa-liver-max",
+      "type": "qa",
+      "status": "pass",
+      "severity": "critical",
+      "message": "Q: What is the maximum daily dose for someone with liver problems? | expected: 6 tablets (3,000 mg) per day | got: 6 comprimidos (3.000 mg)",
+      "evidence": [
+        "Si tiene problemas de hígado, la dosis máxima diaria es de 6 comprimidos (3.000 mg)."
+      ],
+      "details": {
+        "answer": {
+          "evidence": "Si tiene problemas de hígado, la dosis máxima diaria es de 6 comprimidos (3.000 mg).",
+          "answer": "6 comprimidos (3.000 mg)"
+        },
+        "grade": {
+          "reason": "The reader's answer uses the correct number and dosage in milligrams, with the same quantity and unit as the expected answer, and includes the condition of liver problems implicitly through the context.",
+          "match": true
+        }
+      }
+    },
+    {
+      "test_id": "qa-gap",
+      "type": "qa",
+      "status": "pass",
+      "severity": "major",
+      "message": "Q: What is the minimum time to leave between two doses? | expected: At least 4 hours | got: 4 hours",
+      "evidence": [
+        "Deje pasar al menos 4 horas entre dosis."
+      ],
+      "details": {
+        "answer": {
+          "evidence": "Deje pasar al menos 4 horas entre dosis.",
+          "answer": "4 hours"
+        },
+        "grade": {
+          "reason": "The reader's answer '4 hours' matches the expected answer in terms of time span and numerical value.",
+          "match": true
+        }
+      }
+    },
+    {
+      "test_id": "qa-interaction",
+      "type": "qa",
+      "status": "pass",
+      "severity": "critical",
+      "message": "Q: Which medicine's effect is increased in the warfarin interaction, and what causes the increase? | expected: The effect of warfarin is increased, caused by Feverol/paracetamol taken regularly for more than a week | got: The effect of warfarin is increased due to regular consumption of Feverol for more than a week.",
+      "evidence": [
+        "Feverol can increase the effect of warfarina if taken regularly for more than a week."
+      ],
+      "details": {
+        "answer": {
+          "evidence": "Feverol can increase the effect of warfarina if taken regularly for more than a week.",
+          "answer": "The effect of warfarin is increased due to regular consumption of Feverol for more than a week."
+        },
+        "grade": {
+          "reason": "The reader's answer correctly identifies that the effect of warfarin is increased due to regular consumption of Feverol for more than a week, matching the expected answer in key facts and conditions.",
+          "match": true
+        }
+      }
+    },
+    {
+      "test_id": "qa-fever-days",
+      "type": "qa",
+      "status": "pass",
+      "severity": "major",
+      "message": "Q: After how many days of fever should the patient talk to a doctor? | expected: If the fever lasts more than 3 days | got: 3 days",
+      "evidence": [
+        "Si la fiebre dura más de 3 días o el dolor dura más de 5 días, consulte a su médico."
+      ],
+      "details": {
+        "answer": {
+          "evidence": "Si la fiebre dura más de 3 días o el dolor dura más de 5 días, consulte a su médico.",
+          "answer": "3 days"
+        },
+        "grade": {
+          "reason": "The reader's answer specifies the same number of days as the expected answer, matching the condition of fever duration.",
+          "match": true
+        }
+      }
+    }
+  ]
+}

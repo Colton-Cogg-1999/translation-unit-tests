@@ -1,0 +1,297 @@
+{
+  "mutation_score": 0.857,
+  "by_operator": {
+    "number": "2/2",
+    "drop_sentence": "2/2",
+    "and_or": "0/2",
+    "negation_drop": "2/2",
+    "comparative": "2/2",
+    "term_swap": "2/2",
+    "register": "2/2"
+  },
+  "mutants": [
+    {
+      "op": "number",
+      "before": "No administre Feverol a niños menores de 12 años.",
+      "after": "No administre Feverol a niños menores de 24 años.",
+      "killed": true,
+      "killed_by": [
+        "numbers"
+      ],
+      "summary": {
+        "tests": 25,
+        "passed": 24,
+        "failed": 1,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 0.96,
+        "penalty": 25,
+        "critical_failures": 1,
+        "verdict": "FAIL"
+      }
+    },
+    {
+      "op": "number",
+      "before": "Se utiliza para tratar el dolor leve o moderado y la fiebre en adultos y adolescentes que pesen más de 50 kg.",
+      "after": "Se utiliza para tratar el dolor leve o moderado y la fiebre en adultos y adolescentes que pesen más de 100 kg.",
+      "killed": true,
+      "killed_by": [
+        "numbers",
+        "weight-limit"
+      ],
+      "summary": {
+        "tests": 25,
+        "passed": 23,
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 0.92,
+        "penalty": 50,
+        "critical_failures": 2,
+        "verdict": "FAIL"
+      }
+    },
+    {
+      "op": "drop_sentence",
+      "before": "Feverol puede aumentar el efecto de la warfarina si se toma de forma regular durante más de una semana.",
+      "after": "",
+      "killed": true,
+      "killed_by": [
+        "warfarin-direction",
+        "qa-interaction"
+      ],
+      "summary": {
+        "tests": 25,
+        "passed": 23,
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 0.92,
+        "penalty": 50,
+        "critical_failures": 2,
+        "verdict": "FAIL"
+      }
+    },
+    {
+      "op": "drop_sentence",
+      "before": "No administre Feverol a niños menores de 12 años.",
+      "after": "",
+      "killed": true,
+      "killed_by": [
+        "numbers",
+        "children-under-12"
+      ],
+      "summary": {
+        "tests": 25,
+        "passed": 23,
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 0.92,
+        "penalty": 50,
+        "critical_failures": 2,
+        "verdict": "FAIL"
+      }
+    },
+    {
+      "op": "and_or",
+      "before": "Mantenga este medicamento fuera de la vista y del alcance de los niños.",
+      "after": "Mantenga este medicamento fuera de la vista o del alcance de los niños.",
+      "killed": false,
+      "killed_by": [],
+      "summary": {
+        "tests": 25,
+        "passed": 25,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 1.0,
+        "penalty": 0,
+        "critical_failures": 0,
+        "verdict": "PASS"
+      }
+    },
+    {
+      "op": "and_or",
+      "before": "Esto se debe a que una cantidad excesiva de paracetamol puede causar daños graves y tardíos en el hígado.",
+      "after": "Esto se debe a que una cantidad excesiva de paracetamol puede causar daños graves o tardíos en el hígado.",
+      "killed": false,
+      "killed_by": [],
+      "summary": {
+        "tests": 25,
+        "passed": 25,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 1.0,
+        "penalty": 0,
+        "critical_failures": 0,
+        "verdict": "PASS"
+      }
+    },
+    {
+      "op": "negation_drop",
+      "before": "No administre Feverol a niños menores de 12 años.",
+      "after": "Administre Feverol a niños menores de 12 años.",
+      "killed": true,
+      "killed_by": [
+        "children-under-12"
+      ],
+      "summary": {
+        "tests": 25,
+        "passed": 24,
+        "failed": 1,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 0.96,
+        "penalty": 25,
+        "critical_failures": 1,
+        "verdict": "FAIL"
+      }
+    },
+    {
+      "op": "negation_drop",
+      "before": "No tome más de 8 comprimidos (4.000 mg) en 24 horas.",
+      "after": "Tome más de 8 comprimidos (4.000 mg) en 24 horas.",
+      "killed": true,
+      "killed_by": [
+        "max-daily-dose",
+        "max-daily-dose-neg"
+      ],
+      "summary": {
+        "tests": 25,
+        "passed": 23,
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 0.92,
+        "penalty": 50,
+        "critical_failures": 2,
+        "verdict": "FAIL"
+      }
+    },
+    {
+      "op": "comparative",
+      "before": "No conservar a temperatura superior a 25 °C.",
+      "after": "No conservar a temperatura inferior a 25 °C.",
+      "killed": true,
+      "killed_by": [
+        "storage-temp"
+      ],
+      "summary": {
+        "tests": 25,
+        "passed": 24,
+        "failed": 1,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 0.96,
+        "penalty": 1,
+        "critical_failures": 0,
+        "verdict": "WARN"
+      }
+    },
+    {
+      "op": "comparative",
+      "before": "Feverol puede aumentar el efecto de la warfarina si se toma de forma regular durante más de una semana.",
+      "after": "Feverol puede aumentar el efecto de la warfarina si se toma de forma regular durante menos de una semana.",
+      "killed": true,
+      "killed_by": [
+        "qa-interaction"
+      ],
+      "summary": {
+        "tests": 25,
+        "passed": 24,
+        "failed": 1,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 0.96,
+        "penalty": 25,
+        "critical_failures": 1,
+        "verdict": "FAIL"
+      }
+    },
+    {
+      "op": "term_swap",
+      "before": "Si tiene problemas de hígado, la dosis máxima diaria es de 6 comprimidos (3.000 mg).",
+      "after": "Si tiene problemas de hígado, la dosis máxima diaria es de 6 tableta (3.000 mg).",
+      "killed": true,
+      "killed_by": [
+        "glossary",
+        "tablet-consistency"
+      ],
+      "summary": {
+        "tests": 25,
+        "passed": 23,
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 0.92,
+        "penalty": 10,
+        "critical_failures": 0,
+        "verdict": "WARN"
+      }
+    },
+    {
+      "op": "term_swap",
+      "before": "No tome más de 8 comprimidos (4.000 mg) en 24 horas.",
+      "after": "No tome más de 8 pastilla (4.000 mg) en 24 horas.",
+      "killed": true,
+      "killed_by": [
+        "glossary",
+        "tablet-consistency"
+      ],
+      "summary": {
+        "tests": 25,
+        "passed": 23,
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 0.92,
+        "penalty": 10,
+        "critical_failures": 0,
+        "verdict": "WARN"
+      }
+    },
+    {
+      "op": "register",
+      "before": "Si la fiebre dura más de 3 días o el dolor dura más de 5 días, consulte a su médico.",
+      "after": "Si la fiebre dura más de 3 días o el dolor dura más de 5 días, consulte a tu médico.",
+      "killed": true,
+      "killed_by": [
+        "usted-register",
+        "tu-markers"
+      ],
+      "summary": {
+        "tests": 25,
+        "passed": 23,
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 0.92,
+        "penalty": 6,
+        "critical_failures": 0,
+        "verdict": "WARN"
+      }
+    },
+    {
+      "op": "register",
+      "before": "Trague los comprimidos enteros con un vaso de agua.",
+      "after": "Traga los comprimidos enteros con un vaso de agua.",
+      "killed": true,
+      "killed_by": [
+        "usted-register"
+      ],
+      "summary": {
+        "tests": 25,
+        "passed": 24,
+        "failed": 1,
+        "errors": 0,
+        "skipped": 0,
+        "pass_rate": 0.96,
+        "penalty": 5,
+        "critical_failures": 0,
+        "verdict": "WARN"
+      }
+    }
+  ]
+}

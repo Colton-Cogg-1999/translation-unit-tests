@@ -1,0 +1,259 @@
+{
+  "calibration": {
+    "tests": 22,
+    "passed": 17,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 5,
+    "pass_rate": 1.0,
+    "penalty": 0,
+    "critical_failures": 0,
+    "verdict": "PASS"
+  },
+  "suite_good": {
+    "tests": 22,
+    "passed": 22,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass_rate": 1.0,
+    "penalty": 0,
+    "critical_failures": 0,
+    "verdict": "PASS"
+  },
+  "suite_flawed": {
+    "tests": 22,
+    "passed": 8,
+    "failed": 14,
+    "errors": 0,
+    "skipped": 0,
+    "pass_rate": 0.364,
+    "penalty": 206,
+    "critical_failures": 7,
+    "verdict": "FAIL"
+  },
+  "suite_mt_sentence": {
+    "tests": 22,
+    "passed": 22,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass_rate": 1.0,
+    "penalty": 0,
+    "critical_failures": 0,
+    "verdict": "PASS"
+  },
+  "suite_mt_document": {
+    "tests": 22,
+    "passed": 22,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass_rate": 1.0,
+    "penalty": 0,
+    "critical_failures": 0,
+    "verdict": "PASS"
+  },
+  "detection": [
+    {
+      "error": "E1",
+      "doc_level": false,
+      "transtest": true,
+      "transtest_tests": [
+        "weight-limit"
+      ],
+      "labse_flag": false,
+      "gemba_flag": true,
+      "segments": [
+        {
+          "src": "It is used to treat mild to moderate pain and fever in adults and adolescents weighing more than 50 kg.",
+          "tgt": "Se utiliza para tratar el dolor leve o moderado y la fiebre en adultos y adolescentes que pesen menos de 50 kg.",
+          "labse": 0.872,
+          "gemba": 40.0
+        }
+      ]
+    },
+    {
+      "error": "E2",
+      "doc_level": false,
+      "transtest": true,
+      "transtest_tests": [
+        "kidney-and-age",
+        "kidney-and-age-neg"
+      ],
+      "labse_flag": false,
+      "gemba_flag": true,
+      "segments": [
+        {
+          "src": "Talk to your doctor before taking Feverol if you have kidney problems and are over 65 years of age.",
+          "tgt": "Consulte a su médico antes de tomar Feverol si tiene problemas de riñón o es mayor de 65 años.",
+          "labse": 0.955,
+          "gemba": 72.0
+        }
+      ]
+    },
+    {
+      "error": "E3",
+      "doc_level": true,
+      "transtest": true,
+      "transtest_tests": [
+        "qa-interaction",
+        "warfarin-direction",
+        "warfarin-direction-neg"
+      ],
+      "labse_flag": false,
+      "gemba_flag": true,
+      "segments": [
+        {
+          "src": "It can increase the effect of warfarin when taken regularly for more than a week.",
+          "tgt": "La warfarina puede aumentar el efecto de este medicamento si se toma de forma regular durante más de una semana.",
+          "labse": 0.885,
+          "gemba": 28.0
+        }
+      ]
+    },
+    {
+      "error": "E4",
+      "doc_level": false,
+      "transtest": false,
+      "transtest_tests": [],
+      "labse_flag": false,
+      "gemba_flag": true,
+      "segments": [
+        {
+          "src": "Avoid drinking alcohol while you are taking this medicine.",
+          "tgt": "Evite beber alcohol en exceso mientras esté tomando este medicamento.",
+          "labse": 0.906,
+          "gemba": 62.0
+        }
+      ]
+    },
+    {
+      "error": "E5",
+      "doc_level": true,
+      "transtest": true,
+      "transtest_tests": [
+        "glossary",
+        "tablet-consistency"
+      ],
+      "labse_flag": false,
+      "gemba_flag": false,
+      "segments": [
+        {
+          "src": "The recommended dose is 1 or 2 tablets every 4 to 6 hours as needed.",
+          "tgt": "La dosis recomendada es de 1 o 2 tabletas cada 4 a 6 horas, según sea necesario.",
+          "labse": 0.97,
+          "gemba": 94.0
+        },
+        {
+          "src": "Do not take more than 8 tablets (4,000 mg) in 24 hours.",
+          "tgt": "No tome más de 8 tabletas (4.000 mg) en 24 horas.",
+          "labse": 0.973,
+          "gemba": 96.0
+        },
+        {
+          "src": "Swallow the tablets whole with a glass of water.",
+          "tgt": "Trágate las pastillas enteras con un vaso de agua.",
+          "labse": 0.929,
+          "gemba": 95.0
+        }
+      ]
+    },
+    {
+      "error": "E6",
+      "doc_level": true,
+      "transtest": true,
+      "transtest_tests": [
+        "coverage"
+      ],
+      "labse_flag": true,
+      "gemba_flag": true,
+      "segments": [
+        {
+          "src": "Leave at least 4 hours between doses.",
+          "tgt": "No tome más de 8 tabletas (4.000 mg) en 24 horas.",
+          "labse": 0.619,
+          "gemba": 5.0
+        }
+      ]
+    },
+    {
+      "error": "E7",
+      "doc_level": false,
+      "transtest": true,
+      "transtest_tests": [
+        "numbers",
+        "qa-liver-max"
+      ],
+      "labse_flag": true,
+      "gemba_flag": true,
+      "segments": [
+        {
+          "src": "If you have liver problems, the maximum daily dose is 6 tablets (3,000 mg).",
+          "tgt": "Si tiene problemas de hígado, la dosis máxima diaria es de 8 comprimidos (4.000 mg).",
+          "labse": 0.794,
+          "gemba": 12.0
+        }
+      ]
+    },
+    {
+      "error": "E8",
+      "doc_level": true,
+      "transtest": true,
+      "transtest_tests": [
+        "tu-markers",
+        "usted-register"
+      ],
+      "labse_flag": false,
+      "gemba_flag": false,
+      "segments": [
+        {
+          "src": "Swallow the tablets whole with a glass of water.",
+          "tgt": "Trágate las pastillas enteras con un vaso de agua.",
+          "labse": 0.929,
+          "gemba": 95.0
+        },
+        {
+          "src": "If your fever lasts more than 3 days or your pain lasts more than 5 days, talk to your doctor.",
+          "tgt": "Si la fiebre te dura más de 3 días o el dolor más de 5 días, habla con tu médico.",
+          "labse": 0.965,
+          "gemba": 93.0
+        }
+      ]
+    },
+    {
+      "error": "E9",
+      "doc_level": false,
+      "transtest": true,
+      "transtest_tests": [
+        "overdose-even-if-well"
+      ],
+      "labse_flag": false,
+      "gemba_flag": true,
+      "segments": [
+        {
+          "src": "Contact your doctor or go to the nearest hospital immediately, even if you feel well.",
+          "tgt": "Consulte inmediatamente a su médico o acuda al hospital más cercano si no se encuentra bien.",
+          "labse": 0.802,
+          "gemba": 40.0
+        }
+      ]
+    }
+  ],
+  "false_positives": {
+    "transtest_failed_tests_on_good": [],
+    "labse_flags_on_good": 1,
+    "gemba_flags_on_good": 2,
+    "n_segments": 31
+  },
+  "segment_qe_mean": {
+    "good": {
+      "labse": 0.9293548387096773,
+      "gemba": 93.48387096774194
+    },
+    "flawed": {
+      "labse": 0.9103548387096773,
+      "gemba": 80.7741935483871
+    }
+  }
+}

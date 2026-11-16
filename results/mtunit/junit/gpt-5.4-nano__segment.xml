@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="gpt-5.4-nano__segment" tests="92" failures="20">
+  <testcase classname="negation" name="negation-01"></testcase>
+  <testcase classname="negation" name="negation-02"></testcase>
+  <testcase classname="negation" name="negation-03"></testcase>
+  <testcase classname="negation" name="negation-04"></testcase>
+  <testcase classname="negation" name="negation-05"></testcase>
+  <testcase classname="negation" name="negation-06"></testcase>
+  <testcase classname="negation" name="negation-07"></testcase>
+  <testcase classname="negation" name="negation-08"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-01"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-02"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-03"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-04"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-05"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-06"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-07"><failure message="contains: none of ['20:00', '20.00'] found">["Tome 0,5 mg dos veces al día, a las 8:00 de la mañana y a las 8:00 de la tarde.", "No exceder 1,5 mg en 24 horas."]</failure></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-08"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-01"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-02"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-03"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-04"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-05"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-06"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-07"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-08"></testcase>
+  <testcase classname="dnt" name="dnt-02"></testcase>
+  <testcase classname="dnt" name="dnt-03"></testcase>
+  <testcase classname="dnt" name="dnt-04"></testcase>
+  <testcase classname="dnt" name="dnt-05"><failure message="preserve: missing ['&quot;Dream Yard&quot;']; judge: The app name was translated into Spanish as 'Hogar y Jardín' instead of being left as 'Home &amp; Garden', so the property does not hold (even though it is not literally 'Casa y Jardín').">["Descarga la aplicación Hogar y Jardín desde la App Store o Google Play.", "Toca “Dream Yard” para diseñar tu espacio exterior."]</failure></testcase>
+  <testcase classname="dnt" name="dnt-06"></testcase>
+  <testcase classname="dnt" name="dnt-07"></testcase>
+  <testcase classname="dnt" name="dnt-08"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-01"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-02"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-03"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-04"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-05"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-06"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-07"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-08"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-01"><failure message="contains: none of ['iniciarla', 'abrirla', 'lanzarla', 'ejecutarla', 'iniciarla.', 'abrirla.'] found; not_contains: found ['iniciarlo']">["Abre la aplicación Ajustes.", "A continuación, toca el icono para iniciarlo."]</failure></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-02"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-03"><failure message="contains: none of ['encantada', 'emocionada', 'entusiasmada', 'ilusionada', 'feliz'] found">["Conoce a Clara, nuestra nueva embajadora de marca.", "Es conocida por su energía y le hace mucha ilusión unirse a nosotros."]</failure></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-04"><failure message="contains: none of ['pídelas', 'pídalas', 'encárgalas', 'cómpralas', 'solicítalas', 'pedirlas', 'pídelas hoy', 'haz tu pedido'] found">["Nuestras nuevas zapatillas son ligeras y transpirables.", "Pídelo hoy y te llegará mañana."]</failure></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-05"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-06"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-07"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-08"><failure message="contains: none of ['seguro', 'bien colocado', 'fijo', 'sujeto', 'firme'] found; not_contains: found ['segura']">["La enfermera colocará el sensor en su brazo.", "A continuación, comprobará que esté bien asegurado."]</failure></testcase>
+  <testcase classname="term_consistency" name="term_consistency-01"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-02"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-03"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-04"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-05"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-07"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-08"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-01"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-02"><failure message="judge: Segments 1-2 use informal tú (abre, Selecciona, elige), while segment 3 switches to formal usted (necesita, póngase), so the register is inconsistent.; judge: Segments 1 and 2 use informal tú forms (&quot;abre&quot;, &quot;Selecciona&quot;, &quot;elige&quot;), while segment 3 switches to formal usted forms (&quot;necesita&quot;, &quot;póngase&quot;), so the register is inconsistent.">["Para cambiar el idioma, abre Configuración.", "Selecciona el idioma y elige una opción de la lista.", "Si necesita ayuda, póngase en contacto con nuestro equipo de soporte."]</failure></testcase>
+  <testcase classname="register_consistency" name="register_consistency-03"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-04"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-05"><failure message="judge: Segment 1 uses the informal tú verb form &quot;aceptas&quot;, while segments 2-4 use formal usted (&quot;Es su responsabilidad&quot;, &quot;no utilice&quot;, &quot;con usted&quot;), so the register is inconsistent.">["Al utilizar el Servicio, aceptas estos Términos.", "Es su responsabilidad mantener la confidencialidad de las credenciales de su cuenta.", "Si no está de acuerdo, no utilice el Servicio.", "Podemos ponernos en contacto con usted en la dirección de correo electrónico que proporcionó."]</failure></testcase>
+  <testcase classname="register_consistency" name="register_consistency-06"><skipped message="judge evidence not grounded"/></testcase>
+  <testcase classname="register_consistency" name="register_consistency-07"><failure message="judge: Segments 1-3 use the formal usted register (lávese, coloque, pulse, utilice, su), while segment 4 switches to informal tú (Pregunta, tu, tienes), so the register is inconsistent.">["Antes de utilizar el dispositivo, lávese las manos.", "Coloque el sensor en su dedo y pulse Inicio.", "No utilice el dispositivo si se siente mareado/a.", "Pregunta a tu médico si tienes alguna duda."]</failure></testcase>
+  <testcase classname="register_consistency" name="register_consistency-08"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-01"><failure message="contains: none of ['el otro', 'otro informe'] found; judge: Segment 3 does not translate 'Do the same for the other one' at all; it is a request for more text, does not express repeating the action, and uses feminine 'la otra' rather than masculine 'otro'.">["Seleccione el informe que desea exportar.", "Haga clic en Compartir.", "¿Puedes enviarme el texto de la otra cadena (o el fragmento completo) que quieres traducir?"]</failure></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-02"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-03"><failure message="judge: The pronoun 'lo' in 'devuélvelo' refers to the cream (crema, feminine), so it should be 'devuélvela'; the masculine form violates the property.">["Prueba nuestra nueva crema hidratante durante 30 días.", "Si no te encanta, devuélvelo.", "Esto también se aplica al tamaño de viaje."]</failure></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-04"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-05"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-06"><failure message="contains: none of ['este último', 'el último', 'el segundo', 'número de teléfono', 'teléfono'] found; judge: 'lo último' is a neuter, generic form that does not clearly refer to the phone number and is not a masculine singular form agreeing with 'número' (such as 'este último'), so the specific referent and agreement are not expressed.">["Recogemos su dirección de correo electrónico y su número de teléfono.", "No compartimos lo último con terceros."]</failure></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-07"><failure message="judge: The translation uses masculine 'lo' in 'sustitúyalo' and 'usarlo' instead of feminine 'la' (e.g. 'sustitúyala', 'usarla') to match 'tapa' or 'aguja'.">["Retire la tapa de la pluma de insulina.", "Coloque una aguja nueva.", "Luego sustitúyalo después de usarlo."]</failure></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-08"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-01"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-02"><failure message="contains: none of ['está embarazada', 'estás embarazada', 'esté embarazada', 'estéis embarazadas', 'se encuentra embarazada', 'está embarazada o', 'esté embarazada o'] found; judge: Segments 2 and 4 use third-person plural feminine forms (están, son), while segment 3 uses the infinitive 'tener', so the items are inconsistent with each other and with the lead-in, and segment 3 does not complete the sentence grammatically.">["No utilice el dispositivo si:", "están embarazadas", "tener un marcapasos", "son alérgicas al níquel"]</failure></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-03"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-04"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-05"><failure message="judge: Segments 2 and 3 are infinitives that complete 'debes:', but segment 4 switches to a tú imperative ('haz clic'), which mixes forms and does not fit the lead-in grammatically.">["Para restablecer tu contraseña, debes:", "abrir el menú Configuración", "seleccionar Seguridad", "haz clic en Restablecer"]</failure></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-06"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-07"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-08"><failure message="judge: Segment 3 'envío' is a noun/first-person singular form rather than a plural verb agreeing with 'pedidos', segment 4 uses the infinitive 'incluir' instead of a plural finite verb, and segment 2 'son más de 50 $' is plural but in a different mood from what is expected, so moods are inconsistent; only the negation in segment 4 is kept.; contains: none of ['no incluy', 'no contengan', 'no contienen', 'no lleven', 'no lleven', 'no incorporen', 'sin '] found">["El envío gratuito solo se aplica a los pedidos que:", "son más de 50 $", "envío dentro de España", "no incluir artículos voluminosos"]</failure></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-01"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-02"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-03"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-04"><failure message="contains: none of ['disco', 'discos', 'álbum', 'álbumes', 'LP'] found; not_contains: found ['registro']">["Únete al legendario club de coleccionistas de vinilo.", "Cada registro de nuestro catálogo se edita en vinilo de 180 gramos."]</failure></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-05"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-06"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-07"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-08"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-01"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-02"><failure message="contains: none of ['Configuración'] found; not_contains: found ['Ajustes']">["Configuración", "Abre el menú Configuración y selecciona Privacidad.", "Puedes volver a Ajustes en cualquier momento."]</failure></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-03"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-05"><failure message="contains: none of ['Acepto'] found">["Acepto", "Al hacer clic en Acepto, acepta estos Términos del Servicio.", "Si no está de acuerdo, no haga clic en «Aceptar»."]</failure></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-06"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-07"><failure message="contains: none of ['Iniciar'] found; contains: none of ['Iniciar'] found">["¿Que texto deseas que traduzca al español (España)?", "Para comenzar su perfusión, pulse «Start» en la pantalla del equipo.", "Para pausar, pulse Parar. Para reanudar, pulse Iniciar de nuevo."]</failure></testcase>
+</testsuite>

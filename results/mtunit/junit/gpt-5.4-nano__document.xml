@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="gpt-5.4-nano__document" tests="92" failures="8">
+  <testcase classname="negation" name="negation-01"></testcase>
+  <testcase classname="negation" name="negation-02"></testcase>
+  <testcase classname="negation" name="negation-03"></testcase>
+  <testcase classname="negation" name="negation-04"></testcase>
+  <testcase classname="negation" name="negation-05"></testcase>
+  <testcase classname="negation" name="negation-06"></testcase>
+  <testcase classname="negation" name="negation-07"></testcase>
+  <testcase classname="negation" name="negation-08"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-01"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-02"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-03"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-04"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-05"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-06"></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-07"><failure message="contains: none of ['20:00', '20.00'] found">["1. Tome 0,5 mg dos veces al día, a las 8:00 a. m. y a las 8:00 p. m.", "2. No exceda 1,5 mg en 24 horas."]</failure></testcase>
+  <testcase classname="numbers_locale" name="numbers_locale-08"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-01"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-02"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-03"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-04"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-05"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-06"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-07"></testcase>
+  <testcase classname="placeholders_tags" name="placeholders_tags-08"></testcase>
+  <testcase classname="dnt" name="dnt-02"></testcase>
+  <testcase classname="dnt" name="dnt-03"></testcase>
+  <testcase classname="dnt" name="dnt-04"></testcase>
+  <testcase classname="dnt" name="dnt-05"></testcase>
+  <testcase classname="dnt" name="dnt-06"></testcase>
+  <testcase classname="dnt" name="dnt-07"></testcase>
+  <testcase classname="dnt" name="dnt-08"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-01"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-02"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-03"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-04"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-05"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-06"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-07"></testcase>
+  <testcase classname="condition_scope" name="condition_scope-08"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-01"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-02"><failure message="contains: none of ['subido', 'cargado', 'guardado'] found">["1. Selecciona el archivo que quieres compartir.", "2. Cuando se cargue, aparecerá en tu biblioteca."]</failure></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-03"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-04"><failure message="contains: none of ['pídelas', 'pídalas', 'encárgalas', 'cómpralas', 'solicítalas', 'pedirlas', 'pídelas hoy', 'haz tu pedido'] found">["Nuestros nuevos tenis son ligeros y transpirables.", "Pídeselos hoy y te llegarán mañana."]</failure></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-05"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-06"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-07"></testcase>
+  <testcase classname="coreference_agreement" name="coreference_agreement-08"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-01"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-02"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-03"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-04"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-05"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-07"></testcase>
+  <testcase classname="term_consistency" name="term_consistency-08"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-01"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-02"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-03"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-04"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-05"><failure message="judge: All four segments use informal tú forms (aceptas, Eres, tu, estás, no utilices, contigo, has proporcionado) instead of formal usted, so the property fails.; not_contains: found [' tu ']">["1. Al utilizar el Servicio, aceptas estos Términos.", "2. Eres responsable de mantener confidenciales las credenciales de tu cuenta.", "3. Si no estás de acuerdo, no utilices el Servicio.", "4. Podemos ponernos en contacto contigo en la dirección de correo electrónico que has proporcionado."]</failure></testcase>
+  <testcase classname="register_consistency" name="register_consistency-06"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-07"></testcase>
+  <testcase classname="register_consistency" name="register_consistency-08"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-01"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-02"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-03"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-04"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-05"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-06"></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-07"><failure message="judge: The translation does not use a feminine pronoun for 'it' as the object of replacing; it repeats the masculine noun 'el capuchón' and only has 'usarla' (feminine, likely referring to the needle), so the pronoun 'la' appears but is inconsistent with its masculine antecedent 'capuchón' and the required clitic pairing with the replacing verb is absent.">["1. Retire el capuchón de la pluma de insulina.", "2. Coloque una aguja nueva.", "3. A continuación, vuelva a colocar el capuchón después de usarla."]</failure></testcase>
+  <testcase classname="implicit_subject_ellipsis" name="implicit_subject_ellipsis-08"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-01"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-02"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-03"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-04"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-05"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-06"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-07"></testcase>
+  <testcase classname="list_inheritance" name="list_inheritance-08"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-01"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-02"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-03"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-04"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-05"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-06"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-07"></testcase>
+  <testcase classname="context_disambiguation" name="context_disambiguation-08"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-01"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-02"><failure message="contains: none of ['Configuración'] found; contains: none of ['Configuración'] found; contains: none of ['Configuración'] found; not_contains: found ['Ajustes']">["1. Ajustes", "2. Abre el menú de Ajustes y selecciona Privacidad.", "3. Puedes volver a Ajustes en cualquier momento."]</failure></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-03"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-05"><failure message="contains: none of ['Acepto'] found; contains: none of ['Acepto'] found">["1. Acepto 2. Al hacer clic en Acepto, acepta estos Términos de servicio. 3. Si no está de acuerdo, no haga clic en Acepto.", "", ""]</failure></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-06"></testcase>
+  <testcase classname="ui_reference_consistency" name="ui_reference_consistency-07"><failure message="contains: none of ['Iniciar'] found; contains: none of ['Iniciar'] found">["1. Inicio", "2. Para iniciar su perfusión, pulse Inicio en la pantalla de la bomba.", "3. Para pausar, pulse Parar. Para reanudar, pulse Inicio de nuevo."]</failure></testcase>
+</testsuite>
