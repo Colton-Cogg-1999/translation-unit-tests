@@ -8,6 +8,7 @@ Configuration comes from `.env` (see that file) or real environment variables:
   L10N_LLM_MODEL       fallback for both
   L10N_LLM_BASE_URL    override the endpoint (e.g. https://api.openai.com/v1 with OPENAI_API_KEY)
   use_openai()         switch this process to the OpenAI API directly (OPENAI_API_KEY); used by benchmark/
+  common.batch         queue uncached requests for the OpenAI Batch API (half price) instead of sending them
   L10N_OFFLINE=1       answer only from the cache; a cache miss raises CacheMiss instead of calling an API.
                        Used to replay the study from results/cache/ (see `python -m common.cache`).
 
@@ -61,6 +62,14 @@ after_api_call = None
 
 class CacheMiss(RuntimeError):
     """Raised in offline mode (L10N_OFFLINE=1) when a request is not in the cache."""
+
+
+class Deferred(CacheMiss):
+    """Raised in batch mode: the request was queued for the Batch API (see common.batch) instead of sent."""
+
+
+BATCH = False                  # set by common.batch: uncached requests are queued, not sent
+pending: dict[str, dict] = {}  # cache key -> request body, waiting for the next batch
 
 
 def use_openai(reasoning_effort: str = "low") -> None:
@@ -122,6 +131,10 @@ def chat(
 
     if OFFLINE:
         raise CacheMiss(f"not in cache (model={model}): {json.dumps(messages, ensure_ascii=False)[:200]}")
+    if BATCH:
+        with _lock:
+            pending[key] = request_body(model, messages, temperature, max_tokens, effort, direct)
+        raise Deferred(key)
     if before_api_call is not None:
         before_api_call()   # e.g. a spending cap; runs only when a request will actually reach the API
     try:
@@ -131,8 +144,8 @@ def chat(
             after_api_call()
 
 
-def _call_api(model, messages, temperature, max_tokens, effort, direct, key, use_cache) -> str:
-
+def request_body(model, messages, temperature, max_tokens, effort, direct) -> dict:
+    """The chat.completions request chat() sends (also the body of a Batch API request)."""
     kw: dict = {"model": model, "messages": messages, "temperature": temperature}
     if direct:
         # OpenAI reasoning models: temperature is fixed at 1 unless reasoning is off; reasoning tokens count
@@ -148,7 +161,11 @@ def _call_api(model, messages, temperature, max_tokens, effort, direct, key, use
             kw["extra_body"] = {"reasoning": {"effort": REASONING_EFFORT, "exclude": True}}
     else:
         kw["max_tokens"] = max_tokens
+    return kw
 
+
+def _call_api(model, messages, temperature, max_tokens, effort, direct, key, use_cache) -> str:
+    kw = request_body(model, messages, temperature, max_tokens, effort, direct)
     out, resp = "", None
     for attempt in range(3):
         resp = _get_client().chat.completions.create(**kw)

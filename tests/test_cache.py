@@ -62,3 +62,40 @@ class _FakeClient:
         choice = type("C", (), {"message": msg})()
         resp = type("R", (), {"choices": [choice]})()
         self.chat = type("Chat", (), {"completions": type("Comp", (), {"create": staticmethod(lambda **kw: resp)})()})()
+
+
+def test_batch_mode_queues_submits_and_answers_from_cache(tmp_cache, monkeypatch):
+    from types import SimpleNamespace as NS
+
+    from common import batch
+
+    submitted = []
+
+    class Files:
+        def create(self, file, purpose):
+            submitted.append([json.loads(line) for line in file[1].getvalue().decode().splitlines()])
+            return NS(id="file-in")
+
+        def content(self, file_id):
+            lines = [json.dumps({"custom_id": r["custom_id"], "response": {"body": {
+                "choices": [{"message": {"content": "respuesta"}}],
+                "usage": {"prompt_tokens": 10, "completion_tokens": 3}}}}) for r in submitted[-1]]
+            return NS(text="\n".join(lines))
+
+    class Batches:
+        def create(self, **kw):
+            return NS(id="batch-1")
+
+        def retrieve(self, batch_id):
+            return NS(status="completed", output_file_id="file-out", request_counts=None)
+
+    monkeypatch.setattr(llm, "_get_client", lambda: NS(files=Files(), batches=Batches()))
+    with batch.mode():
+        with pytest.raises(llm.Deferred):
+            llm.chat("hola", model="m")
+        assert batch.flush(log=lambda *_: None) == 1
+        assert llm.chat("hola", model="m") == "respuesta"      # answered from the cache now
+        assert batch.flush(log=lambda *_: None) == 0
+    assert submitted[0][0]["url"] == "/v1/chat/completions" and submitted[0][0]["body"]["model"] == "m"
+    model, = llm._get_db().execute("SELECT model FROM usage").fetchone()
+    assert model == "m@batch"
