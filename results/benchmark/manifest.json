@@ -7,9 +7,10 @@
   "clean_segments_per_leaflet": 12,
   "detect_effort": "low",
   "detect_models": [
-   "gpt-5.4-mini-2026-03-17"
+   "gpt-5.4-mini-2026-03-17",
+   "gpt-5.6-luna"
   ],
-  "detector_calls": 1720,
+  "detector_calls": 3440,
   "diagnosis_model": "gpt-5.4-2026-03-05",
   "documents": 20,
   "endpoint": "https://api.openai.com/v1",

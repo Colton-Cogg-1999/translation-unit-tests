@@ -1,22 +1,25 @@
 """Run every detector on the clean documents and on every planted-error variant, then check each detection.
 
-  uv run python -m benchmark.run [--pilot]
+  uv run python -m benchmark.run [--pilot] [--no-batch]
 
 Clean documents give false-alarm rates and token cost per document; variants give recall. A detection counts
 only if a detector flags the edited segment AND an independent model confirms the flag describes the planted
 change (not some other problem in that segment).
 
-Writes results/benchmark/detections.jsonl, diagnosis.jsonl and manifest.json.
+Uncached requests go through the OpenAI Batch API (half price) unless --no-batch: the whole pass is attempted,
+everything not yet answered is submitted in one batch per model, and the pass repeats (detections, then their
+diagnoses, then any JSON repairs). Writes results/benchmark/detections.jsonl, diagnosis.jsonl and manifest.json.
 """
 
 from __future__ import annotations
 
 import argparse
+import contextlib
 import json
 import random
 from concurrent.futures import ThreadPoolExecutor
 
-from common import llm
+from common import batch, llm
 from common.llm import chat_json
 from common.manifest import prompt_hash, update_manifest
 
@@ -74,6 +77,8 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--pilot", action="store_true", help="use variants.pilot.jsonl")
     ap.add_argument("--models", default=",".join(config.DETECT_MODELS))
+    ap.add_argument("--no-batch", dest="batch", action="store_false",
+                    help="send uncached requests one by one instead of through the Batch API")
     a = ap.parse_args(argv)
     llm.use_openai(config.DETECT_EFFORT)
     budget.install()
@@ -100,18 +105,36 @@ def main(argv=None):
     print(f"{llm.describe()}\n{len(jobs)} detector calls over {len(docs)} clean documents and {len(variants)} "
           f"variants x {len(models)} models", flush=True)
 
-    done = [0]
+    use_batch = a.batch and not llm.OFFLINE
+    with batch.mode() if use_batch else contextlib.nullcontext():
+        for rnd in range(1, 41):
+            rows, diag = execute(jobs, variants)
+            if rows is not None and diag is not None:
+                break
+            print(f"round {rnd}: sending queued requests through the Batch API", flush=True)
+            if not batch.flush(max_requests=config.BATCH_MAX_REQUESTS):
+                raise RuntimeError("requests were deferred but none were queued")
+        else:
+            raise RuntimeError("requests still unanswered after 40 batch rounds")
+    write_outputs(rows, diag, sfx, docs, variants, models, len(jobs))
 
-    def run(job):
-        meta, fn = job
-        r = {**meta, **fn()}
-        done[0] += 1
-        if done[0] % 500 == 0:
-            print(f"  {done[0]}/{len(jobs)}", flush=True)
-        return r
 
+def _attempt(fn):
+    """fn() or None if a request was queued for the Batch API."""
+    try:
+        return fn()
+    except llm.Deferred:
+        return None
+
+
+def execute(jobs, variants):
+    """Run every detector job, then diagnose detections. Returns (rows, diag), or Nones while requests are queued.
+    In batch mode the whole pass is attempted, so one round queues everything that can be queued."""
     with ThreadPoolExecutor(config.WORKERS) as ex:
-        rows = list(ex.map(run, jobs))
+        res = list(ex.map(lambda j: _attempt(lambda: {**j[0], **j[1]()}), jobs))
+    if any(r is None for r in res):
+        return None, None
+    rows = res
 
     # diagnosis: one call per (variant, detector, model) whose flags touch the edited segment
     vby = {v["id"]: v for v in variants}
@@ -125,8 +148,13 @@ def main(argv=None):
     print(f"diagnosing {len(groups)} detections", flush=True)
     keys = sorted(groups)
     with ThreadPoolExecutor(config.WORKERS) as ex:
-        verdicts = list(ex.map(lambda k: diagnose(vby[k[0]], groups[k]), keys))
-    diag = [{"variant": k[0], "detector": k[1], "model": k[2], "matches": m} for k, m in zip(keys, verdicts)]
+        verdicts = list(ex.map(lambda k: _attempt(lambda: diagnose(vby[k[0]], groups[k])), keys))
+    if any(v is None for v in verdicts):
+        return rows, None
+    return rows, [{"variant": k[0], "detector": k[1], "model": k[2], "matches": m} for k, m in zip(keys, verdicts)]
+
+
+def write_outputs(rows, diag, sfx, docs, variants, models, n_jobs):
 
     order = lambda r: (r["model"], r["variant"] or "", r["doc"], r["detector"], r["check"] or "", r["segment"] or 0)  # noqa: E731
     (OUT / f"detections{sfx}.jsonl").write_text(
@@ -137,7 +165,7 @@ def main(argv=None):
         "endpoint": llm.BASE_URL, "plant_model": config.PLANT_MODEL, "plant_effort": config.PLANT_EFFORT,
         "detect_models": models, "detect_effort": config.DETECT_EFFORT, "diagnosis_model": config.DIAGNOSIS_MODEL,
         "candidates_per_doc": config.CANDIDATES_PER_DOC, "clean_segments_per_leaflet": config.CLEAN_SEGMENTS_PER_LEAFLET, "max_per_cell": config.MAX_PER_CELL, "seed": config.SEED,
-        "documents": len(docs), "variants": len(variants), "detector_calls": len(jobs),
+        "documents": len(docs), "variants": len(variants), "detector_calls": n_jobs,
         "prompt_hashes": {
             "plant": prompt_hash(plant.PLANT_PROMPT, *plant.FAMILY_RULE.values()),
             "verify": prompt_hash(plant.VERIFY_PROMPT),

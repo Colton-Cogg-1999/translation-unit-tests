@@ -5,7 +5,7 @@ SEED = 20261124
 # A different model plants and verifies errors than the models that detect them.
 PLANT_MODEL = "gpt-5.5-2026-04-23"
 PLANT_EFFORT = "medium"
-DETECT_MODELS = ["gpt-5.4-mini-2026-03-17"]   # gpt-5.4 ran in the pilot only (budget)
+DETECT_MODELS = ["gpt-5.4-mini-2026-03-17", "gpt-5.6-luna"]   # gpt-5.4 ran in the pilot only (budget)
 DETECT_EFFORT = "low"
 DIAGNOSIS_MODEL = "gpt-5.4-2026-03-05"   # checks that a detection describes the planted change; not the detector
 
@@ -22,7 +22,10 @@ WORKERS = 16
 
 # Hard spending cap for everything this benchmark has sent to the API (all models, pilot included), computed from
 # the token usage recorded in the cache at the list prices below. Calls stop once it is reached.
-BUDGET_USD = 39.0
+BUDGET_USD = 40.0
 # USD per 1M tokens (input, cached input, output), standard tier, developers.openai.com/api/docs/pricing, 2026-11-24
+# Batch API requests (usage tagged "<model>@batch") cost half of these.
 PRICES = {"gpt-5.4-2026-03-05": (2.50, 0.25, 15.00), "gpt-5.4-mini-2026-03-17": (0.75, 0.075, 4.50),
-          "gpt-5.5-2026-04-23": (5.00, 0.50, 30.00)}
+          "gpt-5.5-2026-04-23": (5.00, 0.50, 30.00), "gpt-5.6-luna": (0.20, 0.02, 1.20)}
+BATCH_DISCOUNT = 0.5
+BATCH_MAX_REQUESTS = 100   # per submission, so the spending cap re-checks actual spend between batches
