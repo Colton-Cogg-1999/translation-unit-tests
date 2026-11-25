@@ -10,6 +10,7 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import binomtest
 
+from benchmark.budget import price as budget_price
 from benchmark.config import DETECT_MODELS
 from benchmark.detectors import DETECTORS
 from benchmark.taxonomy import CROSS, ERROR_TYPES, LOCAL
@@ -20,11 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 B = ROOT / "results" / "benchmark"
 SEVERE = ("major", "critical")
 
-# USD per 1M tokens (input, cached input, output), standard tier, from developers.openai.com/api/docs/pricing,
-# read 2026-11-24. Reasoning tokens are billed as output.
-PRICES = {"gpt-5.4-2026-03-05": (2.50, 0.25, 15.00), "gpt-5.4-mini-2026-03-17": (0.75, 0.075, 4.50),
-          "gpt-5.5-2026-04-23": (5.00, 0.50, 30.00)}
-SHORT = {"gpt-5.4-2026-03-05": "gpt-5.4", "gpt-5.4-mini-2026-03-17": "gpt-5.4-mini"}
+SHORT = {"gpt-5.4-2026-03-05": "gpt-5.4", "gpt-5.4-mini-2026-03-17": "gpt-5.4-mini", "gpt-5.6-luna": "gpt-5.6-luna"}
 
 
 def available() -> bool:
@@ -71,8 +68,8 @@ def usage_by_key() -> dict[str, tuple]:
 
 
 def cost_usd(model: str, prompt: int, cached: int, completion: int) -> float:
-    pin, pcached, pout = PRICES[model]
-    return ((prompt - cached) * pin + cached * pcached + completion * pout) / 1e6
+    """At standard list price (the Batch API would halve it), so checks and models compare on one footing."""
+    return budget_price(model.partition("@")[0], prompt, cached, completion)
 
 
 # ------------------------------------------------------------------------------------------- per-variant outcomes
@@ -230,16 +227,16 @@ def _stack_false_alarms(rows, model, dets) -> dict:
     return {"k": len(flagged), "n": len(sampled)}
 
 
-def table_stacks(s, model=DETECT_MODELS[0]) -> str:
-    lines = ["| checks run | cross-segment errors, any flag | cross-segment errors, major/critical flag | "
+def table_stacks(s) -> str:
+    lines = ["| model | checks run | cross-segment errors, any flag | cross-segment errors, major/critical flag | "
              "segment-local errors, major/critical flag | clean segments flagged major/critical | cost per 100 segments |",
-             "|---|---|---|---|---|---|"]
-    for name in STACKS:
+             "|---|---|---|---|---|---|---|"]
+    for model, name in ((m, n) for m in DETECT_MODELS for n in STACKS):
         st = s["stacks"]
         usd = st.get(f"{model}|{name}|usd")
-        lines.append(f"| {name} | {_ci(st[f'{model}|{name}|cross']['any'])} | **{_ci(st[f'{model}|{name}|cross']['major'])}** | "
+        lines.append(f"| {SHORT[model]} | {name} | {_ci(st[f'{model}|{name}|cross']['any'])} | **{_ci(st[f'{model}|{name}|cross']['major'])}** | "
                      f"{_ci(st[f'{model}|{name}|local']['major'])} | {_frac(st[f'{model}|{name}|false_alarm_major'])} | "
-                     + (f"${usd:.2f}" if usd is not None else "–") + " |")
+                     + _usd(usd) + " |")
     return "\n".join(lines)
 
 
@@ -321,6 +318,10 @@ DET_LABEL = {"segment_qe": "segment QE", "context_qe": "segment QE + document co
              "case_tests": "case-specific tests"}
 
 
+def _usd(x) -> str:
+    return "–" if x is None else (f"${x:.2f}" if x >= 0.01 else f"${x:.3f}")
+
+
 def _frac(d) -> str:
     return f"{100 * d['k'] / d['n']:.0f}%" if d and d["n"] else "–"
 
@@ -344,16 +345,19 @@ def table_recall(s) -> str:
     return "\n".join(lines)
 
 
-def table_types(s, model=DETECT_MODELS[0]) -> str:
+def table_types(s) -> str:
     dets = ("segment_qe", "context_qe", "document_qe", "checklist")
+    names = " / ".join(SHORT[m] for m in DETECT_MODELS)
     lines = ["| error type | evidence | n | " + " | ".join(DET_LABEL[d] for d in dets) + " |",
              "|---|---|---|" + "---|" * len(dets)]
     for t in CROSS + LOCAL:
-        cells = [s["recall"].get(f"{model}|{d}|{t}|all", {}).get("detected") for d in dets]
-        n = cells[0]["n"] if cells[0] else 0
-        lines.append(f"| {t} | {'other segment' if t in CROSS else 'same segment'} | {n} | "
-                     + " | ".join(_pct(c) for c in cells) + " |")
-    return "\n".join(lines)
+        cells = []
+        for d in dets:
+            vals = [s["recall"].get(f"{m}|{d}|{t}|all", {}).get("detected") for m in DETECT_MODELS]
+            cells.append(" / ".join(_pct(v) for v in vals))
+        n = s["recall"][f"{DETECT_MODELS[0]}|segment_qe|{t}|all"]["detected"]["n"]
+        lines.append(f"| {t} | {'other segment' if t in CROSS else 'same segment'} | {n} | " + " | ".join(cells) + " |")
+    return "\n".join(lines) + f"\n\nEach cell: {names}."
 
 
 def table_false_alarms(s) -> str:
@@ -368,7 +372,7 @@ def table_false_alarms(s) -> str:
             maj = sum(x["flagged_major"] for x in fa)
             cost = s["cost"].get(f"{model}|{det}|leaflet")
             lines.append(f"| {DET_LABEL[det]} | {SHORT[model]} | {100 * any_ / n:.0f}% | {100 * maj / n:.0f}% | "
-                         + (f"${cost['usd_per_100_segments']:.2f}" if cost else "–") + " |")
+                         + _usd(cost["usd_per_100_segments"] if cost else None) + " |")
     return "\n".join(lines)
 
 
@@ -393,46 +397,67 @@ TABLES["bench_pilot"] = table_pilot
 
 
 def total_spend() -> float:
-    return sum(cost_usd(m, p, c, o) for m, p, c, o in usage_by_key().values() if m in PRICES)
+    """What was actually paid: batch requests at the batch rate."""
+    return sum(budget_price(m, p, c, o) for m, p, c, o in usage_by_key().values())
 
 
-def claims(s, model=DETECT_MODELS[0]) -> list[str]:
+def claims(s) -> list[str]:
     """Study A numbers quoted in README prose (each must appear verbatim)."""
+    mini, luna = "gpt-5.4-mini-2026-03-17", "gpt-5.6-luna"
     r, st, pr = s["recall"], s["stacks"], s["paired"]
 
-    def rk(det, fam, key="detected"):
-        return r[f"{model}|{det}|{fam}|all"][key]
+    def rk(m, det, fam, key="detected"):
+        return r[f"{m}|{det}|{fam}|all"][key]
 
-    seg_c, ctx_c, ctx_cm = rk("segment_qe", "cross"), rk("context_qe", "cross"), rk("context_qe", "cross", "detected_major")
-    s_alone, s_ck = f"{model}|segment QE alone", f"{model}|segment QE + checklist"
-    fa = lambda k: round(100 * st[k]["k"] / st[k]["n"])  # noqa: E731
-    best = lambda t: max(r[f"{model}|{d}|{t}|all"]["detected"]["k"] for d in ("segment_qe", "context_qe", "document_qe", "checklist"))  # noqa: E731
-    c_vs_s, c_vs_k = pr[f"{model}|cross|context_qe>segment_qe"], pr[f"{model}|cross|context_qe>checklist"]
+    def pc(d):
+        return round(100 * d["rate"])
+
+    def fa(m, name):
+        x = st[f"{m}|{name}|false_alarm_major"]
+        return round(100 * x["k"] / x["n"])
+
+    def best(t):
+        return max(r[f"{m}|{d}|{t}|all"]["detected"]["k"] for m in DETECT_MODELS
+                   for d in ("segment_qe", "context_qe", "document_qe", "checklist"))
+
+    seg = {m: rk(m, "segment_qe", "cross") for m in (mini, luna)}
+    ctx = {m: rk(m, "context_qe", "cross") for m in (mini, luna)}
+    ctxm = {m: rk(m, "context_qe", "cross", "detected_major") for m in (mini, luna)}
+    alone, both = "segment QE alone", "segment QE + checklist"
+    cs = {m: pr[f"{m}|cross|context_qe>segment_qe"] for m in (mini, luna)}
+    ck = {m: pr[f"{m}|cross|context_qe>checklist"] for m in (mini, luna)}
+    let_through = min(1 - ctxm[m]["rate"] for m in (mini, luna))
     p = s.get("pilot", {}).get("gpt-5.4-2026-03-05|context_qe|cross", [0, 0, 0])
     out = [
         f"plants {s['planting']['variants']} errors", f"into {s['planting']['documents']['leaflet']} real EU patient leaflets",
-        f"giving **{s['planting']['variants']} variants**",
-        f"found {seg_c['k']} of {seg_c['n']} planted cross-segment",
-        "against {k} of {n} errors visible".format(**rk("segment_qe", "local")),
-        f"found {ctx_c['k']} of {ctx_c['n']} cross-segment errors ({100 * ctx_c['rate']:.0f}%), but flagged only "
-        f"{ctx_cm['k']} of {ctx_cm['n']}",
-        f"would let {round(100 * (1 - ctx_cm['rate']))}% of these errors through",
-        f"from {st[s_alone + '|cross']['major']['k']} of {st[s_alone + '|cross']['major']['n']} to "
-        f"{st[s_ck + '|cross']['major']['k']} of {st[s_ck + '|cross']['major']['n']}",
-        f"kept {round(100 * st[s_ck + '|local']['major']['rate'])}% of segment-local errors",
-        f"from {fa(s_alone + '|false_alarm_major')}% to {fa(s_ck + '|false_alarm_major')}%",
-        f"cost ${st[s_ck + '|usd']:.2f} per 100 segments", f"instead of ${st[s_alone + '|usd']:.2f}",
-        f"more than {best('terminology')} of 12 inconsistent terms", f"{best('agreement')} of 12 agreement errors",
-        f"QE with context found {c_vs_s['only_a']} errors that plain segment QE missed",
-        f"found {c_vs_s['only_b']} that it missed (McNemar p " + ("< 0.001)" if c_vs_s["p"] < 0.001 else f"= {c_vs_s['p']:.3f})"),
-        f"found only {round(100 * rk('document_qe', 'cross')['rate'])}% of cross-segment errors",
-        f"({round(100 * rk('checklist', 'local')['rate'])}%, mainly omissions",
+        f"giving **{s['planting']['variants']} variants**", f"{_leaflet_segments():,} segments in all",
+        f"against {rk(mini, 'segment_qe', 'local')['k']} and {rk(luna, 'segment_qe', 'local')['k']} of 60 errors visible",
+        f"found {ctx[mini]['k']} of 48 (gpt-5.4-mini) and {ctx[luna]['k']} of 48 (gpt-5.6-luna)",
+        f"flagged only {ctxm[mini]['k']} and {ctxm[luna]['k']} of them as major or critical",
+        f"more than {int(100 * let_through) // 10 * 10}% of these errors through",
+        *(f"from {st[f'{m}|{alone}|cross']['major']['k']} to {st[f'{m}|{both}|cross']['major']['k']} of 48 ({SHORT[m]})"
+          for m in (mini, luna)),
+        f"kept {pc(st[f'{mini}|{both}|local']['major'])}% and {pc(st[f'{luna}|{both}|local']['major'])}% of segment-local errors",
+        f"from {fa(mini, alone)}% to {fa(mini, both)}% and from {fa(luna, alone)}% to {fa(luna, both)}%",
+        f"{_usd(st[f'{mini}|{both}|usd'])} instead of {_usd(st[f'{mini}|{alone}|usd'])} per 100 segments with gpt-5.4-mini",
+        f"{_usd(st[f'{luna}|{both}|usd'])} instead of {_usd(st[f'{luna}|{alone}|usd'])} with gpt-5.6-luna",
+        f"({pc(ctx[luna])}% vs {pc(ctx[mini])}%)",
+        f"({pc(rk(luna, 'document_qe', 'cross'))}% vs {pc(rk(mini, 'document_qe', 'cross'))}%)",
+        f"rated {ctxm[luna]['k']} of 48 major",
+        f"found {best('agreement')} of 12 agreement errors and {best('terminology')} of 12 inconsistent terms",
+        f"found {cs[mini]['only_a']} (gpt-5.4-mini) and {cs[luna]['only_a']} (gpt-5.6-luna) errors that plain segment QE missed",
+        f"found {pc(rk(mini, 'document_qe', 'cross'))}% (gpt-5.4-mini) and {pc(rk(luna, 'document_qe', 'cross'))}% (gpt-5.6-luna)",
+        f"({pc(rk(mini, 'checklist', 'local'))}%, mainly omissions",
+        f"reaches {pc(rk(luna, 'checklist', 'local'))}%",
         f"GPT-5.4 with context found {p[0]} of {p[2]} and rated {p[1]} of {p[2]} major or critical",
-        f"{_leaflet_segments():,} segments in all",
         f"cost ${total_spend():.0f} at list prices",
     ]
-    if c_vs_k["only_a"] == c_vs_k["only_b"]:
-        out.append(f"with {c_vs_k['only_a']} errors found only by each")
+    if seg[mini]["k"] == seg[luna]["k"]:
+        out.append(f"found {seg[mini]['k']} of 48 planted cross-segment errors ({pc(seg[mini])}%) with either model")
+    if cs[mini]["only_b"] == cs[luna]["only_b"] and max(cs[m]["p"] for m in cs) < 0.001:
+        out.append(f"against {cs[mini]['only_b']} the other way (McNemar p < 0.001 for both)")
+    if min(ck[m]["p"] for m in ck) > 0.5:
+        out.append("McNemar p > 0.5 for both models")
     return out
 
 

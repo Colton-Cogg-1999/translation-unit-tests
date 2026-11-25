@@ -329,12 +329,13 @@ def make_figures(s: dict) -> None:
                  key=lambda r: -r["artifacts"] / r["failures"])
     figures.artifact_rate(art, FIG)
     if "benchmark" in s:
-        b, m = s["benchmark"], bench.DETECT_MODELS[0]
+        b = s["benchmark"]
         series = [("detected", "any flag on the error"), ("detected_major", "major/critical flag on the error")]
-        rows = [{"label": bench.DET_LABEL[d],
+        rows = [{"label": f"{bench.DET_LABEL[d]} · {bench.SHORT[m]}",
                  "cross": {k: b["recall"][f"{m}|{d}|cross|all"][k] for k, _ in series},
                  "local": {k: b["recall"][f"{m}|{d}|local|all"][k] for k, _ in series}}
-                for d in ("segment_qe", "context_qe", "document_qe", "checklist")]
+                for d in ("segment_qe", "context_qe", "document_qe", "checklist") for m in bench.DETECT_MODELS
+                if f"{m}|{d}|cross|all" in b["recall"]]
         figures.bench_recall(rows, series, FIG)
 
 def _jsonable(o):

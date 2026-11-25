@@ -172,9 +172,9 @@ def bench_recall(rows: list[dict], models: list[tuple[str, str]], out: Path):
     models: [(key, display name)] in series order."""
     for theme, t in THEMES.items():
         h = 0.78 * len(rows) + 1.75
-        fig, axes = plt.subplots(1, 2, figsize=(9.6, h), sharey=True)
+        fig, axes = plt.subplots(1, 2, figsize=(10.4, h), sharey=True)
         fig.patch.set_facecolor(t["surface"])
-        fig.subplots_adjust(left=0.27, right=0.97, top=1 - 1.25 / h, bottom=0.62 / h, wspace=0.08)
+        fig.subplots_adjust(left=0.33, right=0.97, top=1 - 1.25 / h, bottom=0.62 / h, wspace=0.08)
         colors = [t["s1"], t["s2"]]
         for ax, fam, title in ((axes[0], "cross", "Error evidence in another segment"),
                                (axes[1], "local", "Error visible in its own segment")):
@@ -203,6 +203,6 @@ def bench_recall(rows: list[dict], models: list[tuple[str, str]], out: Path):
         _legend(fig, t, [Line2D([], [], marker="o", color=c, linewidth=2, markersize=7, label=name)
                          for c, (_, name) in zip(colors, models)], 1 - 0.62 / h)
         _title(fig, axes[0], t, "QE with context notices cross-segment errors but rates them minor",
-               "108 planted errors in 20 real patient leaflets, gpt-5.4-mini; line = 95% CI resampling documents")
+               "108 planted errors in 20 real patient leaflets; line = 95% CI resampling documents")
         _save(fig, out, "bench_recall", theme)
 
