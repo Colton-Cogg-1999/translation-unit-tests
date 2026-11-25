@@ -41,18 +41,29 @@ def _print(results, title):
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="transtest")
     sub = ap.add_subparsers(dest="cmd", required=True)
-    r = sub.add_parser("run"); r.add_argument("suite"); r.add_argument("target")
-    r.add_argument("--out"); r.add_argument("--only", nargs="*")
-    c = sub.add_parser("calibrate"); c.add_argument("suite"); c.add_argument("--prune")
-    g = sub.add_parser("generate"); g.add_argument("source"); g.add_argument("--target-lang", required=True)
+    r = sub.add_parser("run")
+    r.add_argument("suite")
+    r.add_argument("target")
+    r.add_argument("--out")
+    r.add_argument("--only", nargs="*")
+    c = sub.add_parser("calibrate")
+    c.add_argument("suite")
+    c.add_argument("--prune")
+    g = sub.add_parser("generate")
+    g.add_argument("source")
+    g.add_argument("--target-lang", required=True)
     g.add_argument("--out", required=True)
-    m = sub.add_parser("mutate"); m.add_argument("suite"); m.add_argument("good_target")
-    m.add_argument("--per-op", type=int, default=2); m.add_argument("--seed", type=int, default=0)
+    m = sub.add_parser("mutate")
+    m.add_argument("suite")
+    m.add_argument("good_target")
+    m.add_argument("--per-op", type=int, default=2)
+    m.add_argument("--seed", type=int, default=0)
     m.add_argument("--out")
     a = ap.parse_args(argv)
 
     if a.cmd == "mutate":
         import json
+
         from .mutate import mutation_test
         suite = Suite.load(a.suite)
         rep = mutation_test(suite, Document.load(a.good_target, suite.target_lang), a.per_op, a.seed)

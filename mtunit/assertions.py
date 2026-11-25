@@ -6,7 +6,7 @@ import re
 
 from rapidfuzz import fuzz
 
-from common.llm import JUDGE_MODEL, chat_json
+from common.llm import JUDGE_MODEL, CacheMiss, chat_json
 
 JUDGE_PROMPT = """You are verifying ONE property of a Spanish translation produced by a machine translation engine.
 
@@ -38,7 +38,8 @@ def _norm(s: str) -> str:
     return re.sub(r"\s+", " ", s).lower()
 
 
-def evaluate_assertion(a: dict, src: list[str], tgt: list[str]) -> dict:
+def evaluate_assertion(a: dict, src: list[str], tgt: list[str], model: str | None = None,
+                       reasoning_effort: str | None = None) -> dict:
     kind = a.get("kind")
     try:
         if kind == "preserve":
@@ -55,16 +56,20 @@ def evaluate_assertion(a: dict, src: list[str], tgt: list[str]) -> dict:
             seg = a.get("segment")
             scope = f" (focus on translated segment {seg})" if seg not in (None, "", 0) else " (whole translation)"
             out = chat_json(JUDGE_PROMPT.format(src=_numbered(src), tgt=_numbered(tgt), scope=scope,
-                                                prop=a["property"]), max_tokens=500, model=JUDGE_MODEL)
+                                                prop=a["property"]), max_tokens=500, model=model or JUDGE_MODEL,
+                             **({"reasoning_effort": reasoning_effort} if reasoning_effort else {}))
             ev = str(out.get("evidence", ""))
             grounded = len(ev.strip()) < 3 or fuzz.partial_ratio(_norm(ev), _norm("\n".join(tgt))) >= 85
             if not grounded:
                 return {"status": "unverified", "detail": f"ungrounded evidence: {ev[:120]}"}
             return {"status": "pass" if out.get("holds") else "fail", "detail": out.get("reason", ""), "evidence": ev}
         return {"status": "error", "detail": f"unknown assertion kind {kind!r}"}
+    except CacheMiss:
+        raise
     except Exception as e:
         return {"status": "error", "detail": f"{type(e).__name__}: {e}"[:200]}
 
 
-def evaluate_case(case: dict, src: list[str], tgt: list[str]) -> list[dict]:
-    return [evaluate_assertion(a, src, tgt) for a in case["assertions"]]
+def evaluate_case(case: dict, src: list[str], tgt: list[str], model: str | None = None,
+                  reasoning_effort: str | None = None) -> list[dict]:
+    return [evaluate_assertion(a, src, tgt, model, reasoning_effort) for a in case["assertions"]]

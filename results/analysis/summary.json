@@ -1,0 +1,3079 @@
+{
+ "validation": {
+  "generated_cases": 96,
+  "valid_cases": 92,
+  "generated_assertions": 207,
+  "valid_assertions": 194
+ },
+ "pilot": {
+  "planted_errors": 9,
+  "suite_caught": 8,
+  "llm_qe_caught": 7,
+  "labse_caught": 2,
+  "suite_false_alarms_on_good": 0,
+  "mutants": 14,
+  "mutation_score_v1": 0.714,
+  "mutation_score_v2": 0.857,
+  "survivors_v2": [
+   "and_or"
+  ]
+ },
+ "pass": {
+  "negation": {
+   "llama-4-scout__segment": [
+    7,
+    8
+   ],
+   "llama-4-scout__document": [
+    8,
+    8
+   ],
+   "gpt-5.4-nano__segment": [
+    8,
+    8
+   ],
+   "gpt-5.4-nano__document": [
+    8,
+    8
+   ],
+   "gpt-5.4-mini__segment": [
+    8,
+    8
+   ],
+   "gpt-5.4-mini__document": [
+    7,
+    8
+   ]
+  },
+  "numbers_locale": {
+   "llama-4-scout__segment": [
+    5,
+    8
+   ],
+   "llama-4-scout__document": [
+    5,
+    8
+   ],
+   "gpt-5.4-nano__segment": [
+    7,
+    8
+   ],
+   "gpt-5.4-nano__document": [
+    7,
+    8
+   ],
+   "gpt-5.4-mini__segment": [
+    8,
+    8
+   ],
+   "gpt-5.4-mini__document": [
+    8,
+    8
+   ]
+  },
+  "placeholders_tags": {
+   "llama-4-scout__segment": [
+    8,
+    8
+   ],
+   "llama-4-scout__document": [
+    8,
+    8
+   ],
+   "gpt-5.4-nano__segment": [
+    8,
+    8
+   ],
+   "gpt-5.4-nano__document": [
+    8,
+    8
+   ],
+   "gpt-5.4-mini__segment": [
+    8,
+    8
+   ],
+   "gpt-5.4-mini__document": [
+    8,
+    8
+   ]
+  },
+  "dnt": {
+   "llama-4-scout__segment": [
+    5,
+    7
+   ],
+   "llama-4-scout__document": [
+    5,
+    7
+   ],
+   "gpt-5.4-nano__segment": [
+    6,
+    7
+   ],
+   "gpt-5.4-nano__document": [
+    7,
+    7
+   ],
+   "gpt-5.4-mini__segment": [
+    5,
+    7
+   ],
+   "gpt-5.4-mini__document": [
+    5,
+    7
+   ]
+  },
+  "condition_scope": {
+   "llama-4-scout__segment": [
+    8,
+    8
+   ],
+   "llama-4-scout__document": [
+    8,
+    8
+   ],
+   "gpt-5.4-nano__segment": [
+    8,
+    8
+   ],
+   "gpt-5.4-nano__document": [
+    8,
+    8
+   ],
+   "gpt-5.4-mini__segment": [
+    8,
+    8
+   ],
+   "gpt-5.4-mini__document": [
+    8,
+    8
+   ]
+  },
+  "coreference_agreement": {
+   "llama-4-scout__segment": [
+    6,
+    8
+   ],
+   "llama-4-scout__document": [
+    7,
+    8
+   ],
+   "gpt-5.4-nano__segment": [
+    4,
+    8
+   ],
+   "gpt-5.4-nano__document": [
+    6,
+    8
+   ],
+   "gpt-5.4-mini__segment": [
+    7,
+    8
+   ],
+   "gpt-5.4-mini__document": [
+    8,
+    8
+   ]
+  },
+  "term_consistency": {
+   "llama-4-scout__segment": [
+    7,
+    7
+   ],
+   "llama-4-scout__document": [
+    7,
+    7
+   ],
+   "gpt-5.4-nano__segment": [
+    7,
+    7
+   ],
+   "gpt-5.4-nano__document": [
+    7,
+    7
+   ],
+   "gpt-5.4-mini__segment": [
+    7,
+    7
+   ],
+   "gpt-5.4-mini__document": [
+    7,
+    7
+   ]
+  },
+  "register_consistency": {
+   "llama-4-scout__segment": [
+    1,
+    7
+   ],
+   "llama-4-scout__document": [
+    5,
+    7
+   ],
+   "gpt-5.4-nano__segment": [
+    4,
+    7
+   ],
+   "gpt-5.4-nano__document": [
+    7,
+    8
+   ],
+   "gpt-5.4-mini__segment": [
+    6,
+    8
+   ],
+   "gpt-5.4-mini__document": [
+    6,
+    7
+   ]
+  },
+  "implicit_subject_ellipsis": {
+   "llama-4-scout__segment": [
+    5,
+    8
+   ],
+   "llama-4-scout__document": [
+    7,
+    8
+   ],
+   "gpt-5.4-nano__segment": [
+    4,
+    8
+   ],
+   "gpt-5.4-nano__document": [
+    7,
+    8
+   ],
+   "gpt-5.4-mini__segment": [
+    6,
+    8
+   ],
+   "gpt-5.4-mini__document": [
+    8,
+    8
+   ]
+  },
+  "list_inheritance": {
+   "llama-4-scout__segment": [
+    3,
+    8
+   ],
+   "llama-4-scout__document": [
+    8,
+    8
+   ],
+   "gpt-5.4-nano__segment": [
+    5,
+    8
+   ],
+   "gpt-5.4-nano__document": [
+    8,
+    8
+   ],
+   "gpt-5.4-mini__segment": [
+    4,
+    8
+   ],
+   "gpt-5.4-mini__document": [
+    8,
+    8
+   ]
+  },
+  "context_disambiguation": {
+   "llama-4-scout__segment": [
+    6,
+    8
+   ],
+   "llama-4-scout__document": [
+    6,
+    8
+   ],
+   "gpt-5.4-nano__segment": [
+    7,
+    8
+   ],
+   "gpt-5.4-nano__document": [
+    8,
+    8
+   ],
+   "gpt-5.4-mini__segment": [
+    8,
+    8
+   ],
+   "gpt-5.4-mini__document": [
+    8,
+    8
+   ]
+  },
+  "ui_reference_consistency": {
+   "llama-4-scout__segment": [
+    5,
+    6
+   ],
+   "llama-4-scout__document": [
+    5,
+    6
+   ],
+   "gpt-5.4-nano__segment": [
+    3,
+    6
+   ],
+   "gpt-5.4-nano__document": [
+    3,
+    6
+   ],
+   "gpt-5.4-mini__segment": [
+    4,
+    6
+   ],
+   "gpt-5.4-mini__document": [
+    4,
+    6
+   ]
+  }
+ },
+ "pass_group": {
+  "cross": {
+   "llama-4-scout__segment": [
+    33,
+    52
+   ],
+   "llama-4-scout__document": [
+    45,
+    52
+   ],
+   "gpt-5.4-nano__segment": [
+    34,
+    52
+   ],
+   "gpt-5.4-nano__document": [
+    46,
+    53
+   ],
+   "gpt-5.4-mini__segment": [
+    42,
+    53
+   ],
+   "gpt-5.4-mini__document": [
+    49,
+    52
+   ]
+  },
+  "local": {
+   "llama-4-scout__segment": [
+    33,
+    39
+   ],
+   "llama-4-scout__document": [
+    34,
+    39
+   ],
+   "gpt-5.4-nano__segment": [
+    37,
+    39
+   ],
+   "gpt-5.4-nano__document": [
+    38,
+    39
+   ],
+   "gpt-5.4-mini__segment": [
+    37,
+    39
+   ],
+   "gpt-5.4-mini__document": [
+    36,
+    39
+   ]
+  }
+ },
+ "pass_pooled": {
+  "cross": {
+   "segment": [
+    109,
+    157
+   ],
+   "document": [
+    140,
+    157
+   ]
+  },
+  "local": {
+   "segment": [
+    107,
+    117
+   ],
+   "document": [
+    108,
+    117
+   ]
+  }
+ },
+ "unverified_rows": 4,
+ "paired": {
+  "cross": {
+   "seg_only_fail": 33,
+   "doc_only_fail": 4,
+   "p": 1e-06
+  },
+  "local": {
+   "seg_only_fail": 3,
+   "doc_only_fail": 2,
+   "p": 1.0
+  },
+  "negation": {
+   "seg_only_fail": 1,
+   "doc_only_fail": 1,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  "numbers_locale": {
+   "seg_only_fail": 1,
+   "doc_only_fail": 1,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  "placeholders_tags": {
+   "seg_only_fail": 0,
+   "doc_only_fail": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  "dnt": {
+   "seg_only_fail": 1,
+   "doc_only_fail": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  "condition_scope": {
+   "seg_only_fail": 0,
+   "doc_only_fail": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  "coreference_agreement": {
+   "seg_only_fail": 5,
+   "doc_only_fail": 1,
+   "p": 0.21875,
+   "p_holm": 1.0
+  },
+  "term_consistency": {
+   "seg_only_fail": 0,
+   "doc_only_fail": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  "register_consistency": {
+   "seg_only_fail": 6,
+   "doc_only_fail": 1,
+   "p": 0.125,
+   "p_holm": 1.0
+  },
+  "implicit_subject_ellipsis": {
+   "seg_only_fail": 8,
+   "doc_only_fail": 1,
+   "p": 0.039062,
+   "p_holm": 0.429688
+  },
+  "list_inheritance": {
+   "seg_only_fail": 12,
+   "doc_only_fail": 0,
+   "p": 0.000488,
+   "p_holm": 0.005859
+  },
+  "context_disambiguation": {
+   "seg_only_fail": 2,
+   "doc_only_fail": 1,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  "ui_reference_consistency": {
+   "seg_only_fail": 0,
+   "doc_only_fail": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  }
+ },
+ "mode_effect": {
+  "cross": {
+   "delta_pp": 19.74522292993631,
+   "ci_low": 11.464968,
+   "ci_high": 28.025478
+  },
+  "local": {
+   "delta_pp": 0.8547008547008628,
+   "ci_low": -2.564103,
+   "ci_high": 4.273504
+  },
+  "negation": {
+   "delta_pp": 0.0,
+   "ci_low": -12.5,
+   "ci_high": 12.5
+  },
+  "numbers_locale": {
+   "delta_pp": 0.0,
+   "ci_low": -12.5,
+   "ci_high": 12.5
+  },
+  "placeholders_tags": {
+   "delta_pp": 0.0,
+   "ci_low": 0.0,
+   "ci_high": 0.0
+  },
+  "dnt": {
+   "delta_pp": 4.761904761904767,
+   "ci_low": 0.0,
+   "ci_high": 14.285714
+  },
+  "condition_scope": {
+   "delta_pp": 0.0,
+   "ci_low": 0.0,
+   "ci_high": 0.0
+  },
+  "coreference_agreement": {
+   "delta_pp": 16.666666666666664,
+   "ci_low": -4.166667,
+   "ci_high": 37.5
+  },
+  "term_consistency": {
+   "delta_pp": 0.0,
+   "ci_low": 0.0,
+   "ci_high": 0.0
+  },
+  "register_consistency": {
+   "delta_pp": 31.818181818181824,
+   "ci_low": 4.545455,
+   "ci_high": 60.0
+  },
+  "implicit_subject_ellipsis": {
+   "delta_pp": 29.166666666666664,
+   "ci_low": 0.0,
+   "ci_high": 58.333333
+  },
+  "list_inheritance": {
+   "delta_pp": 50.0,
+   "ci_low": 20.833333,
+   "ci_high": 79.166667
+  },
+  "context_disambiguation": {
+   "delta_pp": 4.1666666666666625,
+   "ci_low": -12.5,
+   "ci_high": 25.0
+  },
+  "ui_reference_consistency": {
+   "delta_pp": 0.0,
+   "ci_low": 0.0,
+   "ci_high": 0.0
+  },
+  "did": {
+   "delta_pp": 18.89052207523545,
+   "ci_low": 9.956993,
+   "ci_high": 28.015989
+  }
+ },
+ "engine_cross_delta": {
+  "llama-4-scout": 23.076923076923087,
+  "gpt-5.4-nano": 21.407837445573293,
+  "gpt-5.4-mini": 14.985486211901303
+ },
+ "gee": {
+  "const": {
+   "odds_ratio": 17.458152,
+   "ci_low": 7.050645,
+   "ci_high": 43.228252,
+   "p": 0.0
+  },
+  "engine[gpt-5.4-nano]": {
+   "odds_ratio": 0.614759,
+   "ci_low": 0.357325,
+   "ci_high": 1.057663,
+   "p": 0.078835
+  },
+  "engine[llama-4-scout]": {
+   "odds_ratio": 0.424568,
+   "ci_low": 0.235121,
+   "ci_high": 0.76666,
+   "p": 0.004494
+  },
+  "document": {
+   "odds_ratio": 1.122149,
+   "ci_low": 0.69091,
+   "ci_high": 1.82255,
+   "p": 0.6414
+  },
+  "cross_segment": {
+   "odds_ratio": 0.206233,
+   "ci_low": 0.082394,
+   "ci_high": 0.516205,
+   "p": 0.000745
+  },
+  "document:cross_segment": {
+   "odds_ratio": 3.268601,
+   "ci_low": 1.440658,
+   "ci_high": 7.415887,
+   "p": 0.004605
+  },
+  "document_within_cross": {
+   "odds_ratio": 3.667857,
+   "ci_low": 1.890395,
+   "ci_high": 7.116595,
+   "p": 0.000122
+  },
+  "_n_obs": 548,
+  "_n_cases": 92
+ },
+ "failures": {
+  "n": 133,
+  "real": 102,
+  "artifacts": 31,
+  "real_qe_major_case": 14,
+  "real_qe_identified": 47,
+  "cross": {
+   "real": 83,
+   "qe_identified": 36,
+   "qe_major_case": 12
+  },
+  "local": {
+   "real": 19,
+   "qe_identified": 11,
+   "qe_major_case": 2
+  },
+  "p_identified_local_vs_cross": 0.311114,
+  "p_major_local_vs_cross": 1.0
+ },
+ "by_cap": {
+  "negation": {
+   "failures": 2,
+   "real": 2,
+   "qe_identified": 2,
+   "qe_major_case": 2
+  },
+  "numbers_locale": {
+   "failures": 10,
+   "real": 8,
+   "qe_identified": 4,
+   "qe_major_case": 0
+  },
+  "placeholders_tags": {
+   "failures": 0,
+   "real": 0,
+   "qe_identified": 0,
+   "qe_major_case": 0
+  },
+  "dnt": {
+   "failures": 14,
+   "real": 9,
+   "qe_identified": 5,
+   "qe_major_case": 0
+  },
+  "condition_scope": {
+   "failures": 0,
+   "real": 0,
+   "qe_identified": 0,
+   "qe_major_case": 0
+  },
+  "coreference_agreement": {
+   "failures": 15,
+   "real": 11,
+   "qe_identified": 2,
+   "qe_major_case": 1
+  },
+  "term_consistency": {
+   "failures": 0,
+   "real": 0,
+   "qe_identified": 0,
+   "qe_major_case": 0
+  },
+  "register_consistency": {
+   "failures": 24,
+   "real": 22,
+   "qe_identified": 13,
+   "qe_major_case": 1
+  },
+  "implicit_subject_ellipsis": {
+   "failures": 15,
+   "real": 11,
+   "qe_identified": 4,
+   "qe_major_case": 2
+  },
+  "list_inheritance": {
+   "failures": 17,
+   "real": 17,
+   "qe_identified": 0,
+   "qe_major_case": 1
+  },
+  "context_disambiguation": {
+   "failures": 9,
+   "real": 5,
+   "qe_identified": 5,
+   "qe_major_case": 3
+  },
+  "ui_reference_consistency": {
+   "failures": 27,
+   "real": 17,
+   "qe_identified": 12,
+   "qe_major_case": 4
+  }
+ },
+ "evidence_location": {
+  "another_segment": [
+   0,
+   38
+  ],
+  "inside_segment": [
+   19,
+   19
+  ],
+  "p": 0.0
+ },
+ "error_types": {
+  "consistent_tu_in_formal_text": {
+   "n": 5,
+   "qe_identified": 5
+  },
+  "gender_agreement_cross_segment": {
+   "n": 14,
+   "qe_identified": 0
+  },
+  "other": {
+   "n": 4,
+   "qe_identified": 0
+  },
+  "tu_text_slips_into_usted": {
+   "n": 7,
+   "qe_identified": 0
+  },
+  "usted_text_slips_into_tu": {
+   "n": 8,
+   "qe_identified": 8
+  },
+  "visible_within_segment": {
+   "n": 6,
+   "qe_identified": 6
+  }
+ },
+ "error_types_by_mode": {
+  "consistent_tu_in_formal_text": {
+   "document": 5
+  },
+  "gender_agreement_cross_segment": {
+   "segment": 13,
+   "document": 1
+  },
+  "other": {
+   "document": 1,
+   "segment": 3
+  },
+  "tu_text_slips_into_usted": {
+   "segment": 6,
+   "document": 1
+  },
+  "usted_text_slips_into_tu": {
+   "segment": 8
+  },
+  "visible_within_segment": {
+   "document": 1,
+   "segment": 5
+  }
+ },
+ "benchmark": {
+  "planting": {
+   "proposed": 144,
+   "verified": 141,
+   "rejected": {
+    "not exactly one error of this type": 2,
+    "visible from its own segment": 1
+   },
+   "variants": 108,
+   "by_cell": {
+    "synthetic:agreement": 0,
+    "synthetic:register": 0,
+    "synthetic:terminology": 0,
+    "synthetic:list_fit": 0,
+    "synthetic:negation": 0,
+    "synthetic:number": 0,
+    "synthetic:omission": 0,
+    "synthetic:mistranslation": 0,
+    "synthetic:condition": 0,
+    "leaflet:agreement": 12,
+    "leaflet:register": 12,
+    "leaflet:terminology": 12,
+    "leaflet:list_fit": 12,
+    "leaflet:negation": 12,
+    "leaflet:number": 12,
+    "leaflet:omission": 12,
+    "leaflet:mistranslation": 12,
+    "leaflet:condition": 12
+   },
+   "documents": {
+    "synthetic": 0,
+    "leaflet": 20
+   }
+  },
+  "recall": {
+   "gpt-5.4-mini-2026-03-17|segment_qe|cross|all": {
+    "detected": {
+     "k": 8,
+     "n": 48,
+     "rate": 0.166667,
+     "ci_low": 0.056604,
+     "ci_high": 0.318182
+    },
+    "detected_major": {
+     "k": 1,
+     "n": 48,
+     "rate": 0.020833,
+     "ci_low": 0.0,
+     "ci_high": 0.06383
+    },
+    "flagged": {
+     "k": 15,
+     "n": 48,
+     "rate": 0.3125,
+     "ci_low": 0.16,
+     "ci_high": 0.488889
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|cross|leaflet": {
+    "detected": {
+     "k": 8,
+     "n": 48,
+     "rate": 0.166667,
+     "ci_low": 0.056604,
+     "ci_high": 0.318182
+    },
+    "detected_major": {
+     "k": 1,
+     "n": 48,
+     "rate": 0.020833,
+     "ci_low": 0.0,
+     "ci_high": 0.06383
+    },
+    "flagged": {
+     "k": 15,
+     "n": 48,
+     "rate": 0.3125,
+     "ci_low": 0.16,
+     "ci_high": 0.488889
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|local|all": {
+    "detected": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "flagged": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|local|leaflet": {
+    "detected": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "flagged": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|agreement|all": {
+    "detected": {
+     "k": 2,
+     "n": 12,
+     "rate": 0.166667,
+     "ci_low": 0.0,
+     "ci_high": 0.416667
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|register|all": {
+    "detected": {
+     "k": 4,
+     "n": 12,
+     "rate": 0.333333,
+     "ci_low": 0.083333,
+     "ci_high": 0.583333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|terminology|all": {
+    "detected": {
+     "k": 0,
+     "n": 12,
+     "rate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|list_fit|all": {
+    "detected": {
+     "k": 2,
+     "n": 12,
+     "rate": 0.166667,
+     "ci_low": 0.0,
+     "ci_high": 0.416667
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|negation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|number|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|omission|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|mistranslation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|condition|all": {
+    "detected": {
+     "k": 11,
+     "n": 12,
+     "rate": 0.916667,
+     "ci_low": 0.75,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|cross|all": {
+    "detected": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.52,
+     "ci_high": 0.734694
+    },
+    "detected_major": {
+     "k": 4,
+     "n": 48,
+     "rate": 0.083333,
+     "ci_low": 0.0,
+     "ci_high": 0.18
+    },
+    "flagged": {
+     "k": 32,
+     "n": 48,
+     "rate": 0.666667,
+     "ci_low": 0.565149,
+     "ci_high": 0.764706
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|cross|leaflet": {
+    "detected": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.52,
+     "ci_high": 0.734694
+    },
+    "detected_major": {
+     "k": 4,
+     "n": 48,
+     "rate": 0.083333,
+     "ci_low": 0.0,
+     "ci_high": 0.18
+    },
+    "flagged": {
+     "k": 32,
+     "n": 48,
+     "rate": 0.666667,
+     "ci_low": 0.565149,
+     "ci_high": 0.764706
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|local|all": {
+    "detected": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.910714,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 54,
+     "n": 60,
+     "rate": 0.9,
+     "ci_low": 0.8,
+     "ci_high": 0.983333
+    },
+    "flagged": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.910714,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|local|leaflet": {
+    "detected": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.910714,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 54,
+     "n": 60,
+     "rate": 0.9,
+     "ci_low": 0.8,
+     "ci_high": 0.983333
+    },
+    "flagged": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.910714,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|agreement|all": {
+    "detected": {
+     "k": 4,
+     "n": 12,
+     "rate": 0.333333,
+     "ci_low": 0.083333,
+     "ci_high": 0.583333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|register|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|terminology|all": {
+    "detected": {
+     "k": 2,
+     "n": 12,
+     "rate": 0.166667,
+     "ci_low": 0.0,
+     "ci_high": 0.416667
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|list_fit|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|negation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|number|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|omission|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|mistranslation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|condition|all": {
+    "detected": {
+     "k": 10,
+     "n": 12,
+     "rate": 0.833333,
+     "ci_low": 0.583333,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|cross|all": {
+    "detected": {
+     "k": 19,
+     "n": 48,
+     "rate": 0.395833,
+     "ci_low": 0.27451,
+     "ci_high": 0.519231
+    },
+    "detected_major": {
+     "k": 0,
+     "n": 48,
+     "rate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0
+    },
+    "flagged": {
+     "k": 19,
+     "n": 48,
+     "rate": 0.395833,
+     "ci_low": 0.27451,
+     "ci_high": 0.519231
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|cross|leaflet": {
+    "detected": {
+     "k": 19,
+     "n": 48,
+     "rate": 0.395833,
+     "ci_low": 0.27451,
+     "ci_high": 0.519231
+    },
+    "detected_major": {
+     "k": 0,
+     "n": 48,
+     "rate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0
+    },
+    "flagged": {
+     "k": 19,
+     "n": 48,
+     "rate": 0.395833,
+     "ci_low": 0.27451,
+     "ci_high": 0.519231
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|local|all": {
+    "detected": {
+     "k": 53,
+     "n": 60,
+     "rate": 0.883333,
+     "ci_low": 0.786885,
+     "ci_high": 0.958333
+    },
+    "detected_major": {
+     "k": 51,
+     "n": 60,
+     "rate": 0.85,
+     "ci_low": 0.746032,
+     "ci_high": 0.94032
+    },
+    "flagged": {
+     "k": 53,
+     "n": 60,
+     "rate": 0.883333,
+     "ci_low": 0.786885,
+     "ci_high": 0.958333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|local|leaflet": {
+    "detected": {
+     "k": 53,
+     "n": 60,
+     "rate": 0.883333,
+     "ci_low": 0.786885,
+     "ci_high": 0.958333
+    },
+    "detected_major": {
+     "k": 51,
+     "n": 60,
+     "rate": 0.85,
+     "ci_low": 0.746032,
+     "ci_high": 0.94032
+    },
+    "flagged": {
+     "k": 53,
+     "n": 60,
+     "rate": 0.883333,
+     "ci_low": 0.786885,
+     "ci_high": 0.958333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|agreement|all": {
+    "detected": {
+     "k": 2,
+     "n": 12,
+     "rate": 0.166667,
+     "ci_low": 0.0,
+     "ci_high": 0.416667
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|register|all": {
+    "detected": {
+     "k": 11,
+     "n": 12,
+     "rate": 0.916667,
+     "ci_low": 0.75,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|terminology|all": {
+    "detected": {
+     "k": 0,
+     "n": 12,
+     "rate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|list_fit|all": {
+    "detected": {
+     "k": 6,
+     "n": 12,
+     "rate": 0.5,
+     "ci_low": 0.25,
+     "ci_high": 0.75
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|negation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|number|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|omission|all": {
+    "detected": {
+     "k": 9,
+     "n": 12,
+     "rate": 0.75,
+     "ci_low": 0.5,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|mistranslation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|condition|all": {
+    "detected": {
+     "k": 8,
+     "n": 12,
+     "rate": 0.666667,
+     "ci_low": 0.416667,
+     "ci_high": 0.916667
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|cross|all": {
+    "detected": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    },
+    "detected_major": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    },
+    "flagged": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.510638,
+     "ci_high": 0.773585
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|cross|leaflet": {
+    "detected": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    },
+    "detected_major": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    },
+    "flagged": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.510638,
+     "ci_high": 0.773585
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|local|all": {
+    "detected": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    },
+    "detected_major": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    },
+    "flagged": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|local|leaflet": {
+    "detected": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    },
+    "detected_major": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    },
+    "flagged": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|agreement|all": {
+    "detected": {
+     "k": 4,
+     "n": 12,
+     "rate": 0.333333,
+     "ci_low": 0.083333,
+     "ci_high": 0.583333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|register|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|terminology|all": {
+    "detected": {
+     "k": 2,
+     "n": 12,
+     "rate": 0.166667,
+     "ci_low": 0.0,
+     "ci_high": 0.416667
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|list_fit|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|negation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|number|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|omission|all": {
+    "detected": {
+     "k": 7,
+     "n": 12,
+     "rate": 0.583333,
+     "ci_low": 0.333333,
+     "ci_high": 0.833333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|mistranslation|all": {
+    "detected": {
+     "k": 11,
+     "n": 12,
+     "rate": 0.916667,
+     "ci_low": 0.75,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|condition|all": {
+    "detected": {
+     "k": 8,
+     "n": 12,
+     "rate": 0.666667,
+     "ci_low": 0.416667,
+     "ci_high": 0.916667
+    }
+   },
+   "gpt-5.6-luna|segment_qe|cross|all": {
+    "detected": {
+     "k": 8,
+     "n": 48,
+     "rate": 0.166667,
+     "ci_low": 0.061224,
+     "ci_high": 0.288462
+    },
+    "detected_major": {
+     "k": 0,
+     "n": 48,
+     "rate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0
+    },
+    "flagged": {
+     "k": 18,
+     "n": 48,
+     "rate": 0.375,
+     "ci_low": 0.222167,
+     "ci_high": 0.54907
+    }
+   },
+   "gpt-5.6-luna|segment_qe|cross|leaflet": {
+    "detected": {
+     "k": 8,
+     "n": 48,
+     "rate": 0.166667,
+     "ci_low": 0.061224,
+     "ci_high": 0.288462
+    },
+    "detected_major": {
+     "k": 0,
+     "n": 48,
+     "rate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0
+    },
+    "flagged": {
+     "k": 18,
+     "n": 48,
+     "rate": 0.375,
+     "ci_low": 0.222167,
+     "ci_high": 0.54907
+    }
+   },
+   "gpt-5.6-luna|segment_qe|local|all": {
+    "detected": {
+     "k": 60,
+     "n": 60,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 60,
+     "n": 60,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    },
+    "flagged": {
+     "k": 60,
+     "n": 60,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|segment_qe|local|leaflet": {
+    "detected": {
+     "k": 60,
+     "n": 60,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 60,
+     "n": 60,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    },
+    "flagged": {
+     "k": 60,
+     "n": 60,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|segment_qe|agreement|all": {
+    "detected": {
+     "k": 2,
+     "n": 12,
+     "rate": 0.166667,
+     "ci_low": 0.0,
+     "ci_high": 0.416667
+    }
+   },
+   "gpt-5.6-luna|segment_qe|register|all": {
+    "detected": {
+     "k": 0,
+     "n": 12,
+     "rate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0
+    }
+   },
+   "gpt-5.6-luna|segment_qe|terminology|all": {
+    "detected": {
+     "k": 1,
+     "n": 12,
+     "rate": 0.083333,
+     "ci_low": 0.0,
+     "ci_high": 0.25
+    }
+   },
+   "gpt-5.6-luna|segment_qe|list_fit|all": {
+    "detected": {
+     "k": 5,
+     "n": 12,
+     "rate": 0.416667,
+     "ci_low": 0.166667,
+     "ci_high": 0.666667
+    }
+   },
+   "gpt-5.6-luna|segment_qe|negation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|segment_qe|number|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|segment_qe|omission|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|segment_qe|mistranslation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|segment_qe|condition|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|context_qe|cross|all": {
+    "detected": {
+     "k": 34,
+     "n": 48,
+     "rate": 0.708333,
+     "ci_low": 0.603774,
+     "ci_high": 0.825
+    },
+    "detected_major": {
+     "k": 1,
+     "n": 48,
+     "rate": 0.020833,
+     "ci_low": 0.0,
+     "ci_high": 0.06383
+    },
+    "flagged": {
+     "k": 38,
+     "n": 48,
+     "rate": 0.791667,
+     "ci_low": 0.673913,
+     "ci_high": 0.903869
+    }
+   },
+   "gpt-5.6-luna|context_qe|cross|leaflet": {
+    "detected": {
+     "k": 34,
+     "n": 48,
+     "rate": 0.708333,
+     "ci_low": 0.603774,
+     "ci_high": 0.825
+    },
+    "detected_major": {
+     "k": 1,
+     "n": 48,
+     "rate": 0.020833,
+     "ci_low": 0.0,
+     "ci_high": 0.06383
+    },
+    "flagged": {
+     "k": 38,
+     "n": 48,
+     "rate": 0.791667,
+     "ci_low": 0.673913,
+     "ci_high": 0.903869
+    }
+   },
+   "gpt-5.6-luna|context_qe|local|all": {
+    "detected": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.918033,
+     "ci_high": 1.0
+    },
+    "flagged": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|context_qe|local|leaflet": {
+    "detected": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.918033,
+     "ci_high": 1.0
+    },
+    "flagged": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|context_qe|agreement|all": {
+    "detected": {
+     "k": 3,
+     "n": 12,
+     "rate": 0.25,
+     "ci_low": 0.0,
+     "ci_high": 0.5
+    }
+   },
+   "gpt-5.6-luna|context_qe|register|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|context_qe|terminology|all": {
+    "detected": {
+     "k": 7,
+     "n": 12,
+     "rate": 0.583333,
+     "ci_low": 0.333333,
+     "ci_high": 0.833333
+    }
+   },
+   "gpt-5.6-luna|context_qe|list_fit|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|context_qe|negation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|context_qe|number|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|context_qe|omission|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|context_qe|mistranslation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|context_qe|condition|all": {
+    "detected": {
+     "k": 11,
+     "n": 12,
+     "rate": 0.916667,
+     "ci_low": 0.75,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|document_qe|cross|all": {
+    "detected": {
+     "k": 28,
+     "n": 48,
+     "rate": 0.583333,
+     "ci_low": 0.488889,
+     "ci_high": 0.688889
+    },
+    "detected_major": {
+     "k": 1,
+     "n": 48,
+     "rate": 0.020833,
+     "ci_low": 0.0,
+     "ci_high": 0.069767
+    },
+    "flagged": {
+     "k": 29,
+     "n": 48,
+     "rate": 0.604167,
+     "ci_low": 0.5,
+     "ci_high": 0.708333
+    }
+   },
+   "gpt-5.6-luna|document_qe|cross|leaflet": {
+    "detected": {
+     "k": 28,
+     "n": 48,
+     "rate": 0.583333,
+     "ci_low": 0.488889,
+     "ci_high": 0.688889
+    },
+    "detected_major": {
+     "k": 1,
+     "n": 48,
+     "rate": 0.020833,
+     "ci_low": 0.0,
+     "ci_high": 0.069767
+    },
+    "flagged": {
+     "k": 29,
+     "n": 48,
+     "rate": 0.604167,
+     "ci_low": 0.5,
+     "ci_high": 0.708333
+    }
+   },
+   "gpt-5.6-luna|document_qe|local|all": {
+    "detected": {
+     "k": 57,
+     "n": 60,
+     "rate": 0.95,
+     "ci_low": 0.866667,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 56,
+     "n": 60,
+     "rate": 0.933333,
+     "ci_low": 0.848459,
+     "ci_high": 1.0
+    },
+    "flagged": {
+     "k": 57,
+     "n": 60,
+     "rate": 0.95,
+     "ci_low": 0.866667,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|document_qe|local|leaflet": {
+    "detected": {
+     "k": 57,
+     "n": 60,
+     "rate": 0.95,
+     "ci_low": 0.866667,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 56,
+     "n": 60,
+     "rate": 0.933333,
+     "ci_low": 0.848459,
+     "ci_high": 1.0
+    },
+    "flagged": {
+     "k": 57,
+     "n": 60,
+     "rate": 0.95,
+     "ci_low": 0.866667,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|document_qe|agreement|all": {
+    "detected": {
+     "k": 3,
+     "n": 12,
+     "rate": 0.25,
+     "ci_low": 0.0,
+     "ci_high": 0.5
+    }
+   },
+   "gpt-5.6-luna|document_qe|register|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|document_qe|terminology|all": {
+    "detected": {
+     "k": 3,
+     "n": 12,
+     "rate": 0.25,
+     "ci_low": 0.0,
+     "ci_high": 0.5
+    }
+   },
+   "gpt-5.6-luna|document_qe|list_fit|all": {
+    "detected": {
+     "k": 10,
+     "n": 12,
+     "rate": 0.833333,
+     "ci_low": 0.583333,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|document_qe|negation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|document_qe|number|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|document_qe|omission|all": {
+    "detected": {
+     "k": 11,
+     "n": 12,
+     "rate": 0.916667,
+     "ci_low": 0.75,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|document_qe|mistranslation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|document_qe|condition|all": {
+    "detected": {
+     "k": 10,
+     "n": 12,
+     "rate": 0.833333,
+     "ci_low": 0.583333,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|checklist|cross|all": {
+    "detected": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.522727,
+     "ci_high": 0.755556
+    },
+    "detected_major": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.522727,
+     "ci_high": 0.755556
+    },
+    "flagged": {
+     "k": 34,
+     "n": 48,
+     "rate": 0.708333,
+     "ci_low": 0.590909,
+     "ci_high": 0.816327
+    }
+   },
+   "gpt-5.6-luna|checklist|cross|leaflet": {
+    "detected": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.522727,
+     "ci_high": 0.755556
+    },
+    "detected_major": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.522727,
+     "ci_high": 0.755556
+    },
+    "flagged": {
+     "k": 34,
+     "n": 48,
+     "rate": 0.708333,
+     "ci_low": 0.590909,
+     "ci_high": 0.816327
+    }
+   },
+   "gpt-5.6-luna|checklist|local|all": {
+    "detected": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.915254,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.915254,
+     "ci_high": 1.0
+    },
+    "flagged": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.915254,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|checklist|local|leaflet": {
+    "detected": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.915254,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.915254,
+     "ci_high": 1.0
+    },
+    "flagged": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.915254,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|checklist|agreement|all": {
+    "detected": {
+     "k": 6,
+     "n": 12,
+     "rate": 0.5,
+     "ci_low": 0.25,
+     "ci_high": 0.75
+    }
+   },
+   "gpt-5.6-luna|checklist|register|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|checklist|terminology|all": {
+    "detected": {
+     "k": 2,
+     "n": 12,
+     "rate": 0.166667,
+     "ci_low": 0.0,
+     "ci_high": 0.416667
+    }
+   },
+   "gpt-5.6-luna|checklist|list_fit|all": {
+    "detected": {
+     "k": 11,
+     "n": 12,
+     "rate": 0.916667,
+     "ci_low": 0.75,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|checklist|negation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|checklist|number|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|checklist|omission|all": {
+    "detected": {
+     "k": 11,
+     "n": 12,
+     "rate": 0.916667,
+     "ci_low": 0.75,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|checklist|mistranslation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|checklist|condition|all": {
+    "detected": {
+     "k": 11,
+     "n": 12,
+     "rate": 0.916667,
+     "ci_low": 0.75,
+     "ci_high": 1.0
+    }
+   }
+  },
+  "paired": {
+   "gpt-5.4-mini-2026-03-17|cross|context_qe>segment_qe": {
+    "only_a": 23,
+    "only_b": 1,
+    "p": 3e-06,
+    "p_holm": 6.9e-05
+   },
+   "gpt-5.4-mini-2026-03-17|cross|document_qe>segment_qe": {
+    "only_a": 14,
+    "only_b": 3,
+    "p": 0.012726,
+    "p_holm": 0.203613
+   },
+   "gpt-5.4-mini-2026-03-17|cross|checklist>segment_qe": {
+    "only_a": 23,
+    "only_b": 1,
+    "p": 3e-06,
+    "p_holm": 6.9e-05
+   },
+   "gpt-5.4-mini-2026-03-17|cross|context_qe>document_qe": {
+    "only_a": 11,
+    "only_b": 0,
+    "p": 0.000977,
+    "p_holm": 0.018555
+   },
+   "gpt-5.4-mini-2026-03-17|cross|context_qe>checklist": {
+    "only_a": 3,
+    "only_b": 3,
+    "p": 1.0,
+    "p_holm": 1.0
+   },
+   "gpt-5.4-mini-2026-03-17|cross|document_qe>checklist": {
+    "only_a": 0,
+    "only_b": 11,
+    "p": 0.000977,
+    "p_holm": 0.018555
+   },
+   "gpt-5.4-mini-2026-03-17|local|context_qe>segment_qe": {
+    "only_a": 0,
+    "only_b": 1,
+    "p": 1.0,
+    "p_holm": 1.0
+   },
+   "gpt-5.4-mini-2026-03-17|local|document_qe>segment_qe": {
+    "only_a": 0,
+    "only_b": 6,
+    "p": 0.03125,
+    "p_holm": 0.4375
+   },
+   "gpt-5.4-mini-2026-03-17|local|checklist>segment_qe": {
+    "only_a": 0,
+    "only_b": 9,
+    "p": 0.003906,
+    "p_holm": 0.066406
+   },
+   "gpt-5.4-mini-2026-03-17|local|context_qe>document_qe": {
+    "only_a": 6,
+    "only_b": 1,
+    "p": 0.125,
+    "p_holm": 1.0
+   },
+   "gpt-5.4-mini-2026-03-17|local|context_qe>checklist": {
+    "only_a": 9,
+    "only_b": 1,
+    "p": 0.021484,
+    "p_holm": 0.322266
+   },
+   "gpt-5.4-mini-2026-03-17|local|document_qe>checklist": {
+    "only_a": 4,
+    "only_b": 1,
+    "p": 0.375,
+    "p_holm": 1.0
+   },
+   "gpt-5.6-luna|cross|context_qe>segment_qe": {
+    "only_a": 27,
+    "only_b": 1,
+    "p": 0.0,
+    "p_holm": 5e-06
+   },
+   "gpt-5.6-luna|cross|document_qe>segment_qe": {
+    "only_a": 23,
+    "only_b": 3,
+    "p": 8.8e-05,
+    "p_holm": 0.00176
+   },
+   "gpt-5.6-luna|cross|checklist>segment_qe": {
+    "only_a": 26,
+    "only_b": 3,
+    "p": 1.5e-05,
+    "p_holm": 0.00032
+   },
+   "gpt-5.6-luna|cross|context_qe>document_qe": {
+    "only_a": 7,
+    "only_b": 1,
+    "p": 0.070312,
+    "p_holm": 0.914062
+   },
+   "gpt-5.6-luna|cross|context_qe>checklist": {
+    "only_a": 8,
+    "only_b": 5,
+    "p": 0.581055,
+    "p_holm": 1.0
+   },
+   "gpt-5.6-luna|cross|document_qe>checklist": {
+    "only_a": 2,
+    "only_b": 5,
+    "p": 0.453125,
+    "p_holm": 1.0
+   },
+   "gpt-5.6-luna|local|context_qe>segment_qe": {
+    "only_a": 0,
+    "only_b": 1,
+    "p": 1.0,
+    "p_holm": 1.0
+   },
+   "gpt-5.6-luna|local|document_qe>segment_qe": {
+    "only_a": 0,
+    "only_b": 3,
+    "p": 0.25,
+    "p_holm": 1.0
+   },
+   "gpt-5.6-luna|local|checklist>segment_qe": {
+    "only_a": 0,
+    "only_b": 2,
+    "p": 0.5,
+    "p_holm": 1.0
+   },
+   "gpt-5.6-luna|local|context_qe>document_qe": {
+    "only_a": 2,
+    "only_b": 0,
+    "p": 0.5,
+    "p_holm": 1.0
+   },
+   "gpt-5.6-luna|local|context_qe>checklist": {
+    "only_a": 1,
+    "only_b": 0,
+    "p": 1.0,
+    "p_holm": 1.0
+   },
+   "gpt-5.6-luna|local|document_qe>checklist": {
+    "only_a": 0,
+    "only_b": 1,
+    "p": 1.0,
+    "p_holm": 1.0
+   }
+  },
+  "false_alarms": {
+   "gpt-5.4-mini-2026-03-17|segment_qe|leaflet": {
+    "segments": 240,
+    "flagged": 77,
+    "flagged_major": 37
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|leaflet": {
+    "segments": 240,
+    "flagged": 62,
+    "flagged_major": 24
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|leaflet": {
+    "segments": 1012,
+    "flagged": 91,
+    "flagged_major": 41
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|leaflet": {
+    "segments": 1012,
+    "flagged": 111,
+    "flagged_major": 111
+   },
+   "gpt-5.4-mini-2026-03-17|case_tests|synthetic": {
+    "documents": 0,
+    "failed": 0
+   },
+   "gpt-5.6-luna|segment_qe|leaflet": {
+    "segments": 240,
+    "flagged": 87,
+    "flagged_major": 39
+   },
+   "gpt-5.6-luna|context_qe|leaflet": {
+    "segments": 240,
+    "flagged": 73,
+    "flagged_major": 17
+   },
+   "gpt-5.6-luna|document_qe|leaflet": {
+    "segments": 1012,
+    "flagged": 183,
+    "flagged_major": 56
+   },
+   "gpt-5.6-luna|checklist|leaflet": {
+    "segments": 1012,
+    "flagged": 153,
+    "flagged_major": 153
+   },
+   "gpt-5.6-luna|case_tests|synthetic": {
+    "documents": 0,
+    "failed": 0
+   }
+  },
+  "cost": {
+   "gpt-5.4-mini-2026-03-17|segment_qe|leaflet": {
+    "usd_per_100_segments": 0.095687,
+    "segments": 240,
+    "calls": 240
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|leaflet": {
+    "usd_per_100_segments": 0.223325,
+    "segments": 240,
+    "calls": 240
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|leaflet": {
+    "usd_per_100_segments": 0.011692,
+    "segments": 1012,
+    "calls": 20
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|leaflet": {
+    "usd_per_100_segments": 0.054205,
+    "segments": 1012,
+    "calls": 140
+   },
+   "gpt-5.6-luna|segment_qe|leaflet": {
+    "usd_per_100_segments": 0.028919,
+    "segments": 240,
+    "calls": 240
+   },
+   "gpt-5.6-luna|context_qe|leaflet": {
+    "usd_per_100_segments": 0.080351,
+    "segments": 240,
+    "calls": 240
+   },
+   "gpt-5.6-luna|document_qe|leaflet": {
+    "usd_per_100_segments": 0.004554,
+    "segments": 1012,
+    "calls": 20
+   },
+   "gpt-5.6-luna|checklist|leaflet": {
+    "usd_per_100_segments": 0.020493,
+    "segments": 1012,
+    "calls": 140
+   }
+  },
+  "stacks": {
+   "gpt-5.4-mini-2026-03-17|segment QE|cross": {
+    "any": {
+     "k": 8,
+     "n": 48,
+     "rate": 0.166667,
+     "ci_low": 0.056604,
+     "ci_high": 0.318182
+    },
+    "major": {
+     "k": 1,
+     "n": 48,
+     "rate": 0.020833,
+     "ci_low": 0.0,
+     "ci_high": 0.06383
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE|local": {
+    "any": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE|false_alarm_any": {
+    "k": 77,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE|false_alarm_major": {
+    "k": 37,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE|usd": 0.095687,
+   "gpt-5.4-mini-2026-03-17|segment QE + document context|cross": {
+    "any": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.52,
+     "ci_high": 0.734694
+    },
+    "major": {
+     "k": 4,
+     "n": 48,
+     "rate": 0.083333,
+     "ci_low": 0.0,
+     "ci_high": 0.18
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE + document context|local": {
+    "any": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.910714,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 54,
+     "n": 60,
+     "rate": 0.9,
+     "ci_low": 0.8,
+     "ci_high": 0.983333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE + document context|false_alarm_any": {
+    "k": 62,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE + document context|false_alarm_major": {
+    "k": 24,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE + document context|usd": 0.223325,
+   "gpt-5.4-mini-2026-03-17|whole-document QE|cross": {
+    "any": {
+     "k": 19,
+     "n": 48,
+     "rate": 0.395833,
+     "ci_low": 0.27451,
+     "ci_high": 0.519231
+    },
+    "major": {
+     "k": 0,
+     "n": 48,
+     "rate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|whole-document QE|local": {
+    "any": {
+     "k": 53,
+     "n": 60,
+     "rate": 0.883333,
+     "ci_low": 0.786885,
+     "ci_high": 0.958333
+    },
+    "major": {
+     "k": 51,
+     "n": 60,
+     "rate": 0.85,
+     "ci_low": 0.746032,
+     "ci_high": 0.94032
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|whole-document QE|false_alarm_any": {
+    "k": 19,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|whole-document QE|false_alarm_major": {
+    "k": 7,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|whole-document QE|usd": 0.011692,
+   "gpt-5.4-mini-2026-03-17|document checklist|cross": {
+    "any": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    },
+    "major": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document checklist|local": {
+    "any": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    },
+    "major": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document checklist|false_alarm_any": {
+    "k": 20,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|document checklist|false_alarm_major": {
+    "k": 20,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|document checklist|usd": 0.054205,
+   "gpt-5.4-mini-2026-03-17|segment QE + checklist|cross": {
+    "any": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.5,
+     "ci_high": 0.784314
+    },
+    "major": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE + checklist|local": {
+    "any": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE + checklist|false_alarm_any": {
+    "k": 78,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE + checklist|false_alarm_major": {
+    "k": 42,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE + checklist|usd": 0.149892,
+   "gpt-5.4-mini-2026-03-17|segment QE with context + checklist|cross": {
+    "any": {
+     "k": 33,
+     "n": 48,
+     "rate": 0.6875,
+     "ci_low": 0.55814,
+     "ci_high": 0.808536
+    },
+    "major": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE with context + checklist|local": {
+    "any": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 56,
+     "n": 60,
+     "rate": 0.933333,
+     "ci_low": 0.850746,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE with context + checklist|false_alarm_any": {
+    "k": 64,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE with context + checklist|false_alarm_major": {
+    "k": 29,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE with context + checklist|usd": 0.27753,
+   "gpt-5.6-luna|segment QE|cross": {
+    "any": {
+     "k": 8,
+     "n": 48,
+     "rate": 0.166667,
+     "ci_low": 0.061224,
+     "ci_high": 0.288462
+    },
+    "major": {
+     "k": 0,
+     "n": 48,
+     "rate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0
+    }
+   },
+   "gpt-5.6-luna|segment QE|local": {
+    "any": {
+     "k": 60,
+     "n": 60,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 60,
+     "n": 60,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|segment QE|false_alarm_any": {
+    "k": 87,
+    "n": 240
+   },
+   "gpt-5.6-luna|segment QE|false_alarm_major": {
+    "k": 39,
+    "n": 240
+   },
+   "gpt-5.6-luna|segment QE|usd": 0.028919,
+   "gpt-5.6-luna|segment QE + document context|cross": {
+    "any": {
+     "k": 34,
+     "n": 48,
+     "rate": 0.708333,
+     "ci_low": 0.603774,
+     "ci_high": 0.825
+    },
+    "major": {
+     "k": 1,
+     "n": 48,
+     "rate": 0.020833,
+     "ci_low": 0.0,
+     "ci_high": 0.06383
+    }
+   },
+   "gpt-5.6-luna|segment QE + document context|local": {
+    "any": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.918033,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|segment QE + document context|false_alarm_any": {
+    "k": 73,
+    "n": 240
+   },
+   "gpt-5.6-luna|segment QE + document context|false_alarm_major": {
+    "k": 17,
+    "n": 240
+   },
+   "gpt-5.6-luna|segment QE + document context|usd": 0.080351,
+   "gpt-5.6-luna|whole-document QE|cross": {
+    "any": {
+     "k": 28,
+     "n": 48,
+     "rate": 0.583333,
+     "ci_low": 0.488889,
+     "ci_high": 0.688889
+    },
+    "major": {
+     "k": 1,
+     "n": 48,
+     "rate": 0.020833,
+     "ci_low": 0.0,
+     "ci_high": 0.069767
+    }
+   },
+   "gpt-5.6-luna|whole-document QE|local": {
+    "any": {
+     "k": 57,
+     "n": 60,
+     "rate": 0.95,
+     "ci_low": 0.866667,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 56,
+     "n": 60,
+     "rate": 0.933333,
+     "ci_low": 0.848459,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|whole-document QE|false_alarm_any": {
+    "k": 48,
+    "n": 240
+   },
+   "gpt-5.6-luna|whole-document QE|false_alarm_major": {
+    "k": 17,
+    "n": 240
+   },
+   "gpt-5.6-luna|whole-document QE|usd": 0.004554,
+   "gpt-5.6-luna|document checklist|cross": {
+    "any": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.522727,
+     "ci_high": 0.755556
+    },
+    "major": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.522727,
+     "ci_high": 0.755556
+    }
+   },
+   "gpt-5.6-luna|document checklist|local": {
+    "any": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.915254,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.915254,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|document checklist|false_alarm_any": {
+    "k": 31,
+    "n": 240
+   },
+   "gpt-5.6-luna|document checklist|false_alarm_major": {
+    "k": 31,
+    "n": 240
+   },
+   "gpt-5.6-luna|document checklist|usd": 0.020493,
+   "gpt-5.6-luna|segment QE + checklist|cross": {
+    "any": {
+     "k": 34,
+     "n": 48,
+     "rate": 0.708333,
+     "ci_low": 0.595745,
+     "ci_high": 0.818182
+    },
+    "major": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.522727,
+     "ci_high": 0.755556
+    }
+   },
+   "gpt-5.6-luna|segment QE + checklist|local": {
+    "any": {
+     "k": 60,
+     "n": 60,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 60,
+     "n": 60,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|segment QE + checklist|false_alarm_any": {
+    "k": 91,
+    "n": 240
+   },
+   "gpt-5.6-luna|segment QE + checklist|false_alarm_major": {
+    "k": 52,
+    "n": 240
+   },
+   "gpt-5.6-luna|segment QE + checklist|usd": 0.049412,
+   "gpt-5.6-luna|segment QE with context + checklist|cross": {
+    "any": {
+     "k": 39,
+     "n": 48,
+     "rate": 0.8125,
+     "ci_low": 0.711111,
+     "ci_high": 0.913043
+    },
+    "major": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.522727,
+     "ci_high": 0.755556
+    }
+   },
+   "gpt-5.6-luna|segment QE with context + checklist|local": {
+    "any": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.6-luna|segment QE with context + checklist|false_alarm_any": {
+    "k": 78,
+    "n": 240
+   },
+   "gpt-5.6-luna|segment QE with context + checklist|false_alarm_major": {
+    "k": 34,
+    "n": 240
+   },
+   "gpt-5.6-luna|segment QE with context + checklist|usd": 0.100844
+  },
+  "pilot": {
+   "gpt-5.4-2026-03-05|checklist|local": [
+    35,
+    35,
+    38
+   ],
+   "gpt-5.4-2026-03-05|context_qe|local": [
+    36,
+    36,
+    38
+   ],
+   "gpt-5.4-2026-03-05|document_qe|local": [
+    34,
+    34,
+    38
+   ],
+   "gpt-5.4-2026-03-05|segment_qe|local": [
+    38,
+    38,
+    38
+   ],
+   "gpt-5.4-2026-03-05|checklist|cross": [
+    6,
+    6,
+    13
+   ],
+   "gpt-5.4-2026-03-05|context_qe|cross": [
+    11,
+    1,
+    13
+   ],
+   "gpt-5.4-2026-03-05|document_qe|cross": [
+    10,
+    3,
+    13
+   ],
+   "gpt-5.4-2026-03-05|segment_qe|cross": [
+    4,
+    0,
+    13
+   ],
+   "gpt-5.4-2026-03-05|case_tests|local": [
+    3,
+    3,
+    8
+   ],
+   "gpt-5.4-2026-03-05|case_tests|cross": [
+    0,
+    0,
+    1
+   ],
+   "gpt-5.4-mini-2026-03-17|checklist|local": [
+    33,
+    33,
+    38
+   ],
+   "gpt-5.4-mini-2026-03-17|context_qe|local": [
+    37,
+    34,
+    38
+   ],
+   "gpt-5.4-mini-2026-03-17|document_qe|local": [
+    33,
+    33,
+    38
+   ],
+   "gpt-5.4-mini-2026-03-17|segment_qe|local": [
+    38,
+    38,
+    38
+   ],
+   "gpt-5.4-mini-2026-03-17|checklist|cross": [
+    7,
+    7,
+    13
+   ],
+   "gpt-5.4-mini-2026-03-17|context_qe|cross": [
+    7,
+    0,
+    13
+   ],
+   "gpt-5.4-mini-2026-03-17|document_qe|cross": [
+    6,
+    0,
+    13
+   ],
+   "gpt-5.4-mini-2026-03-17|segment_qe|cross": [
+    2,
+    0,
+    13
+   ],
+   "gpt-5.4-mini-2026-03-17|case_tests|local": [
+    3,
+    3,
+    8
+   ],
+   "gpt-5.4-mini-2026-03-17|case_tests|cross": [
+    0,
+    0,
+    1
+   ]
+  },
+  "detection_mismatch": {
+   "gpt-5.4-mini-2026-03-17|segment_qe": [
+    7,
+    74
+   ],
+   "gpt-5.4-mini-2026-03-17|context_qe": [
+    2,
+    90
+   ],
+   "gpt-5.4-mini-2026-03-17|document_qe": [
+    0,
+    72
+   ],
+   "gpt-5.4-mini-2026-03-17|checklist": [
+    1,
+    81
+   ],
+   "gpt-5.4-mini-2026-03-17|case_tests": [
+    0,
+    0
+   ],
+   "gpt-5.6-luna|segment_qe": [
+    10,
+    78
+   ],
+   "gpt-5.6-luna|context_qe": [
+    4,
+    97
+   ],
+   "gpt-5.6-luna|document_qe": [
+    1,
+    86
+   ],
+   "gpt-5.6-luna|checklist": [
+    3,
+    92
+   ],
+   "gpt-5.6-luna|case_tests": [
+    0,
+    0
+   ]
+  }
+ },
+ "qe_noise": {
+  "passing_cases": 464,
+  "qe_flagged": 10
+ }
+}

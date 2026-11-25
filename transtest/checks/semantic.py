@@ -49,7 +49,8 @@ def _grounded(quote: str, text: str, thr: int = 88) -> bool:
     q = (quote or "").strip().strip("\"'«»“”")
     if len(q) < 4:
         return False
-    norm = lambda s: re.sub(r"\s+", " ", s).lower()
+    def norm(s):
+        return re.sub(r"\s+", " ", s).lower()
     return fuzz.partial_ratio(norm(q), norm(text)) >= thr
 
 

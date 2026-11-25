@@ -1,6 +1,6 @@
 """Tests for transtest's rule-based checks (no LLM / embeddings needed)."""
 from transtest.checks import Context, run_check
-from transtest.checks.deterministic import _normalise_number, extract_numbers
+from transtest.checks.deterministic import _normalise_number
 from transtest.model import Document, Suite, TestSpec, split_sentences
 
 

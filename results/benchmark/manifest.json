@@ -1,0 +1,33 @@
+{
+ "run": {
+  "candidates_per_doc": {
+   "leaflet": 3,
+   "synthetic": 1
+  },
+  "clean_segments_per_leaflet": 12,
+  "detect_effort": "low",
+  "detect_models": [
+   "gpt-5.4-mini-2026-03-17",
+   "gpt-5.6-luna"
+  ],
+  "detector_calls": 3440,
+  "diagnosis_model": "gpt-5.4-2026-03-05",
+  "documents": 20,
+  "endpoint": "https://api.openai.com/v1",
+  "max_per_cell": 12,
+  "plant_effort": "medium",
+  "plant_model": "gpt-5.5-2026-04-23",
+  "prompt_hashes": {
+   "checklist": "cabc95f8ebdb",
+   "context_qe": "bc1b68ba441a",
+   "diagnosis": "6a0ff536b82c",
+   "document_qe": "d7ac4398d34d",
+   "plant": "523f298c1d4d",
+   "segment_qe": "8cadc0f02a61",
+   "taxonomy": "020a5bae887b",
+   "verify": "969c96ddfd94"
+  },
+  "seed": 20261124,
+  "variants": 108
+ }
+}
