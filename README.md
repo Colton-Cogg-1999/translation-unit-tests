@@ -343,8 +343,7 @@ or issues outside the tested capabilities).
 
 Raw material: per-engine runs and JUnit XML in [`results/mtunit/runs/`](results/mtunit/runs/) and
 [`results/mtunit/junit/`](results/mtunit/junit/), adjudications in
-[`results/mtunit/adjudication.json`](results/mtunit/adjudication.json), failures QE missed in
-[`results/mtunit/qe_misses.md`](results/mtunit/qe_misses.md), all computed statistics in
+[`results/mtunit/adjudication.json`](results/mtunit/adjudication.json), all computed statistics in
 [`results/analysis/summary.json`](results/analysis/summary.json).
 
 ## Pilot study: Requirement tests for one document (`transtest/`)
