@@ -2,174 +2,227 @@
 
 [![CI](https://github.com/Colton-Cogg-1999/translation-unit-tests/actions/workflows/ci.yml/badge.svg)](https://github.com/Colton-Cogg-1999/translation-unit-tests/actions/workflows/ci.yml)
 
-*An exploratory study of document-level translation errors, measured with AI-generated unit tests for
-MT/LLM engines (English → Spanish).*
+*Two studies of document-level translation errors (English → Spanish): which ones quality checks miss, why,
+and what it costs to catch them.*
 
 ## Summary
 
 Localization pipelines translate and quality-check text **one segment at a time**. Segment-level quality
-estimation (QE) asks one question: *is this target a good translation of this source?* This study shows a
-class of errors where the answer is "yes" for every segment, and the document is still wrong:
+estimation (QE) asks whether each target segment is a good translation of its source. Some errors pass that test
+in every segment and still leave the document wrong:
 
-* A pronoun takes the wrong gender because its noun is in the previous segment.
-* One sentence addresses the reader as *usted* while the rest of the text uses *tú*.
-* A list item is a fine sentence alone but doesn't grammatically complete its lead-in.
+* a pronoun takes the wrong gender because its noun is in another segment;
+* one sentence addresses the reader as *tú* in a leaflet that otherwise uses *usted*;
+* a list item is grammatical alone but doesn't complete its lead-in.
 
-QE can't catch these, however good the QE model is, because the information needed is in a segment it never
-sees. They need checks over the whole document. This project writes those checks as **unit tests**: explicit
-assertions about the translated document, such as "pronouns agree with their referents", "register is
-consistent", "list items complete the lead-in" and "the maximum daily dose is preserved". It then measures
-what they catch.
+**Study A** plants 108 errors with known locations into 20 real EU patient leaflets with professional Spanish
+translations, and measures what four kinds of check find, how often they raise false alarms, and what they cost.
+**Study B** generates capability unit tests for three MT/LLM engines and measures where segment-by-segment
+translation fails and whether segment QE notices.
 
-**Main findings**
+**Findings**
 
-1. **Segment QE missed every error whose evidence was in another segment.** In 14 cases a pronoun had the
-   wrong gender for a noun in an earlier segment (e.g. *devuélvelo* referring to *la crema*): QE identified **0 of 14**.
-   In 17 cases a list item didn't fit its lead-in: **0 of 17**. Across the three error types where the evidence
-   is in another segment, QE identified 0 of 38; across the types visible inside the segment, 19 of 19.
-2. **Segment QE judges formality against its own default, not against the document.** When formal (*usted*)
-   text slipped into *tú*, QE flagged it 8 of 8 times, because *tú* looks too informal in isolation. When
-   informal text slipped into *usted*, it flagged it 0 of 7 times, because a formal sentence looks fine alone.
-3. **Segment-by-segment translation causes these errors.** Pooled over three engines, cross-segment tests
-   passed 89% with whole-document translation and 69% segment by segment. Segment-local capabilities, the
-   control group, were unchanged (92% vs 91%). The difference between the two effects is
-   +19 percentage points (95% CI +10 to +28), and the direction was the same in all three engines.
-4. **Unit tests are cheap to generate but need a second check.** An LLM-written suite of 92 cases cost about
-   $10 to run. 102 of the 133 failures (77%) were confirmed real errors; the rest were over-specific assertions.
+1. **Segment QE misses errors whose evidence is in another segment.** It found 8 of 48 planted cross-segment
+   errors (17%), against 59 of 60 errors visible in their own segment.
+2. **Giving QE the document lets it find them, but it rates them minor.** With the whole leaflet as context, QE
+   found 30 of 48 cross-segment errors (62%), but flagged only 4 of 48 as major or critical. A pipeline that acts on
+   major/critical QE flags would let 92% of these errors through. Full GPT-5.4 showed the same gap in the pilot.
+3. **A seven-check document checklist closes the gap cheaply.** Run alongside segment QE, it raised
+   cross-segment errors flagged major/critical from 1 of 48 to 30 of 48, kept 98% of segment-local errors, raised
+   the share of clean segments flagged major/critical from 15% to 18%, and cost $0.15 per 100 segments
+   instead of $0.10 (gpt-5.4-mini).
+4. **Terminology and agreement errors stay hard.** No LLM check found more than 2 of 12 inconsistent terms or
+   4 of 12 agreement errors.
+5. **Segmentation causes these errors.** In study B, cross-segment unit tests passed 89% with
+   whole-document translation and 69% segment by segment, while segment-local capabilities were unchanged
+   (92% vs 91%).
 
-The numbers above, every table below and the figures are produced by [`analysis/`](analysis/) from the
-committed results, and CI fails if the README and the results disagree.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/bench_recall-dark.png">
+  <img alt="Recall of four checks on 108 planted errors in real leaflets. For cross-segment errors: segment QE 17% any flag, 2% major; QE with document context 62% any flag, 8% major; whole-document QE 40%, 0% major; document checklist 62% at both. For errors visible in their own segment all checks find 83–98%." src="figures/bench_recall-light.png">
+</picture>
 
-## Correct segments, wrong document
+**What this means in practice.** Segment QE can stay as the check for errors inside a segment, but its severity
+labels can't be used to catch document-level errors, even when it is given context. A short list of
+document-level unit tests (agreement, form of address, terminology, list fit, numbers, logic, meaning), each
+returning pass/fail with a quoted span, catches most of them for about half as much again as segment QE costs.
+Terminology consistency is better handled by a deterministic glossary check than by an LLM.
 
-All examples are real outputs from this study (segment-by-segment translation). Segment QE reported **no
-errors** on every segment shown.
+All numbers, tables and figures in this README are recomputed from the committed results by
+[`analysis/`](analysis/), and CI fails if they disagree. Both studies replay offline from shipped LLM responses.
 
-**Gender agreement across segments** (GPT-5.4 mini)
+## Study A: planted errors in real documents (`benchmark/`)
 
-| # | source | translation | problem |
-|---|---|---|---|
-| 1 | Try our new moisturizing cream for 30 days. | Prueba nuestra nueva **crema** hidratante durante 30 días. | |
-| 2 | If you don't love it, send it back. | Si no te encanta, **devuélvelo**. | *crema* is feminine → *devuélvela* |
+### Design
 
-| # | source | translation | problem |
-|---|---|---|---|
-| 1 | Our new sneakers are lightweight and breathable. | Nuestras nuevas **zapatillas** son ligeras y transpirables. | |
-| 2 | Order them today, and they arrive tomorrow. | **Pídelos** hoy y te llegarán mañana. | *zapatillas* is feminine → *pídelas* |
+**Documents.** 20 EU patient information leaflets (sections 1–5, 39–60 segments, 1,012 segments in all) with
+their professional Spanish translations, from the OPUS EMEA corpus. A leaflet was kept only if every line pair
+was a plausible translation by embedding similarity, so the sentence alignment can be trusted.
 
-Read alone, *Si no te encanta, devuélvelo* is a correct translation of *If you don't love it, send it back*.
-The English source has no gender, so nothing in the segment tells QE that the pronoun is wrong.
+**Planted errors.** GPT-5.5 proposed single-segment edits of nine types. Each edit had to leave the segment fluent,
+grammatical Spanish. A separate GPT-5.5 call then verified each edit with a fresh prompt: exactly one error of the
+claimed type, fluent on its own, and, for cross-segment types, *not* detectable from the segment and its own source
+alone. 12 verified edits per type were kept, spread across documents, giving **108 variants**, each a leaflet with
+one known error.
 
-**Formality drift** (Llama 4 Scout)
-
-| # | source | translation | register |
-|---|---|---|---|
-| 1 | To change your language, open Settings. | Para cambiar tu idioma, **abre** Ajustes. | tú |
-| 2 | Select Language and choose an option from the list. | **Seleccione** el idioma y **elija** una opción de la lista. | usted |
-| 3 | If you need help, contact our support team. | Si **necesitas** ayuda, **ponte** en contacto con nuestro equipo de soporte. | tú |
-
-**List items that don't complete the lead-in** (GPT-5.4 mini)
-
-| # | source | translation | problem |
-|---|---|---|---|
-| 1 | Do not use the device if you: | No utilice el dispositivo si: | singular *usted* |
-| 2 | are pregnant | **están embarazadas** | 3rd-person plural |
-| 3 | have a pacemaker | tiene un marcapasos | ✓ |
-| 4 | are allergic to nickel | **son alérgicos** al níquel | 3rd-person plural |
-
-In this medical-device warning, items 2 and 4 address a different, plural subject. Each is grammatical on
-its own.
-
-## Unit tests vs. segment QE
-
-The two methods answer different questions.
-
-| | segment-level QE | document unit tests |
-|---|---|---|
-| question | Is this segment a good translation of its source? | Does the translated document meet these requirements? |
-| input | one (source, target) pair ([`transtest/segqe.py`](transtest/segqe.py)) | the whole document, plus the requirements |
-| output | error annotations and a score | pass/fail per requirement (JUnit XML, so it can run in CI) |
-| can see | mistranslations, omissions and fluency problems inside a segment | agreement, consistency and coverage across segments; explicit requirements |
-| cannot see | anything that depends on another segment | anything nobody wrote a test for |
-
-Unit tests also let you state the **requirements that matter for a given text**, instead of relying on a
-general quality score. The pilot study's patient-leaflet suite, for example, includes:
-
-* *"You must not take more than 8 tablets (4,000 mg) in 24 hours"* (a critical meaning assertion)
-* every number in the source appears correctly in the target (deterministic check)
-* *tablet* is translated as *comprimido*, never *tableta/pastilla*, throughout the document (glossary and
-  consistency)
-* the reader is addressed with *usted* everywhere (register)
-* *"What is the maximum daily dose for someone with liver problems?"* is answered correctly from the
-  translation alone (a QA probe that combines information across sentences)
-
-These are not alternatives to QE. Segment QE is good at what it can see, and it caught some meaning errors in
-the pilot that the tests missed. The point is that some properties of a translation only exist at the document
-level, and they need a check that looks at the document.
-
-## Research questions
-
-* **RQ1.** Compared with whole-document translation, does segment-by-segment translation lower pass rates on
-  capabilities that need context beyond the segment, and leave segment-local capabilities unchanged?
-* **RQ2.** When those failures occur, does segment-level QE detect them?
-* **RQ3.** Can an LLM produce a usable capability test suite for translation, and how often are its
-  assertions wrong?
-* **Pilot.** Can a requirement-based test suite for one document act as a QA check on its translation, and
-  can mutation testing measure how good that suite is?
-
-## Method
-
-**Capabilities.** Twelve capabilities were tested, in the style of
-[CheckList](https://aclanthology.org/2020.acl-main.442/) behavioural testing, in two groups:
-
-| segment-local (control) | cross-segment |
+| evidence in another segment | evidence in the same segment (controls) |
 |---|---|
-| negation · numbers & locale formats · placeholders/tags · do-not-translate terms · logical/condition scope | pronoun & gender agreement · terminology consistency · register consistency · implicit subjects/ellipsis · list items inheriting a lead-in · context-dependent word sense · UI-label references |
+| agreement · register (*usted*/*tú*) · terminology · list fit | negation · number · omission · mistranslation · condition |
 
-**Test generation and validation.**
-* Claude Sonnet 5.5 generated 8 cases per capability, spread across software/UI, marketing, legal and medical
-  text. Each case has 1–6 source segments and 1–3 assertions about the Spanish output. Assertions are either
-  deterministic (`preserve`, `contains`, `not_contains`) or grounded LLM judgments: the judge must quote the
-  translation, and a verdict whose quote isn't found in the output is discarded as unverified.
-* Each case was translated whole-document by GPT-5.4 to produce a gold translation. Assertions that failed
-  on the gold translation were dropped as wrong or too strict. **92/96 cases and 194/207 assertions** were kept.
+**Checks compared** (all gpt-5.4-mini, low reasoning effort, prompts in [`benchmark/detectors.py`](benchmark/detectors.py)):
 
-**Engines and conditions.** Llama 4 Scout, GPT-5.4 nano and GPT-5.4 mini, each run in two modes:
-* *segment*: one request per segment with no surrounding context, as a TMS sends text;
-* *document*: all segments of a case in one request.
+| check | what it sees | calls |
+|---|---|---|
+| segment QE | one (source, target) pair; the MQM prompt from study B | one per segment |
+| segment QE + document context | the same judgement of one segment, with the whole document in the prompt | one per segment |
+| whole-document QE | the whole document; lists every error with segment numbers | one per document |
+| document checklist | the whole document; 7 fixed requirements, each a separate pass/fail call that must quote its evidence | seven per document |
 
-**Baseline QE.** Every output was also scored by MQM-style segment-level QE (Claude Sonnet 5.5, one segment
-at a time, with a GEMBA-MQM-style prompt).
+**Scoring.** A planted error counts as found only if a check flags the edited segment **and** an independent model
+(GPT-5.4) confirms the flag describes the planted change rather than something else in that segment. False alarms
+are measured on the unmodified leaflets: every segment for the document-level checks, and a fixed sample of 12
+segments per leaflet for the per-segment checks. Confidence intervals resample whole documents. Cost is computed
+from the token usage recorded during the run, at OpenAI list prices.
 
-**Adjudication.** Every assertion failure was reviewed by GPT-5.4, which neither generated nor judged the
-tests. It answered two questions: is this a real error a reviewer would fix, and did any segment-QE comment,
-at any severity, describe the same problem?
+### Results
 
-**Error types.** For the three capabilities where QE's success depends on where the evidence is (pronoun
-agreement, implicit subjects, register), each adjudicated real error was classified by error type from the
-adjudicator's notes and the outputs. The labels are in
-[`results/mtunit/error_types.csv`](results/mtunit/error_types.csv).
+Combinations of checks, by what a pipeline that acts on major/critical flags would catch:
 
-**Statistics** ([`analysis/stats.py`](analysis/stats.py)). Every engine translates the same 92 cases, so
-rows that share a case are not independent. Confidence intervals come from a bootstrap that resamples whole
-cases (10,000 replicates, stratified by capability). The RQ1 hypothesis is tested as an interaction in a GEE
-logistic regression clustered by case. Paired comparisons use exact sign tests on discordant engine × case
-pairs, with Holm correction across capabilities. A case passes if every assertion passes; 4 engine × mode × case rows
-with an unverified judge verdict and no failure are excluded from pass rates.
+<!-- BEGIN analysis:bench_stacks -->
+| checks run | cross-segment errors, any flag | cross-segment errors, major/critical flag | segment-local errors, major/critical flag | clean segments flagged major/critical | cost per 100 segments |
+|---|---|---|---|---|---|
+| segment QE alone | 17% [6–32] | **2% [0–6]** | 98% [95–100] | 15% | $0.10 |
+| segment QE + checklist | 65% [50–78] | **62% [49–76]** | 98% [95–100] | 18% | $0.15 |
+| context QE alone | 62% [52–73] | **8% [0–18]** | 90% [80–98] | 10% | $0.22 |
+| context QE + checklist | 69% [56–81] | **62% [49–76]** | 93% [85–100] | 12% | $0.28 |
+<!-- END analysis:bench_stacks -->
 
-The study was run once, at temperature 0, on 2026-11-15. Models, settings and a hash of every prompt are
-recorded in [`results/mtunit/manifest.json`](results/mtunit/manifest.json).
+Each check alone:
 
-## Results
+<!-- BEGIN analysis:bench_recall -->
+| detector | model | cross-segment errors | segment-local errors |
+|---|---|---|---|
+| segment QE | gpt-5.4-mini | 17% [6–32] | 98% [95–100] |
+| segment QE + document context | gpt-5.4-mini | 62% [52–73] | 97% [91–100] |
+| whole-document QE | gpt-5.4-mini | 40% [27–52] | 88% [79–96] |
+| document checklist (7 unit tests) | gpt-5.4-mini | 62% [49–76] | 83% [73–92] |
+<!-- END analysis:bench_recall -->
 
-### RQ1: Segmentation causes cross-segment failures
+* **Context is what finds cross-segment errors.** QE with context found 23 errors that plain segment QE missed,
+  and plain segment QE found 1 that it missed (McNemar p < 0.001). The checklist and context QE found the same
+  number, with 3 errors found only by each.
+* **Severity is where QE fails.** QE with context described the register slip, the wrong pronoun or the plural
+  list item correctly, and then rated it minor. The checklist has no severity: a requirement holds or it doesn't.
+* **Whole-document QE in one call is cheap and quiet but shallow.** It costs about a tenth of per-segment QE and
+  raised the fewest false alarms, but it found only 40% of cross-segment errors and missed more local ones.
+* **The checklist is weaker on local errors** (83%, mainly omissions and condition changes), so it complements
+  segment QE rather than replacing it.
+
+By error type (share found, any flag):
+
+<!-- BEGIN analysis:bench_types -->
+| error type | evidence | n | segment QE | segment QE + document context | whole-document QE | document checklist (7 unit tests) |
+|---|---|---|---|---|---|---|
+| agreement | other segment | 12 | 17% | 33% | 17% | 33% |
+| register | other segment | 12 | 33% | 100% | 92% | 100% |
+| terminology | other segment | 12 | 0% | 17% | 0% | 17% |
+| list_fit | other segment | 12 | 17% | 100% | 50% | 100% |
+| negation | same segment | 12 | 100% | 100% | 100% | 100% |
+| number | same segment | 12 | 100% | 100% | 100% | 100% |
+| omission | same segment | 12 | 100% | 100% | 75% | 58% |
+| mistranslation | same segment | 12 | 100% | 100% | 100% | 92% |
+| condition | same segment | 12 | 92% | 83% | 67% | 67% |
+<!-- END analysis:bench_types -->
+
+False alarms on the unmodified leaflets and cost:
+
+<!-- BEGIN analysis:bench_false_alarms -->
+| detector | model | clean segments flagged, any severity | major/critical | cost per 100 segments (leaflets) |
+|---|---|---|---|---|
+| segment QE | gpt-5.4-mini | 32% | 15% | $0.10 |
+| segment QE + document context | gpt-5.4-mini | 26% | 10% | $0.22 |
+| whole-document QE | gpt-5.4-mini | 9% | 4% | $0.01 |
+| document checklist (7 unit tests) | gpt-5.4-mini | 11% | 11% | $0.05 |
+<!-- END analysis:bench_false_alarms -->
+
+These "false alarms" are flags on professional translations as published; some may be real issues in the reference
+translations rather than noise.
+
+<details>
+<summary>Examples: QE with context sees the error and rates it minor</summary>
+
+All from the run; segment QE reported no error on the edited segment in each case.
+
+| planted edit | QE with context (severity: minor) | checklist |
+|---|---|---|
+| *Informe a su médico…* → *Informa a **tu** médico si **estás** utilizando…* | "El uso de la forma informal 'tu' rompe la uniformidad del prospecto…" | register: "uses the informal form while the rest of the addressed text uses the formal usted" |
+| *No tome una dosis doble…* → *No **tomen** una dosis doble…* | "the translation uses the plural form 'tomen'…" | register: "plural 'tomen' instead of the consistent 'usted' form used elsewhere" |
+| *• si usted tiene una infección…* → *• si **ustedes tienen** una infección…* | "El uso de «ustedes» es poco natural e inconsistente con el tono del prospecto…" | register: "plural 'ustedes' while the rest addresses the reader in the singular" |
+| *…para protegerlo de la luz* → *…para **protegerla** de la luz* | "El pronombre no concuerda con el antecedente…" | agreement: "-la does not agree in gender with its antecedent" |
+
+</details>
+
+**Does a larger model change this?** The 51-error pilot (2 leaflets, 2 short texts) ran full GPT-5.4 as well. On
+its 13 cross-segment errors, GPT-5.4 with context found 11 of 13 and rated 1 of 13 major or critical:
+
+<!-- BEGIN analysis:bench_pilot -->
+| detector | gpt-5.4: any flag | gpt-5.4: major/critical | gpt-5.4-mini: any flag | gpt-5.4-mini: major/critical |
+|---|---|---|---|---|
+| segment QE | 4/13 | 0/13 | 2/13 | 0/13 |
+| segment QE + document context | 11/13 | 1/13 | 7/13 | 0/13 |
+| whole-document QE | 10/13 | 3/13 | 6/13 | 0/13 |
+| document checklist (7 unit tests) | 6/13 | 6/13 | 7/13 | 7/13 |
+<!-- END analysis:bench_pilot -->
+
+## Study B: unit tests for MT engines (`mtunit/`)
+
+**Question.** Does segment-by-segment translation (as a TMS sends text) cause cross-segment errors, and does
+segment QE notice them?
+
+**Method.** Claude Sonnet 5.5 generated 8 test cases for each of 12 capabilities, in the style of
+[CheckList](https://aclanthology.org/2020.acl-main.442/): 5 segment-local controls (negation, numbers, placeholders,
+do-not-translate terms, logical scope) and 7 cross-segment capabilities (pronoun agreement, terminology and register
+consistency, implicit subjects, list items, word sense, UI-label references). Each case has 1–4 segments and 1–3
+assertions: deterministic string checks, or LLM judgements that must quote the output. Assertions that failed on a
+whole-document GPT-5.4 translation were dropped (**92/96 cases and 194/207 assertions** kept). Llama 4 Scout, GPT-5.4
+nano and GPT-5.4 mini translated every case segment by segment and as a whole document. Every output was scored by
+segment QE (Claude Sonnet 5.5, MQM). Every failure was adjudicated by GPT-5.4: real error or test artifact, and did any
+QE comment describe it?
+
+### Segmentation causes cross-segment failures
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/mode_effect-dark.png">
   <img alt="Dot plot of document-minus-segment pass rate per capability with 95% confidence intervals. Cross-segment capabilities pooled gain 20 points; segment-local capabilities pooled gain 1 point." src="figures/mode_effect-light.png">
 </picture>
 
-Case pass rates by engine and mode:
+Cross-segment cases passed 89% with whole-document translation and 69% segment by segment; segment-local cases were
+unchanged (92% vs 91%). 33 engine × case pairs failed only in segment mode and 4 only in document mode. The
+difference between the two effects is +19 percentage points (95% CI +10 to +28); in a GEE logistic regression
+clustered by case, the document × cross-segment interaction has an odds ratio of 3.3:
+
+<!-- BEGIN analysis:rq1_tests -->
+| | document − segment pass rate, 95% CI | failed only in segment mode | failed only in document mode | sign test |
+|---|---|---|---|---|
+| cross-segment capabilities | +20 pp [+11, +28] | 33 | 4 | p = 1×10⁻⁶ |
+| segment-local capabilities | +1 pp [-3, +4] | 3 | 2 | p = 1.00 |
+| **difference (cross − local)** | **+19 pp [+10, +28]** | | | |
+
+GEE logistic regression on all 548 decided engine × mode × case rows, clustered by case (92 cases), with engine as a covariate:
+
+| term | odds ratio [95% CI] | p |
+|---|---|---|
+| document mode (segment-local capabilities) | 1.1 [0.7, 1.8] | 0.64 |
+| document mode (cross-segment capabilities) | 3.7 [1.9, 7.1] | 1×10⁻⁴ |
+| **document × cross-segment interaction** | **3.3 [1.4, 7.4]** | **0.005** |
+<!-- END analysis:rq1_tests -->
+
+The largest effects were in list inheritance, register and implicit subjects. With 6–8 cases per capability,
+only list inheritance stays significant (Holm-adjusted p = 0.006) on its own. The weaker the engine, the more it lost:
+segmentation cost Scout 23 points, nano 21 and mini 15 on cross-segment capabilities.
+
+<details>
+<summary>Pass rates and effects by capability</summary>
 
 <!-- BEGIN analysis:rq1_table -->
 | capability | cross-segment | scout seg | scout doc | nano seg | nano doc | mini seg | mini doc |
@@ -190,37 +243,6 @@ Case pass rates by engine and mode:
 | **cross-segment** | | **63%** | **87%** | **65%** | **87%** | **79%** | **94%** |
 <!-- END analysis:rq1_table -->
 
-Document context raised cross-segment pass rates and left the control group unchanged. In the pooled comparison,
-33 engine × case pairs failed only in segment mode and 4 only in document mode. In the regression, the
-document × cross-segment interaction has an odds ratio of 3.3:
-
-<!-- BEGIN analysis:rq1_tests -->
-| | document − segment pass rate, 95% CI | failed only in segment mode | failed only in document mode | sign test |
-|---|---|---|---|---|
-| cross-segment capabilities | +20 pp [+11, +28] | 33 | 4 | p = 1×10⁻⁶ |
-| segment-local capabilities | +1 pp [-3, +4] | 3 | 2 | p = 1.00 |
-| **difference (cross − local)** | **+19 pp [+10, +28]** | | | |
-
-GEE logistic regression on all 548 decided engine × mode × case rows, clustered by case (92 cases), with engine as a covariate:
-
-| term | odds ratio [95% CI] | p |
-|---|---|---|
-| document mode (segment-local capabilities) | 1.1 [0.7, 1.8] | 0.64 |
-| document mode (cross-segment capabilities) | 3.7 [1.9, 7.1] | 1×10⁻⁴ |
-| **document × cross-segment interaction** | **3.3 [1.4, 7.4]** | **0.005** |
-<!-- END analysis:rq1_tests -->
-
-* The largest effects were in **list inheritance**, **register** and **implicit subjects**: the capabilities
-  where Spanish grammar depends on an earlier segment. With 6–8 cases per capability the per-capability
-  intervals are wide, and after Holm correction only list inheritance stays significant (Holm-adjusted p = 0.006).
-* The weaker the engine, the more it lost: segmentation cost Scout 23 points, nano 21 and mini 15 on the
-  cross-segment capabilities.
-* Two cross-segment capabilities showed no effect. *Terminology consistency* never failed, which suggests the
-  generated cases were too easy. *UI-label references* scored the same in both modes.
-
-<details>
-<summary>Per-capability effects</summary>
-
 <!-- BEGIN analysis:rq1_caps -->
 | capability | document − segment, 95% CI | failed only seg / only doc | sign test p (Holm) |
 |---|---|---|---|
@@ -238,16 +260,18 @@ GEE logistic regression on all 548 decided engine × mode × case rows, clustere
 | logical/condition scope *(control)* | +0 pp [+0, +0] | 0 / 0 | 1.00 |
 <!-- END analysis:rq1_caps -->
 
+A case passes if every assertion passes; 4 engine × mode × case rows with an unverified judge verdict and no
+failure are excluded.
 </details>
 
-### RQ2: Segment QE misses what it can't see
+### Segment QE misses what it can't see
 
-Of the 133 assertion failures, the adjudicator confirmed 102 as real errors. Whether QE noticed them depends on
-where the evidence is:
+The adjudicator confirmed 102 of the 133 failures (77%) as real errors. Classified by where the evidence is,
+QE identified 0 of 38 errors whose evidence was in another segment and 19 of 19 visible inside the segment:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/qe_detection-dark.png">
-  <img alt="Bar chart of real errors that segment QE identified, by error type. Errors whose evidence is in another segment: 0 of 14 pronoun gender errors, 0 of 17 list errors, 0 of 7 informal-to-usted slips. Errors visible inside the segment: 8 of 8, 5 of 5, 6 of 6, and 11 of 19 for segment-local capabilities." src="figures/qe_detection-light.png">
+  <img alt="Bar chart of real errors that segment QE identified, by error type: 0 of 14 pronoun gender errors, 0 of 17 list errors, 0 of 7 informal-to-usted slips; 8 of 8, 5 of 5, 6 of 6 for errors visible inside the segment, and 11 of 19 for segment-local capabilities." src="figures/qe_detection-light.png">
 </picture>
 
 <!-- BEGIN analysis:rq2_types -->
@@ -262,25 +286,18 @@ where the evidence is:
 | Segment-local capabilities (negation, numbers, DNT) | inside the segment | 19 | **11** |
 <!-- END analysis:rq2_types -->
 
-* **Pronoun agreement.** Every wrong-gender pronoun whose noun was in an earlier segment went unnoticed.
-  The 6 pronoun errors QE did identify were visible inside the segment: a mistranslated sentence, an added
-  pronoun, plural *them* rendered as singular, and an awkward neuter *lo último*.
-* **Register.** QE's register comments were all of one kind: *tú* is informal for legal or patient text. That
-  catches formal text slipping into *tú*, and it also flags documents that use *tú* consistently (5 cases,
-  all from document mode). It never catches informal text slipping into *usted*. None of the register comments
-  was rated major.
-* **List inheritance.** Each item is a well-formed fragment on its own, so QE has nothing to flag.
+For wrong-gender pronouns whose noun was in another segment, QE identified **0 of 14**; for list items that don't fit
+their lead-in, **0 of 17**. QE judged formality against its own default: it caught formal text slipping into *tú*
+8 of 8 times and informal text slipping into *usted* 0 of 7 times. Study A confirms both patterns on real documents
+with known error locations.
 
-The capability-level split is less sharp than the error-type split. Counting every real error in the
-cross-segment capabilities, QE identified 36 of 83 (43%), against 11 of 19 (58%) in the segment-local
-capabilities (Fisher p = 0.31). The cross-segment capabilities also contain errors that are visible inside a
-segment, such as the 6 pronoun errors and the formal-to-*tú* slips above, and the UI-label and word-sense
-errors were not classified by error type. At the major/critical
-threshold, QE flagged 2 of 19 segment-local errors and 12 of 83 cross-segment errors, so on its own severity
-scale QE rated most real errors of both kinds as minor or not at all.
+At the capability level the split is weaker: QE identified 36 of 83 (43%) real errors in cross-segment capabilities
+and 11 of 19 (58%) in segment-local ones (Fisher p = 0.31), because cross-segment capabilities also contain errors
+visible within a segment.
+At major/critical severity QE flagged 2 of 19 segment-local errors and 12 of 83 cross-segment errors. QE also flagged 10 of the 464 cases that passed every test.
 
 <details>
-<summary>By capability</summary>
+<summary>Generated-test reliability and per-capability detail</summary>
 
 <!-- BEGIN analysis:rq2_table -->
 | capability | real errors | QE identified (any severity) | QE major/critical flag in the case |
@@ -298,31 +315,8 @@ scale QE rated most real errors of both kinds as minor or not at all.
 | **segment-local total** | **19** | **11 (58%)** | **2 (11%)** |
 <!-- END analysis:rq2_table -->
 
-*QE identified* = some QE comment at any severity described the same problem (adjudicator's judgement).
-*Major/critical flag* = QE rated at least one segment of the case major or critical.
-</details>
-
-QE also flagged at least one segment as major/critical in 10 of the 464 cases that passed every test (QE noise,
-or issues outside the tested capabilities).
-
-### RQ3: Reliability of generated tests
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="figures/artifact_rate-dark.png">
-  <img alt="Bar chart of the share of unit-test failures that were test artifacts, by capability. Word sense 4 of 9, UI-label references 10 of 27 and do-not-translate 5 of 14 are highest; list inheritance 0 of 17." src="figures/artifact_rate-light.png">
-</picture>
-
-* Validation removed 4 of 96 cases and 13 of 207 assertions that failed even on the gold translation.
-* Of the 133 failures that remained, 31 (23%) were test artifacts. They were mostly assertions narrower than
-  the range of correct translations, for example requiring *Iniciar* where *Inicio* is equally correct. A
-  single gold translation can't expose that kind of over-specification.
-* Reliability varied by capability. Word-sense, UI-label and do-not-translate assertions produced the most
-  artifacts; list-inheritance assertions produced none.
-* Generated suites are cheap and catch real errors, but their failures need a second review (here an
-  independent model; in production, a quick human look) before they are acted on.
-
-<details>
-<summary>By capability</summary>
+31 (23%) of the failures were test artifacts, mostly assertions narrower than the range of correct
+translations (requiring *Iniciar* where *Inicio* is also correct). A single gold translation can't expose that.
 
 <!-- BEGIN analysis:rq3_table -->
 | capability | failures | test artifacts | real errors |
@@ -339,80 +333,57 @@ or issues outside the tested capabilities).
 | **total** | **133** | **31 (23%)** | **102 (77%)** |
 <!-- END analysis:rq3_table -->
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="figures/artifact_rate-dark.png">
+  <img alt="Share of unit-test failures that were test artifacts, by capability; highest for word sense, UI labels and do-not-translate terms, zero for list inheritance." src="figures/artifact_rate-light.png">
+</picture>
 </details>
 
-Raw material: per-engine runs and JUnit XML in [`results/mtunit/runs/`](results/mtunit/runs/) and
-[`results/mtunit/junit/`](results/mtunit/junit/), adjudications in
-[`results/mtunit/adjudication.json`](results/mtunit/adjudication.json), all computed statistics in
-[`results/analysis/summary.json`](results/analysis/summary.json).
+### Earlier pilot (`transtest/`)
 
-## Pilot study: Requirement tests for one document (`transtest/`)
-
-Before the main study, a smaller exploration used a hand-written suite of requirement tests for a single
-document (a fictional patient leaflet) and ran it against its Spanish translation.
-
-* **Planted errors.** The leaflet was given 9 planted errors, each in fluent, grammatical Spanish. The suite
-  caught **8/9** with no false alarms on the correct translation. LLM segment QE caught 7/9. The two it missed were
-  the errors that are invisible one sentence at a time: *tablet* translated three different ways, and a
-  switch from *usted* to *tú* midway through. LaBSE similarity caught 2/9. QE caught one meaning error the suite
-  missed: "avoid alcohol" softened to "avoid alcohol *in excess*".
-* **Mutation testing.** To measure how good the suite was, 14 single-edit mutants of a correct translation
-  were created. The first version of the suite scored 0.71 and let *"No tome más de 8 comprimidos"* →
-  *"Tome más de 8 comprimidos"* survive, deleting the "not" from a dosing limit. Three added tests raised the
-  score to 0.86. The only survivors were two *y* → *o* swaps that barely change the meaning (*fuera de la
-  vista o del alcance de los niños*).
-* **Real MT.** Translating sentence by sentence, a small local model (Qwen3-4B) mixed *comprimidos /
-  tabletas / pastillas* and switched to *tú* in 6 sentences, and the suite flagged both. GPT-5.4 mini produced
-  clean output in both modes.
-
-This was a single document, used for illustration. It motivated the larger generated-suite design above. Its
-outputs are committed in [`results/transtest/`](results/transtest/) as the record. Unlike the main study, it
-can't be replayed from the cache, because the pilot code changed after those runs.
+A hand-written requirement suite for one fictional patient leaflet caught **8/9** planted errors with no false
+alarms; LLM segment QE caught 7/9 and LaBSE similarity caught 2/9. Mutation testing with 14 single-edit mutants
+scored 0.71 and showed a dropped "not" in a dosing limit surviving; three added tests raised the score
+to 0.86. Its outputs are kept in [`results/transtest/`](results/transtest/) as a record; the pilot code changed after
+those runs, so they can't be replayed from the cache.
 
 ## Related work
 
-* **Behavioural testing.** The capability-and-assertion design follows CheckList (Ribeiro et al., 2020),
-  applied here to translation, with the test cases generated by an LLM instead of templates.
-* **Context-dependent translation.** Contrastive test sets measure whether MT models use context for
-  pronouns, deixis, ellipsis and lexical cohesion: ContraPro (Müller et al., 2018), Bawden et al. (2018),
-  and Voita et al. (2019), whose title, *When a Good Translation is Wrong in Context*, is this study's
-  premise. MuDA (Fernandes et al., 2023) and ctxpro (Wicks & Post, 2023) identify which phenomena need context
-  in which languages, including Spanish formality and gender. Those resources score a model's choice between
-  given translations; this study asserts properties of a free translation and compares the result with what
-  QE reports.
-* **Document-level evaluation.** Läubli et al. (2018) showed that human raters judging sentences in isolation
-  miss differences that document-level raters see. Vernikos et al. (2022) extend sentence-level metrics with
-  context. Segment-level QE such as GEMBA-MQM (Kocmi & Federmann, 2023) and CometKiwi (Rei et al., 2022) scores
-  one segment at a time.
-* **LLM judges.** LLM evaluators can favour their own generations (Panickssery et al., 2024) and show position
-  and verbosity biases (Zheng et al., 2023). This is why the adjudicator here is from a different model family
-  than the test generator and judge (see Limitations).
+* **Behavioural testing.** CheckList (Ribeiro et al., 2020), applied here to translation with LLM-generated cases.
+* **Context-dependent translation.** Contrastive test sets for pronouns, deixis, ellipsis and lexical cohesion:
+  ContraPro (Müller et al., 2018), Bawden et al. (2018), Voita et al. (2019). MuDA (Fernandes et al., 2023) and ctxpro
+  (Wicks & Post, 2023) identify which phenomena need context, including Spanish formality and gender. Those score a
+  model's choice between given translations; these studies assert properties of free translations and compare
+  detectors on them.
+* **Document-level evaluation.** Läubli et al. (2018) showed sentence-level human judgements miss what document-level
+  raters see; Vernikos et al. (2022) extend sentence metrics with context. GEMBA-MQM (Kocmi & Federmann, 2023) and
+  CometKiwi (Rei et al., 2022) score one segment at a time.
+* **Synthetic error injection** is a common way to evaluate translation metrics against known ground truth (for
+  example, the challenge sets of the WMT metrics shared tasks). Study A injects errors with an LLM and verifies each
+  one independently.
+* **LLM judges** can favour their own outputs (Panickssery et al., 2024) and show other biases (Zheng et al., 2023),
+  which is why the planter, the detectors and the diagnosis model are different models.
 
 ## Limitations
 
-* **No human annotation.** Real-error and QE-identified labels come from one LLM adjudicator (GPT-5.4).
-  The error-type labels in RQ2 were assigned after the fact, by an LLM-assisted pass over the adjudicator's
-  notes and the outputs, and were not independently verified. The type-level contrast (0 of 38 vs 19 of 19)
-  is large, but it rests on those labels.
-* **Model families overlap.** The test generator, assertion judge and QE model are the same model (Claude
-  Sonnet 5.5). The gold translation and the adjudicator are GPT-5.4, which is also the family of two of the
-  three engines. Validating assertions against a GPT-5.4 translation likely favours GPT-family outputs,
-  especially in document mode.
-* **Single gold translation** for validation, which is why over-specific assertions got through.
-* **One language pair** (EN→ES). Spanish gender and register make cross-segment effects easy to see. The
-  structural argument applies to any language with agreement or formality distinctions, but the rates will
-  differ.
-* **LLM engines only.** Classic NMT engines (DeepL, Google) were not tested.
-* **Small suite.** 92 cases, 6–8 per capability, one run. Pooled effects are clear; most per-capability
-  effects are not individually significant.
-* **QE was given no context.** The baseline is segment QE as it is usually run. QE given neighbouring segments
-  might catch some of these errors; that was not tested.
-* **Segment-mode baseline is strict.** Production TMS pipelines sometimes pass neighbouring segments to the
-  engine. This setup measures the case with no context at all.
+* **No human annotation.** Both studies use LLMs for generation, judgement and adjudication. Study A's planted errors
+  have known locations, but each was verified by a model, and whether a detection describes the planted change was
+  judged by GPT-5.4.
+* **One detection model in study A.** The main run uses gpt-5.4-mini for every check (budget); full GPT-5.4 ran only
+  on the 51-error pilot. Other vendors' models weren't tested.
+* **Planted errors are not natural errors.** They are realistic single edits, but real MT errors cluster and
+  co-occur. Many planted list-fit errors change a verb's person or number, which overlaps with register errors.
+* **One domain and language pair in study A** (EU patient leaflets, EN→ES), 12 errors per type, so per-type rates
+  are rough.
+* **The checklist was written for these error classes.** It is generic (the same seven checks for any document),
+  but its checks correspond to the benchmark's error types; errors outside them would need new checks.
+* **Study B:** 92 generated cases, one run. The test generator, judge and QE model are the same model; the gold
+  translation and the adjudicator are from the family of two of the engines; and the error-type labels are an
+  after-the-fact, LLM-assisted classification ([`results/mtunit/error_types.csv`](results/mtunit/error_types.csv)).
 
 ## Reproducing
 
-Everything below runs without an API key or a GPU.
+Everything below runs without an API key:
 
 ```bash
 uv sync
@@ -421,48 +392,31 @@ uv run python -m analysis --check    # verify the README matches the results
 uv run pytest
 ```
 
-To replay the whole study from the shipped LLM responses (about 2,300 cached calls, 270 KB), with no API
-calls:
+To replay either study from the shipped LLM responses (`results/cache/`) with no API calls:
 
 ```bash
-uv run python -m common.cache restore                        # results/cache/ → .cache/llm_cache.sqlite
-rm results/mtunit/suite*.json results/mtunit/validation.json # regenerate the suite too
-L10N_OFFLINE=1 uv run python -m mtunit.run
-L10N_OFFLINE=1 uv run python -m mtunit.adjudicate
-git diff --stat results/                                     # empty: byte-identical outputs
+uv run python -m common.cache restore
+# study B: regenerate the suite, run all engines and QE, adjudicate
+L10N_OFFLINE=1 uv run python -m mtunit.run && L10N_OFFLINE=1 uv run python -m mtunit.adjudicate
+# study A: plant and verify errors, run every check, diagnose detections
+L10N_OFFLINE=1 uv run python -m benchmark.plant && L10N_OFFLINE=1 uv run python -m benchmark.run
+git diff --stat results/             # empty: byte-identical outputs
 ```
 
-`L10N_OFFLINE=1` answers only from the cache and stops on any request that isn't there. CI runs this replay
-on every push.
-
-To run it fresh against live models (about $10 through OpenRouter):
-
-```bash
-cp .env.example .env            # OpenRouter key, or any OpenAI-compatible endpoint
-uv run python -m common.check   # one small call per configured model
-uv run python -m mtunit.run --per-cap 8 --engines openai/gpt-5.4-mini,meta-llama/llama-4-scout
-uv run python -m mtunit.adjudicate
-uv run python -m analysis
-```
-
-The pilot study's commands (its coverage check embeds text locally, so install the extra first):
-
-```bash
-uv sync --extra pilot
-uv run python -m transtest calibrate transtest/examples/leaflet/suite.yaml
-uv run python -m transtest run transtest/examples/leaflet/suite.yaml transtest/examples/leaflet/target_flawed.es.md
-uv run python -m transtest mutate transtest/examples/leaflet/suite.yaml transtest/examples/leaflet/target_good.es.md
-```
+CI replays both studies on every push. Running either study fresh needs an API key in `.env` (see `.env.example`).
+Study A stops at a hard spending cap ([`benchmark/config.py`](benchmark/config.py)); everything sent for it,
+including the pilot, cost $37 at list prices. Study B cost about $10.
 
 ## Repository layout
 
 ```
-mtunit/      main study: capabilities, test generation + validation, engines, assertions, run, adjudicate
+benchmark/   study A: leaflet extraction, error taxonomy, planting + verification, the checks, runner,
+             spending cap; leaflets/ holds the 20 documents
+mtunit/      study B: capabilities, test generation + validation, engines, assertions, run, adjudicate
 analysis/    recomputes every reported number, table and figure from results/ (no LLM calls)
-transtest/   pilot study: per-document checks, runner/CLI, mutation testing, segment QE,
-             examples/leaflet (fictional leaflet with good + flawed Spanish, suite.yaml), experiments/
-common/      OpenAI-compatible client with disk cache and offline mode, cache export/restore, run manifest
-results/     mtunit/ (main study), analysis/ (computed statistics), transtest/ (pilot), cache/ (LLM responses)
+transtest/   earlier pilot: per-document requirement tests, mutation testing, segment QE prompt
+common/      OpenAI-compatible client with disk cache, offline mode and usage log; cache export/restore; manifest
+results/     benchmark/ (study A, with pilot/), mtunit/ (study B), analysis/, transtest/, cache/ (LLM responses)
 figures/     README figures, light and dark
 tests/       unit tests; no network
 ```
@@ -473,16 +427,16 @@ tests/       unit tests; no network
 * Fernandes, Yin, Liu, Martins & Neubig. *When Does Translation Require Context? A Data-driven, Multilingual Exploration.* ACL 2023.
 * Kocmi & Federmann. *GEMBA-MQM: Detecting Translation Quality Error Spans with GPT-4.* WMT 2023.
 * Läubli, Sennrich & Volk. *Has Machine Translation Achieved Human Parity? A Case for Document-level Evaluation.* EMNLP 2018.
-* Lommel, Uszkoreit & Burchardt. *Multidimensional Quality Metrics (MQM).* Tradumàtica 2014.
 * Müller, Rios, Voita & Sennrich. *A Large-Scale Test Set for the Evaluation of Context-Aware Pronoun Translation in Neural Machine Translation.* WMT 2018.
 * Panickssery, Bowman & Feng. *LLM Evaluators Recognize and Favor Their Own Generations.* NeurIPS 2024.
 * Rei et al. *CometKiwi: IST-Unbabel 2022 Submission for the Quality Estimation Shared Task.* WMT 2022.
 * Ribeiro, Wu, Guestrin & Singh. *Beyond Accuracy: Behavioral Testing of NLP Models with CheckList.* ACL 2020.
+* Tiedemann. *Parallel Data, Tools and Interfaces in OPUS.* LREC 2012.
 * Vernikos, Thompson, Mathur & Federico. *Embarrassingly Easy Document-Level MT Metrics.* WMT 2022.
-* Voita, Sennrich & Titov. *When a Good Translation is Wrong in Context: Context-Aware Machine Translation Improves on Deixis, Ellipsis, and Lexical Cohesion.* ACL 2019.
+* Voita, Sennrich & Titov. *When a Good Translation is Wrong in Context.* ACL 2019.
 * Wicks & Post. *Identifying Context-Dependent Translations for Evaluation Set Production.* WMT 2023.
 * Zheng et al. *Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena.* NeurIPS 2023.
 
 ## License
 
-MIT
+MIT. Leaflet texts © European Medicines Agency, from OPUS EMEA, reproduced for research.
