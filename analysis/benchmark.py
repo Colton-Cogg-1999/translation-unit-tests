@@ -185,13 +185,18 @@ def compute() -> dict:
     return s
 
 
-STACKS = {"segment QE alone": ["segment_qe"], "segment QE + checklist": ["segment_qe", "checklist"],
-          "context QE alone": ["context_qe"], "context QE + checklist": ["context_qe", "checklist"]}
+# Checks and combinations compared in the README (a combination finds an error if any of its checks does).
+STACKS = {"segment QE": ["segment_qe"],
+          "segment QE + document context": ["context_qe"],
+          "whole-document QE": ["document_qe"],
+          "document checklist": ["checklist"],
+          "segment QE + checklist": ["segment_qe", "checklist"],
+          "segment QE with context + checklist": ["context_qe", "checklist"]}
 
 
 def stacks(out_rows, s, rows) -> dict:
-    """Recall of combinations of checks (an error counts if any check in the stack found it), with every flag
-    counted vs only major/critical flags (what a pipeline that gates on severity would act on)."""
+    """Recall of each check or combination (any flag, and major/critical flags only), share of clean segments it
+    flags, and cost."""
     out = {}
     for model in DETECT_MODELS:
         by = defaultdict(dict)
@@ -208,35 +213,45 @@ def stacks(out_rows, s, rows) -> dict:
                                       "any": any(d[x]["detected"] for x in dets),
                                       "major": any(d[x]["detected_major"] for x in dets)})
                 out[f"{model}|{name}|{fam}"] = {"any": _boot_rate(items, "any"), "major": _boot_rate(items, "major")}
-            out[f"{model}|{name}|false_alarm_major"] = _stack_false_alarms(rows, model, dets)
+            out[f"{model}|{name}|false_alarm_any"] = _stack_false_alarms(rows, model, dets, severe_only=False)
+            out[f"{model}|{name}|false_alarm_major"] = _stack_false_alarms(rows, model, dets, severe_only=True)
             cost = [s["cost"].get(f"{model}|{x}|leaflet") for x in dets]
             out[f"{model}|{name}|usd"] = sum(c["usd_per_100_segments"] for c in cost) if all(cost) else None
     return out
 
 
-def _stack_false_alarms(rows, model, dets) -> dict:
-    """Share of the sampled clean segments (where per-segment QE ran) that any check in the stack flags major+."""
+def _stack_false_alarms(rows, model, dets, severe_only: bool) -> dict:
+    """Share of the sampled clean segments (12 per leaflet, where per-segment QE ran) that any check in the
+    combination flags. Every check is scored on the same segments, so the rates compare directly."""
     clean = [r for r in rows if not r["variant"] and r["model"] == model]
     sampled = {(r["doc"], r["segment"]) for r in clean if r["detector"] == "segment_qe"}
     flagged = set()
     for r in clean:
         if r["detector"] in dets:
             for f in r["flags"]:
-                if f["severity"] in SEVERE:
+                if not severe_only or f["severity"] in SEVERE:
                     flagged |= {(r["doc"], n) for n in f["segments"]} & sampled
     return {"k": len(flagged), "n": len(sampled)}
 
 
-def table_stacks(s) -> str:
-    lines = ["| model | checks run | cross-segment errors, any flag | cross-segment errors, major/critical flag | "
-             "segment-local errors, major/critical flag | clean segments flagged major/critical | cost per 100 segments |",
-             "|---|---|---|---|---|---|---|"]
-    for model, name in ((m, n) for m in DETECT_MODELS for n in STACKS):
-        st = s["stacks"]
-        usd = st.get(f"{model}|{name}|usd")
-        lines.append(f"| {SHORT[model]} | {name} | {_ci(st[f'{model}|{name}|cross']['any'])} | **{_ci(st[f'{model}|{name}|cross']['major'])}** | "
-                     f"{_ci(st[f'{model}|{name}|local']['major'])} | {_frac(st[f'{model}|{name}|false_alarm_major'])} | "
-                     + _usd(usd) + " |")
+def table_main(s) -> str:
+    lines = ["| check | model | cross-segment errors found | errors inside the segment found | "
+             "correct segments flagged | cost per 100 segments |", "|---|---|---|---|---|---|"]
+    st = s["stacks"]
+    for name in STACKS:
+        for m in DETECT_MODELS:
+            k = f"{m}|{name}"
+            lines.append(f"| {name} | {SHORT[m]} | {_ci(st[k + '|cross']['any'])} | {_ci(st[k + '|local']['any'])} | "
+                         f"{_frac(st[k + '|false_alarm_any'])} | {_usd(st[k + '|usd'])} |")
+    return "\n".join(lines)
+
+
+def table_severity(s) -> str:
+    lines = ["| check | model | cross-segment errors found | …of those rated major/critical |", "|---|---|---|---|"]
+    for name in ("segment QE", "segment QE + document context", "whole-document QE"):
+        for m in DETECT_MODELS:
+            c = s["stacks"][f"{m}|{name}|cross"]
+            lines.append(f"| {name} | {SHORT[m]} | {c['any']['k']} of {c['any']['n']} | {c['major']['k']} |")
     return "\n".join(lines)
 
 
@@ -335,16 +350,6 @@ def _ci(d) -> str:
         f"{100 * d['rate']:.0f}% [{100 * d['ci_low']:.0f}–{100 * d['ci_high']:.0f}]"
 
 
-def table_recall(s) -> str:
-    lines = ["| detector | model | cross-segment errors | segment-local errors |", "|---|---|---|---|"]
-    for det in ("segment_qe", "context_qe", "document_qe", "checklist"):
-        for model in DETECT_MODELS:
-            r = s["recall"]
-            c, l_ = r.get(f"{model}|{det}|cross|all"), r.get(f"{model}|{det}|local|all")
-            lines.append(f"| {DET_LABEL[det]} | {SHORT[model]} | {_ci(c and c['detected'])} | {_ci(l_ and l_['detected'])} |")
-    return "\n".join(lines)
-
-
 def table_types(s) -> str:
     dets = ("segment_qe", "context_qe", "document_qe", "checklist")
     names = " / ".join(SHORT[m] for m in DETECT_MODELS)
@@ -360,24 +365,7 @@ def table_types(s) -> str:
     return "\n".join(lines) + f"\n\nEach cell: {names}."
 
 
-def table_false_alarms(s) -> str:
-    lines = ["| detector | model | clean segments flagged, any severity | major/critical | cost per 100 segments (leaflets) |",
-             "|---|---|---|---|---|"]
-    for det in ("segment_qe", "context_qe", "document_qe", "checklist"):
-        for model in DETECT_MODELS:
-            fa = [s["false_alarms"].get(f"{model}|{det}|{c}") for c in ("synthetic", "leaflet")]
-            fa = [x for x in fa if x]
-            n = sum(x["segments"] for x in fa)
-            any_ = sum(x["flagged"] for x in fa)
-            maj = sum(x["flagged_major"] for x in fa)
-            cost = s["cost"].get(f"{model}|{det}|leaflet")
-            lines.append(f"| {DET_LABEL[det]} | {SHORT[model]} | {100 * any_ / n:.0f}% | {100 * maj / n:.0f}% | "
-                         + _usd(cost["usd_per_100_segments"] if cost else None) + " |")
-    return "\n".join(lines)
-
-
-TABLES = {"bench_stacks": table_stacks, "bench_recall": table_recall, "bench_types": table_types,
-          "bench_false_alarms": table_false_alarms}
+TABLES = {"bench_main": table_main, "bench_types": table_types, "bench_severity": table_severity}
 
 
 def table_pilot(s) -> str:
@@ -404,54 +392,52 @@ def total_spend() -> float:
 def claims(s) -> list[str]:
     """Study A numbers quoted in README prose (each must appear verbatim)."""
     mini, luna = "gpt-5.4-mini-2026-03-17", "gpt-5.6-luna"
-    r, st, pr = s["recall"], s["stacks"], s["paired"]
-
-    def rk(m, det, fam, key="detected"):
-        return r[f"{m}|{det}|{fam}|all"][key]
+    st, pr, r = s["stacks"], s["paired"], s["recall"]
 
     def pc(d):
         return round(100 * d["rate"])
 
-    def fa(m, name):
-        x = st[f"{m}|{name}|false_alarm_major"]
+    def rec(m, name, fam):
+        return pc(st[f"{m}|{name}|{fam}"]["any"])
+
+    def noise(m, name):
+        x = st[f"{m}|{name}|false_alarm_any"]
         return round(100 * x["k"] / x["n"])
 
     def best(t):
         return max(r[f"{m}|{d}|{t}|all"]["detected"]["k"] for m in DETECT_MODELS
                    for d in ("segment_qe", "context_qe", "document_qe", "checklist"))
 
-    seg = {m: rk(m, "segment_qe", "cross") for m in (mini, luna)}
-    ctx = {m: rk(m, "context_qe", "cross") for m in (mini, luna)}
-    ctxm = {m: rk(m, "context_qe", "cross", "detected_major") for m in (mini, luna)}
-    alone, both = "segment QE alone", "segment QE + checklist"
+    SEG, CTX, DOC, CK = "segment QE", "segment QE + document context", "whole-document QE", "document checklist"
+    BOTH = "segment QE with context + checklist"
+    seg = {m: st[f"{m}|{SEG}|cross"]["any"] for m in (mini, luna)}
+    local_seg = sorted(rec(m, SEG, "local") for m in (mini, luna))
     cs = {m: pr[f"{m}|cross|context_qe>segment_qe"] for m in (mini, luna)}
     ck = {m: pr[f"{m}|cross|context_qe>checklist"] for m in (mini, luna)}
-    let_through = min(1 - ctxm[m]["rate"] for m in (mini, luna))
+    ratio = max(st[f"{luna}|{n}|usd"] / st[f"{mini}|{n}|usd"] for n in (SEG, CTX, DOC, CK))
+    sev = st[f"{luna}|{CTX}|cross"]
     p = s.get("pilot", {}).get("gpt-5.4-2026-03-05|context_qe|cross", [0, 0, 0])
     out = [
         f"plants {s['planting']['variants']} errors", f"into {s['planting']['documents']['leaflet']} real EU patient leaflets",
         f"giving **{s['planting']['variants']} variants**", f"{_leaflet_segments():,} segments in all",
-        f"against {rk(mini, 'segment_qe', 'local')['k']} and {rk(luna, 'segment_qe', 'local')['k']} of 60 errors visible",
-        f"found {ctx[mini]['k']} of 48 (gpt-5.4-mini) and {ctx[luna]['k']} of 48 (gpt-5.6-luna)",
-        f"flagged only {ctxm[mini]['k']} and {ctxm[luna]['k']} of them as major or critical",
-        f"more than {int(100 * let_through) // 10 * 10}% of these errors through",
-        *(f"from {st[f'{m}|{alone}|cross']['major']['k']} to {st[f'{m}|{both}|cross']['major']['k']} of 48 ({SHORT[m]})"
-          for m in (mini, luna)),
-        f"kept {pc(st[f'{mini}|{both}|local']['major'])}% and {pc(st[f'{luna}|{both}|local']['major'])}% of segment-local errors",
-        f"from {fa(mini, alone)}% to {fa(mini, both)}% and from {fa(luna, alone)}% to {fa(luna, both)}%",
-        f"{_usd(st[f'{mini}|{both}|usd'])} instead of {_usd(st[f'{mini}|{alone}|usd'])} per 100 segments with gpt-5.4-mini",
-        f"{_usd(st[f'{luna}|{both}|usd'])} instead of {_usd(st[f'{luna}|{alone}|usd'])} with gpt-5.6-luna",
-        f"({pc(ctx[luna])}% vs {pc(ctx[mini])}%)",
-        f"({pc(rk(luna, 'document_qe', 'cross'))}% vs {pc(rk(mini, 'document_qe', 'cross'))}%)",
-        f"rated {ctxm[luna]['k']} of 48 major",
+        f"{local_seg[0]}–{local_seg[1]}% of errors inside a segment",
+        f"found {rec(luna, CTX, 'cross')}% of them (gpt-5.6-luna; {rec(mini, CTX, 'cross')}% with gpt-5.4-mini)",
+        f"found {rec(luna, BOTH, 'cross')}% while still catching {rec(luna, BOTH, 'local')}% of errors inside a segment",
+        f"found {rec(luna, CK, 'cross')}% of cross-segment errors and {rec(luna, CK, 'local')}% of errors inside a "
+        f"segment while flagging {noise(luna, CK)}% of correct segments",
+        f"against {noise(luna, CTX)}% for QE with context and {noise(luna, SEG)}% for plain segment QE",
+        f"costs {_usd(st[f'{luna}|{CK}|usd'])} per 100 segments",
+        f"({rec(luna, CTX, 'cross')}% vs {rec(mini, CTX, 'cross')}%)", f"({rec(luna, DOC, 'cross')}% vs {rec(mini, DOC, 'cross')}%)",
+        f"({rec(luna, CK, 'local')}% vs {rec(mini, CK, 'local')}%)",
         f"found {best('agreement')} of 12 agreement errors and {best('terminology')} of 12 inconsistent terms",
+        f"rated only {sev['major']['k']} of the {sev['any']['k']} it found as major or critical",
         f"found {cs[mini]['only_a']} (gpt-5.4-mini) and {cs[luna]['only_a']} (gpt-5.6-luna) errors that plain segment QE missed",
-        f"found {pc(rk(mini, 'document_qe', 'cross'))}% (gpt-5.4-mini) and {pc(rk(luna, 'document_qe', 'cross'))}% (gpt-5.6-luna)",
-        f"({pc(rk(mini, 'checklist', 'local'))}%, mainly omissions",
-        f"reaches {pc(rk(luna, 'checklist', 'local'))}%",
+        f"found {rec(mini, DOC, 'cross')}% (gpt-5.4-mini) and {rec(luna, DOC, 'cross')}% (gpt-5.6-luna)",
         f"GPT-5.4 with context found {p[0]} of {p[2]} and rated {p[1]} of {p[2]} major or critical",
         f"cost ${total_spend():.0f} at list prices",
     ]
+    if ratio < 0.5:
+        out.append("less than half the cost")
     if seg[mini]["k"] == seg[luna]["k"]:
         out.append(f"found {seg[mini]['k']} of 48 planted cross-segment errors ({pc(seg[mini])}%) with either model")
     if cs[mini]["only_b"] == cs[luna]["only_b"] and max(cs[m]["p"] for m in cs) < 0.001:

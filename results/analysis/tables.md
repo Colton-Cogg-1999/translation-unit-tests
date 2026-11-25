@@ -93,31 +93,22 @@ GEE logistic regression on all 548 decided engine × mode × case rows, clustere
 | do-not-translate terms | 14 | 5 | 9 |
 | **total** | **133** | **31 (23%)** | **102 (77%)** |
 
-## bench_stacks
+## bench_main
 
-| model | checks run | cross-segment errors, any flag | cross-segment errors, major/critical flag | segment-local errors, major/critical flag | clean segments flagged major/critical | cost per 100 segments |
-|---|---|---|---|---|---|---|
-| gpt-5.4-mini | segment QE alone | 17% [6–32] | **2% [0–6]** | 98% [95–100] | 15% | $0.10 |
-| gpt-5.4-mini | segment QE + checklist | 65% [50–78] | **62% [49–76]** | 98% [95–100] | 18% | $0.15 |
-| gpt-5.4-mini | context QE alone | 62% [52–73] | **8% [0–18]** | 90% [80–98] | 10% | $0.22 |
-| gpt-5.4-mini | context QE + checklist | 69% [56–81] | **62% [49–76]** | 93% [85–100] | 12% | $0.28 |
-| gpt-5.6-luna | segment QE alone | 17% [6–29] | **0% [0–0]** | 100% [100–100] | 16% | $0.03 |
-| gpt-5.6-luna | segment QE + checklist | 71% [60–82] | **65% [52–76]** | 100% [100–100] | 22% | $0.05 |
-| gpt-5.6-luna | context QE alone | 71% [60–82] | **2% [0–6]** | 97% [92–100] | 7% | $0.08 |
-| gpt-5.6-luna | context QE + checklist | 81% [71–91] | **65% [52–76]** | 98% [95–100] | 14% | $0.10 |
-
-## bench_recall
-
-| detector | model | cross-segment errors | segment-local errors |
-|---|---|---|---|
-| segment QE | gpt-5.4-mini | 17% [6–32] | 98% [95–100] |
-| segment QE | gpt-5.6-luna | 17% [6–29] | 100% [100–100] |
-| segment QE + document context | gpt-5.4-mini | 62% [52–73] | 97% [91–100] |
-| segment QE + document context | gpt-5.6-luna | 71% [60–82] | 98% [95–100] |
-| whole-document QE | gpt-5.4-mini | 40% [27–52] | 88% [79–96] |
-| whole-document QE | gpt-5.6-luna | 58% [49–69] | 95% [87–100] |
-| document checklist (7 unit tests) | gpt-5.4-mini | 62% [49–76] | 83% [73–92] |
-| document checklist (7 unit tests) | gpt-5.6-luna | 65% [52–76] | 97% [92–100] |
+| check | model | cross-segment errors found | errors inside the segment found | correct segments flagged | cost per 100 segments |
+|---|---|---|---|---|---|
+| segment QE | gpt-5.4-mini | 17% [6–32] | 98% [95–100] | 32% | $0.10 |
+| segment QE | gpt-5.6-luna | 17% [6–29] | 100% [100–100] | 36% | $0.03 |
+| segment QE + document context | gpt-5.4-mini | 62% [52–73] | 97% [91–100] | 26% | $0.22 |
+| segment QE + document context | gpt-5.6-luna | 71% [60–82] | 98% [95–100] | 30% | $0.08 |
+| whole-document QE | gpt-5.4-mini | 40% [27–52] | 88% [79–96] | 8% | $0.01 |
+| whole-document QE | gpt-5.6-luna | 58% [49–69] | 95% [87–100] | 20% | $0.005 |
+| document checklist | gpt-5.4-mini | 62% [49–76] | 83% [73–92] | 8% | $0.05 |
+| document checklist | gpt-5.6-luna | 65% [52–76] | 97% [92–100] | 13% | $0.02 |
+| segment QE + checklist | gpt-5.4-mini | 65% [50–78] | 98% [95–100] | 32% | $0.15 |
+| segment QE + checklist | gpt-5.6-luna | 71% [60–82] | 100% [100–100] | 38% | $0.05 |
+| segment QE with context + checklist | gpt-5.4-mini | 69% [56–81] | 98% [95–100] | 27% | $0.28 |
+| segment QE with context + checklist | gpt-5.6-luna | 81% [71–91] | 98% [95–100] | 32% | $0.10 |
 
 ## bench_types
 
@@ -135,18 +126,16 @@ GEE logistic regression on all 548 decided engine × mode × case rows, clustere
 
 Each cell: gpt-5.4-mini / gpt-5.6-luna.
 
-## bench_false_alarms
+## bench_severity
 
-| detector | model | clean segments flagged, any severity | major/critical | cost per 100 segments (leaflets) |
-|---|---|---|---|---|
-| segment QE | gpt-5.4-mini | 32% | 15% | $0.10 |
-| segment QE | gpt-5.6-luna | 36% | 16% | $0.03 |
-| segment QE + document context | gpt-5.4-mini | 26% | 10% | $0.22 |
-| segment QE + document context | gpt-5.6-luna | 30% | 7% | $0.08 |
-| whole-document QE | gpt-5.4-mini | 9% | 4% | $0.01 |
-| whole-document QE | gpt-5.6-luna | 18% | 6% | $0.005 |
-| document checklist (7 unit tests) | gpt-5.4-mini | 11% | 11% | $0.05 |
-| document checklist (7 unit tests) | gpt-5.6-luna | 15% | 15% | $0.02 |
+| check | model | cross-segment errors found | …of those rated major/critical |
+|---|---|---|---|
+| segment QE | gpt-5.4-mini | 8 of 48 | 1 |
+| segment QE | gpt-5.6-luna | 8 of 48 | 0 |
+| segment QE + document context | gpt-5.4-mini | 30 of 48 | 4 |
+| segment QE + document context | gpt-5.6-luna | 34 of 48 | 1 |
+| whole-document QE | gpt-5.4-mini | 19 of 48 | 0 |
+| whole-document QE | gpt-5.6-luna | 28 of 48 | 1 |
 
 ## bench_pilot
 

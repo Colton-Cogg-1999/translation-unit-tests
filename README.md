@@ -2,8 +2,8 @@
 
 [![CI](https://github.com/Colton-Cogg-1999/translation-unit-tests/actions/workflows/ci.yml/badge.svg)](https://github.com/Colton-Cogg-1999/translation-unit-tests/actions/workflows/ci.yml)
 
-*Two studies of document-level translation errors (English → Spanish): which ones quality checks miss, why,
-and what it costs to catch them.*
+*Two studies of document-level translation errors (English → Spanish): which ones sentence-by-sentence quality
+checks miss, and what it takes to catch them.*
 
 ## Summary
 
@@ -16,44 +16,50 @@ in every segment and still leave the document wrong:
 * a list item is grammatical alone but doesn't complete its lead-in.
 
 **Study A** plants 108 errors with known locations into 20 real EU patient leaflets with professional Spanish
-translations, and measures what four kinds of check find with two models (gpt-5.4-mini and gpt-5.6-luna), how often
-they raise false alarms, and what they cost. **Study B** generates capability unit tests for three MT/LLM engines and
-measures where segment-by-segment translation fails and whether segment QE notices.
+translations, and measures how many of them four kinds of check find, how many correct segments each one wrongly
+flags, and what it costs, with two models (gpt-5.4-mini and gpt-5.6-luna). **Study B** generates capability unit tests
+for three MT/LLM engines and measures where segment-by-segment translation fails and whether segment QE notices.
+
+**The checks** (study A):
+
+* **segment QE**: the usual check. The model sees one sentence and its translation.
+* **segment QE + document context**: the same check of one sentence, but the model can also read the whole document.
+* **whole-document QE**: one pass over the whole document, listing every error.
+* **document checklist**: seven yes/no questions about the whole document ("is the reader addressed the same way
+  everywhere?", "do all pronouns match their nouns?", "are all numbers preserved?"…), each answered with a quote.
 
 **Findings**
 
-1. **Segment QE misses errors whose evidence is in another segment.** It found 8 of 48 planted cross-segment errors (17%) with either model,
-   against 59 and 60 of 60 errors visible in their own segment.
-2. **Given the whole document, QE finds them but rates them minor.** With the leaflet as context, QE
-   found 30 of 48 (gpt-5.4-mini) and 34 of 48 (gpt-5.6-luna) cross-segment errors, but
-   flagged only 4 and 1 of them as major or critical. A pipeline that acts on major/critical flags would let
-   more than 90% of these errors through. Full GPT-5.4 showed the same gap in the pilot.
-3. **A better model finds more but still rates them minor.** gpt-5.6-luna found more cross-segment errors than
-   gpt-5.4-mini with context (71% vs 62%) and as whole-document QE (58% vs 40%), but with context it
-   rated 1 of 48 major. The gap is in how QE judges severity, not in model size.
-4. **A seven-check document checklist closes the gap.** Run alongside segment QE, it raised cross-segment errors
-   flagged major/critical from 1 to 30 of 48 (gpt-5.4-mini) and from 0 to 31 of 48 (gpt-5.6-luna). It
-   kept 98% and 100% of segment-local errors. Clean segments flagged major/critical rose
-   from 15% to 18% and from 16% to 22%. At list price it costs
-   $0.15 instead of $0.10 per 100 segments with gpt-5.4-mini, and
-   $0.05 instead of $0.03 with gpt-5.6-luna (half that through the Batch API).
-5. **Agreement and terminology errors stay hard.** The best check
+1. **Checking one sentence at a time misses most errors that span sentences.** Segment QE found 8 of 48 planted cross-segment errors (17%) with either model,
+   while it found 98–100% of errors inside a segment.
+2. **Reading the whole document is what catches them.** The same check with the document as context
+   found 71% of them (gpt-5.6-luna; 62% with gpt-5.4-mini). Adding the checklist on top
+   found 81% while still catching 98% of errors inside a segment.
+3. **The checklist gets most of that with the fewest false alarms.** On its own, with gpt-5.6-luna, it
+   found 65% of cross-segment errors and 97% of errors inside a segment while flagging 13% of correct segments,
+   against 30% for QE with context and 36% for plain segment QE. It
+   costs $0.02 per 100 segments at list price.
+4. **The newer, cheaper model was better.** gpt-5.6-luna beat gpt-5.4-mini with context (71% vs 62%), as whole-document
+   QE (58% vs 40%) and on in-segment errors with the checklist (97% vs 83%), for
+   less than half the cost of each check.
+5. **Still missed: agreement and terminology.** The best check
    found 6 of 12 agreement errors and 7 of 12 inconsistent terms.
 6. **Segmentation causes these errors.** In study B, cross-segment unit tests passed 89% with
    whole-document translation and 69% segment by segment, while segment-local capabilities were unchanged
    (92% vs 91%).
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="figures/bench_recall-dark.png">
-  <img alt="Recall of four checks with two models on 108 planted errors in real leaflets. For cross-segment errors, segment QE finds 17% with both models; QE with document context finds 62% (gpt-5.4-mini) and 71% (gpt-5.6-luna) but rates almost none major; the document checklist finds 62–65%, all at major. For errors visible in their own segment every check finds 83–100%." src="figures/bench_recall-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="figures/bench_tradeoff-dark.png">
+  <img alt="Three panels comparing six checks with two models. Cross-segment errors found: segment QE 17%; with document context 62–71%; whole-document QE 40–58%; document checklist 62–65%; checklist combined with context QE up to 81%. Errors inside the segment found: 83–100% for every check. Correct segments flagged: segment QE 32–36%, QE with context 26–30%, whole-document QE 8–20%, checklist 8–13%." src="figures/bench_tradeoff-light.png">
 </picture>
 
-**What this means in practice.** Keep segment QE for errors inside a segment, but don't rely on its severity labels
-to catch document-level errors, even when it is given context, and even with a newer model. Add a short list of
-document-level unit tests (agreement, form of address, terminology, list fit, numbers, logic, meaning), each
-returning pass/fail with a quoted span. With gpt-5.6-luna both together cost a few cents per 100 segments.
-Terminology consistency and pronoun agreement still need more than an LLM pass, for example a deterministic
-glossary check for terminology.
+**What this means in practice.** Keep segment QE for errors inside a sentence, and add a check that reads the whole
+document. A short checklist of document-level questions catches about two-thirds of the cross-segment errors for
+cents per hundred segments, and it flags far fewer correct segments than QE does. For the most coverage, also run QE with the document
+as context, at the cost of more false alarms. Pronoun agreement and terminology need something more, for example a
+deterministic glossary check for terminology. One caution if your pipeline filters QE output by severity: QE's
+rubric rates most of these errors *minor*, so a major/critical filter throws them away (see the note under the
+results).
 
 All numbers, tables and figures in this README are recomputed from the committed results by
 [`analysis/`](analysis/), and CI fails if they disagree. Both studies replay offline from shipped LLM responses.
@@ -76,66 +82,47 @@ one known error.
 |---|---|
 | agreement · register (*usted*/*tú*) · terminology · list fit | negation · number · omission · mistranslation · condition |
 
-**Checks compared**, each run with gpt-5.4-mini (standard API) and gpt-5.6-luna (Batch API), low reasoning effort;
-prompts in [`benchmark/detectors.py`](benchmark/detectors.py):
-
-| check | what it sees | calls |
-|---|---|---|
-| segment QE | one (source, target) pair; the MQM prompt from study B | one per segment |
-| segment QE + document context | the same judgement of one segment, with the whole document in the prompt | one per segment |
-| whole-document QE | the whole document; lists every error with segment numbers | one per document |
-| document checklist | the whole document; 7 fixed requirements, each a separate pass/fail call that must quote its evidence | seven per document |
+**Checks.** The four checks above, each run with gpt-5.4-mini (standard API) and gpt-5.6-luna (Batch API) at low
+reasoning effort; prompts in [`benchmark/detectors.py`](benchmark/detectors.py). Segment QE uses the MQM prompt
+from study B. QE with context makes one call per segment with the whole document in the prompt. The checklist makes
+seven calls per document, one per requirement, and a violation counts only if its quoted evidence is actually in the
+translation.
 
 **Scoring.** A planted error counts as found only if a check flags the edited segment **and** an independent model
 (GPT-5.4) confirms the flag describes the planted change rather than something else in that segment. False alarms
-are measured on the unmodified leaflets: every segment for the document-level checks, and a fixed sample of 12
-segments per leaflet for the per-segment checks. Confidence intervals resample whole documents. Cost is computed
-from the token usage recorded during the run, at OpenAI's standard list prices.
+are the share of correct segments a check flags (any severity), measured on the unmodified leaflets on the same
+fixed sample of 12 segments per leaflet for every check. Confidence intervals resample whole documents. Cost is
+computed from the token usage recorded during the run, at OpenAI's standard list prices (the Batch API halves it).
 
 ### Results
 
-Combinations of checks, by what a pipeline that acts on major/critical flags would catch:
-
-<!-- BEGIN analysis:bench_stacks -->
-| model | checks run | cross-segment errors, any flag | cross-segment errors, major/critical flag | segment-local errors, major/critical flag | clean segments flagged major/critical | cost per 100 segments |
-|---|---|---|---|---|---|---|
-| gpt-5.4-mini | segment QE alone | 17% [6–32] | **2% [0–6]** | 98% [95–100] | 15% | $0.10 |
-| gpt-5.4-mini | segment QE + checklist | 65% [50–78] | **62% [49–76]** | 98% [95–100] | 18% | $0.15 |
-| gpt-5.4-mini | context QE alone | 62% [52–73] | **8% [0–18]** | 90% [80–98] | 10% | $0.22 |
-| gpt-5.4-mini | context QE + checklist | 69% [56–81] | **62% [49–76]** | 93% [85–100] | 12% | $0.28 |
-| gpt-5.6-luna | segment QE alone | 17% [6–29] | **0% [0–0]** | 100% [100–100] | 16% | $0.03 |
-| gpt-5.6-luna | segment QE + checklist | 71% [60–82] | **65% [52–76]** | 100% [100–100] | 22% | $0.05 |
-| gpt-5.6-luna | context QE alone | 71% [60–82] | **2% [0–6]** | 97% [92–100] | 7% | $0.08 |
-| gpt-5.6-luna | context QE + checklist | 81% [71–91] | **65% [52–76]** | 98% [95–100] | 14% | $0.10 |
-<!-- END analysis:bench_stacks -->
-
-Each check alone:
-
-<!-- BEGIN analysis:bench_recall -->
-| detector | model | cross-segment errors | segment-local errors |
-|---|---|---|---|
-| segment QE | gpt-5.4-mini | 17% [6–32] | 98% [95–100] |
-| segment QE | gpt-5.6-luna | 17% [6–29] | 100% [100–100] |
-| segment QE + document context | gpt-5.4-mini | 62% [52–73] | 97% [91–100] |
-| segment QE + document context | gpt-5.6-luna | 71% [60–82] | 98% [95–100] |
-| whole-document QE | gpt-5.4-mini | 40% [27–52] | 88% [79–96] |
-| whole-document QE | gpt-5.6-luna | 58% [49–69] | 95% [87–100] |
-| document checklist (7 unit tests) | gpt-5.4-mini | 62% [49–76] | 83% [73–92] |
-| document checklist (7 unit tests) | gpt-5.6-luna | 65% [52–76] | 97% [92–100] |
-<!-- END analysis:bench_recall -->
+<!-- BEGIN analysis:bench_main -->
+| check | model | cross-segment errors found | errors inside the segment found | correct segments flagged | cost per 100 segments |
+|---|---|---|---|---|---|
+| segment QE | gpt-5.4-mini | 17% [6–32] | 98% [95–100] | 32% | $0.10 |
+| segment QE | gpt-5.6-luna | 17% [6–29] | 100% [100–100] | 36% | $0.03 |
+| segment QE + document context | gpt-5.4-mini | 62% [52–73] | 97% [91–100] | 26% | $0.22 |
+| segment QE + document context | gpt-5.6-luna | 71% [60–82] | 98% [95–100] | 30% | $0.08 |
+| whole-document QE | gpt-5.4-mini | 40% [27–52] | 88% [79–96] | 8% | $0.01 |
+| whole-document QE | gpt-5.6-luna | 58% [49–69] | 95% [87–100] | 20% | $0.005 |
+| document checklist | gpt-5.4-mini | 62% [49–76] | 83% [73–92] | 8% | $0.05 |
+| document checklist | gpt-5.6-luna | 65% [52–76] | 97% [92–100] | 13% | $0.02 |
+| segment QE + checklist | gpt-5.4-mini | 65% [50–78] | 98% [95–100] | 32% | $0.15 |
+| segment QE + checklist | gpt-5.6-luna | 71% [60–82] | 100% [100–100] | 38% | $0.05 |
+| segment QE with context + checklist | gpt-5.4-mini | 69% [56–81] | 98% [95–100] | 27% | $0.28 |
+| segment QE with context + checklist | gpt-5.6-luna | 81% [71–91] | 98% [95–100] | 32% | $0.10 |
+<!-- END analysis:bench_main -->
 
 * **Context is what finds cross-segment errors.** QE with context
   found 23 (gpt-5.4-mini) and 27 (gpt-5.6-luna) errors that plain segment QE missed,
   against 1 the other way (McNemar p < 0.001 for both). QE with context and the checklist found similar numbers
-  (McNemar p > 0.5 for both models).
-* **Severity is where QE fails.** QE with context described the register slip, the wrong pronoun or the plural
-  list item correctly, and then rated it minor. The checklist has no severity: a requirement holds or it doesn't.
-* **Whole-document QE in one call is the cheapest and quietest check but shallow.** It
-  found 40% (gpt-5.4-mini) and 58% (gpt-5.6-luna) of cross-segment errors and rated almost none of them major.
-* **The checklist with gpt-5.4-mini is weaker on local errors** (83%, mainly omissions and condition changes);
-  with gpt-5.6-luna it reaches 97%.
+  (McNemar p > 0.5 for both models), but the checklist flags far fewer correct segments.
+* **Whole-document QE in one call is the cheapest check but shallow.** It
+  found 40% (gpt-5.4-mini) and 58% (gpt-5.6-luna) of cross-segment errors and missed more errors inside segments.
+* **These "false alarms" are flags on professional translations as published**; some may be real issues in the
+  reference translations rather than noise.
 
-By error type (share found, any flag):
+By error type (share found):
 
 <!-- BEGIN analysis:bench_types -->
 | error type | evidence | n | segment QE | segment QE + document context | whole-document QE | document checklist (7 unit tests) |
@@ -153,28 +140,30 @@ By error type (share found, any flag):
 Each cell: gpt-5.4-mini / gpt-5.6-luna.
 <!-- END analysis:bench_types -->
 
-False alarms on the unmodified leaflets and cost:
+Register and list-fit errors are mostly solved once the check reads the document. Many planted list-fit errors change
+a verb's person or number, which overlaps with register. Agreement and terminology stay hard for every check.
 
-<!-- BEGIN analysis:bench_false_alarms -->
-| detector | model | clean segments flagged, any severity | major/critical | cost per 100 segments (leaflets) |
-|---|---|---|---|---|
-| segment QE | gpt-5.4-mini | 32% | 15% | $0.10 |
-| segment QE | gpt-5.6-luna | 36% | 16% | $0.03 |
-| segment QE + document context | gpt-5.4-mini | 26% | 10% | $0.22 |
-| segment QE + document context | gpt-5.6-luna | 30% | 7% | $0.08 |
-| whole-document QE | gpt-5.4-mini | 9% | 4% | $0.01 |
-| whole-document QE | gpt-5.6-luna | 18% | 6% | $0.005 |
-| document checklist (7 unit tests) | gpt-5.4-mini | 11% | 11% | $0.05 |
-| document checklist (7 unit tests) | gpt-5.6-luna | 15% | 15% | $0.02 |
-<!-- END analysis:bench_false_alarms -->
+**A note on severity.** Asked to rate severity with the MQM rubric ("major: meaning changed or important information
+lost"), QE rates most cross-segment errors *minor*. That is defensible, since a *tú*/*usted* slip doesn't change the
+meaning. With gpt-5.6-luna, QE with context
+rated only 1 of the 34 it found as major or critical. A pipeline that only acts on major/critical QE flags drops
+these errors, so either change the severity rubric for consistency errors or use pass/fail checks like the checklist:
 
-These "false alarms" are flags on professional translations as published; some may be real issues in the reference
-translations rather than noise.
+<!-- BEGIN analysis:bench_severity -->
+| check | model | cross-segment errors found | …of those rated major/critical |
+|---|---|---|---|
+| segment QE | gpt-5.4-mini | 8 of 48 | 1 |
+| segment QE | gpt-5.6-luna | 8 of 48 | 0 |
+| segment QE + document context | gpt-5.4-mini | 30 of 48 | 4 |
+| segment QE + document context | gpt-5.6-luna | 34 of 48 | 1 |
+| whole-document QE | gpt-5.4-mini | 19 of 48 | 0 |
+| whole-document QE | gpt-5.6-luna | 28 of 48 | 1 |
+<!-- END analysis:bench_severity -->
 
 <details>
-<summary>Examples: QE with context sees the error and rates it minor (gpt-5.4-mini)</summary>
+<summary>Examples: QE with context describes the error and rates it minor (gpt-5.4-mini)</summary>
 
-All from the run; segment QE reported no error on the edited segment in each case.
+All from the run; plain segment QE reported no error on the edited segment in each case.
 
 | planted edit | QE with context (severity: minor) | checklist |
 |---|---|---|
@@ -185,8 +174,8 @@ All from the run; segment QE reported no error on the edited segment in each cas
 
 </details>
 
-**Does a larger model change this?** The 51-error pilot (2 leaflets, 2 short texts) also ran full GPT-5.4. On
-its 13 cross-segment errors, GPT-5.4 with context found 11 of 13 and rated 1 of 13 major or critical:
+**A larger model.** The 51-error pilot (2 leaflets, 2 short texts) also ran full GPT-5.4. On its 13 cross-segment
+errors, GPT-5.4 with context found 11 of 13 and rated 1 of 13 major or critical:
 
 <!-- BEGIN analysis:bench_pilot -->
 | detector | gpt-5.4: any flag | gpt-5.4: major/critical | gpt-5.4-mini: any flag | gpt-5.4-mini: major/critical |

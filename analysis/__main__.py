@@ -329,14 +329,18 @@ def make_figures(s: dict) -> None:
                  key=lambda r: -r["artifacts"] / r["failures"])
     figures.artifact_rate(art, FIG)
     if "benchmark" in s:
-        b = s["benchmark"]
-        series = [("detected", "any flag on the error"), ("detected_major", "major/critical flag on the error")]
-        rows = [{"label": f"{bench.DET_LABEL[d]} · {bench.SHORT[m]}",
-                 "cross": {k: b["recall"][f"{m}|{d}|cross|all"][k] for k, _ in series},
-                 "local": {k: b["recall"][f"{m}|{d}|local|all"][k] for k, _ in series}}
-                for d in ("segment_qe", "context_qe", "document_qe", "checklist") for m in bench.DETECT_MODELS
-                if f"{m}|{d}|cross|all" in b["recall"]]
-        figures.bench_recall(rows, series, FIG)
+        st = s["benchmark"]["stacks"]
+        models = [(m, bench.SHORT[m]) for m in bench.DETECT_MODELS]
+
+        def noise(m, name):
+            x = st[f"{m}|{name}|false_alarm_any"]
+            return {"rate": x["k"] / x["n"], "ci_low": None, "ci_high": None}
+
+        rows = [{"label": name,
+                 "cross": {m: st[f"{m}|{name}|cross"]["any"] for m, _ in models},
+                 "local": {m: st[f"{m}|{name}|local"]["any"] for m, _ in models},
+                 "noise": {m: noise(m, name) for m, _ in models}} for name in bench.STACKS]
+        figures.bench_tradeoff(rows, models, FIG)
 
 def _jsonable(o):
     if isinstance(o, dict):
