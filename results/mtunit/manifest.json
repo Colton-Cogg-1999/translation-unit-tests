@@ -1,0 +1,63 @@
+{
+ "adjudicate": {
+  "failures_adjudicated": 133,
+  "model": "openai/gpt-5.4",
+  "prompt_hash": "cbbacfe6d636"
+ },
+ "run": {
+  "capabilities": {
+   "condition_scope": false,
+   "context_disambiguation": true,
+   "coreference_agreement": true,
+   "dnt": false,
+   "implicit_subject_ellipsis": true,
+   "list_inheritance": true,
+   "negation": false,
+   "numbers_locale": false,
+   "placeholders_tags": false,
+   "register_consistency": true,
+   "term_consistency": true,
+   "ui_reference_consistency": true
+  },
+  "cases_per_capability_requested": 8,
+  "counts": {
+   "generated_assertions": 207,
+   "generated_cases": 96,
+   "valid_assertions": 194,
+   "valid_cases": 92
+  },
+  "domains": [
+   "software_ui_help",
+   "marketing",
+   "legal_terms",
+   "medical_patient"
+  ],
+  "endpoint": "https://openrouter.ai/api/v1",
+  "models": {
+   "engines": [
+    "meta-llama/llama-4-scout",
+    "openai/gpt-5.4-nano",
+    "openai/gpt-5.4-mini"
+   ],
+   "generator": "anthropic/claude-sonnet-5.5",
+   "gold": "openai/gpt-5.4",
+   "judge": "anthropic/claude-sonnet-5.5",
+   "segment_qe": "anthropic/claude-sonnet-5.5"
+  },
+  "modes": [
+   "segment",
+   "document"
+  ],
+  "prompt_hashes": {
+   "assertion_judge": "a6dff5996d2d",
+   "capability_descriptions": "eca58c27a96b",
+   "engine_document": "945879859a53",
+   "engine_segment": "25b1e53bee53",
+   "generate": "08692caabb28",
+   "gold": "7fbe5612504e",
+   "segment_qe": "8cadc0f02a61"
+  },
+  "reasoning_effort": "low",
+  "temperature": 0.0
+ }
+}

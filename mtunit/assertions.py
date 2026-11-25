@@ -6,7 +6,7 @@ import re
 
 from rapidfuzz import fuzz
 
-from common.llm import JUDGE_MODEL, chat_json
+from common.llm import JUDGE_MODEL, CacheMiss, chat_json
 
 JUDGE_PROMPT = """You are verifying ONE property of a Spanish translation produced by a machine translation engine.
 
@@ -62,6 +62,8 @@ def evaluate_assertion(a: dict, src: list[str], tgt: list[str]) -> dict:
                 return {"status": "unverified", "detail": f"ungrounded evidence: {ev[:120]}"}
             return {"status": "pass" if out.get("holds") else "fail", "detail": out.get("reason", ""), "evidence": ev}
         return {"status": "error", "detail": f"unknown assertion kind {kind!r}"}
+    except CacheMiss:
+        raise
     except Exception as e:
         return {"status": "error", "detail": f"{type(e).__name__}: {e}"[:200]}
 

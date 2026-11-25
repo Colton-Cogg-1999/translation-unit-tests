@@ -16,7 +16,8 @@ import os
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from common.llm import chat_json
+from common.llm import CacheMiss, chat_json
+from common.manifest import prompt_hash, update_manifest
 
 from .capabilities import CAPABILITIES
 
@@ -65,6 +66,8 @@ def main():
         try:
             j = chat_json(PROMPT.format(pairs=pairs, assertion=json.dumps(a, ensure_ascii=False), detail=x["detail"], qe=qe),
                           model=ADJ_MODEL, max_tokens=400)
+        except CacheMiss:
+            raise
         except Exception as e:
             j = {"error": str(e)}
         return {"run": run, "id": r["id"], "capability": r["capability"], "cross_segment": r["cross_segment"],
@@ -73,6 +76,8 @@ def main():
     with ThreadPoolExecutor(8) as ex:
         res = list(ex.map(one, items))
     (OUT / "adjudication.json").write_text(json.dumps(res, ensure_ascii=False, indent=1))
+    update_manifest(OUT / "manifest.json", "adjudicate",
+                    {"model": ADJ_MODEL, "prompt_hash": prompt_hash(PROMPT), "failures_adjudicated": len(res)})
 
     md = ["", "## Independent adjudication of every failure", "",
           f"Adjudicator **{ADJ_MODEL}** (did not generate or judge the tests). *Real* = a reviewer would fix it; "
@@ -85,7 +90,9 @@ def main():
         real = [x for x in R if x.get("real_error")]
         qi = sum(bool(x.get("qe_identified")) for x in real)
         t = tot[c["cross_segment"]]
-        t[0] += len(R); t[1] += len(real); t[2] += qi
+        t[0] += len(R)
+        t[1] += len(real)
+        t[2] += qi
         if R:
             md.append(f"| {cap} | {'yes' if c['cross_segment'] else ''} | {len(R)} | {len(real)} | {qi} | {len(real) - qi} |")
     for cs, label in [(False, "**segment-local total**"), (True, "**cross-segment total**")]:

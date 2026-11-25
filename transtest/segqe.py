@@ -9,7 +9,7 @@ from __future__ import annotations
 import os
 from concurrent.futures import ThreadPoolExecutor
 
-from common.llm import JUDGE_MODEL, chat_json
+from common.llm import JUDGE_MODEL, CacheMiss, chat_json
 
 PROMPT = """You are an expert translation quality evaluator (MQM). Evaluate this single segment.
 
@@ -35,6 +35,8 @@ def qe_segment(src: str, tgt: str, src_lang: str = "English", tgt_lang: str = "S
         out = chat_json(PROMPT.format(src=src, tgt=tgt, src_lang=src_lang, tgt_lang=tgt_lang),
                         max_tokens=800, model=JUDGE_MODEL)
         return out if isinstance(out, dict) else {"errors": []}
+    except CacheMiss:
+        raise
     except Exception as e:
         return {"errors": [], "error": str(e)}
 

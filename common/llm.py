@@ -7,6 +7,8 @@ Configuration comes from `.env` (see that file) or real environment variables:
   L10N_MT_MODEL        model that translates in the experiments
   L10N_LLM_MODEL       fallback for both
   L10N_LLM_BASE_URL    override the endpoint (e.g. https://api.openai.com/v1 with OPENAI_API_KEY)
+  L10N_OFFLINE=1       answer only from the cache; a cache miss raises CacheMiss instead of calling an API.
+                       Used to replay the study from results/cache/ (see `python -m common.cache`).
 
 Responses are cached on disk (keyed by endpoint + model + messages), so re-runs are free.
 """
@@ -27,7 +29,8 @@ from openai import OpenAI
 from . import env  # noqa: F401  (loads .env)
 
 _OR_KEY = os.environ.get("OPENROUTER_API_KEY", "").strip()
-if _OR_KEY:
+OFFLINE = os.environ.get("L10N_OFFLINE", "").strip().lower() in ("1", "true", "yes")
+if _OR_KEY or OFFLINE:   # offline replay uses the OpenRouter cache keys the study was run with
     BASE_URL = os.environ.get("L10N_LLM_BASE_URL", "https://openrouter.ai/api/v1")
     API_KEY = _OR_KEY
     _default = os.environ.get("L10N_LLM_MODEL", "anthropic/claude-sonnet-5.5")
@@ -42,14 +45,19 @@ JUDGE_MODEL = os.environ.get("L10N_JUDGE_MODEL", _default) if REMOTE else _defau
 MT_MODEL = os.environ.get("L10N_MT_MODEL", _default) if REMOTE else _default
 REASONING_EFFORT = os.environ.get("L10N_REASONING_EFFORT", "low")
 
-_CACHE_PATH = Path(__file__).resolve().parent.parent / ".cache" / "llm_cache.sqlite"
+_CACHE_PATH = Path(os.environ.get("L10N_CACHE_PATH",
+                                  Path(__file__).resolve().parent.parent / ".cache" / "llm_cache.sqlite"))
 _lock = threading.Lock()
 _client: OpenAI | None = None
 _db: sqlite3.Connection | None = None
 
 
+class CacheMiss(RuntimeError):
+    """Raised in offline mode (L10N_OFFLINE=1) when a request is not in the cache."""
+
+
 def describe() -> str:
-    return f"endpoint={BASE_URL}  judge={JUDGE_MODEL}  mt={MT_MODEL}"
+    return f"endpoint={BASE_URL}{' (offline)' if OFFLINE else ''}  judge={JUDGE_MODEL}  mt={MT_MODEL}"
 
 
 def _get_client() -> OpenAI:
@@ -91,6 +99,9 @@ def chat(
             row = _get_db().execute("SELECT v FROM cache WHERE k=?", (key,)).fetchone()
         if row:
             return row[0]
+
+    if OFFLINE:
+        raise CacheMiss(f"not in cache (model={model}): {json.dumps(messages, ensure_ascii=False)[:200]}")
 
     kw: dict = {"model": model, "messages": messages, "temperature": temperature}
     if REMOTE:

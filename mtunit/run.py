@@ -15,11 +15,17 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from xml.sax.saxutils import escape
 
-from common.llm import JUDGE_MODEL, describe
+from common import llm
+from common.llm import JUDGE_MODEL, CacheMiss, describe
+from common.manifest import prompt_hash, update_manifest
+from transtest import segqe
 from transtest.segqe import flagged, qe_segment
 
+from . import assertions as assertions_mod
+from . import engines as engines_mod
+from . import generate as gen
 from .assertions import evaluate_case
-from .capabilities import CAPABILITIES
+from .capabilities import CAPABILITIES, DOMAINS
 from .engines import translate_case
 from .generate import GEN_MODEL, GOLD_MODEL, generate, validate
 
@@ -37,6 +43,8 @@ def run_engine(cases: list[dict], model: str, mode: str) -> list[dict]:
     def one(case):
         try:
             tgt = translate_case(case, model, mode)
+        except CacheMiss:
+            raise
         except Exception as e:
             tgt = [""] * len(case["segments"])
             print(f"  translate failed {case['id']} {model} {mode}: {e}")
@@ -105,6 +113,21 @@ def main():
     else:
         suite, stats = validate(cases, suite_p)
         (OUT / "validation.json").write_text(json.dumps(stats, ensure_ascii=False, indent=1))
+    update_manifest(OUT / "manifest.json", "run", {
+        "endpoint": llm.BASE_URL, "reasoning_effort": llm.REASONING_EFFORT, "temperature": 0.0,
+        "models": {"generator": GEN_MODEL, "gold": GOLD_MODEL, "judge": JUDGE_MODEL, "segment_qe": JUDGE_MODEL,
+                   "engines": engines},
+        "modes": MODES, "cases_per_capability_requested": a.per_cap,
+        "capabilities": {k: v["cross_segment"] for k, v in CAPABILITIES.items()}, "domains": list(DOMAINS),
+        "prompt_hashes": {
+            "generate": prompt_hash(gen.GEN_PROMPT),
+            "capability_descriptions": prompt_hash(*(v["desc"] for v in CAPABILITIES.values())),
+            "gold": prompt_hash(gen.GOLD_SYS, gen.GOLD_PROMPT),
+            "engine_segment": prompt_hash(engines_mod.SYS),
+            "engine_document": prompt_hash(engines_mod.SYS, engines_mod.DOC_PROMPT),
+            "assertion_judge": prompt_hash(assertions_mod.JUDGE_PROMPT),
+            "segment_qe": prompt_hash(segqe.PROMPT)},
+        "counts": {k: v for k, v in stats.items() if k != "log"}})
     print(f"validated: {stats['valid_cases']}/{stats['generated_cases']} cases, "
           f"{stats['valid_assertions']}/{stats['generated_assertions']} assertions", flush=True)
 
