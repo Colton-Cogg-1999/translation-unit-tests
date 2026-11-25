@@ -7,6 +7,7 @@ Configuration comes from `.env` (see that file) or real environment variables:
   L10N_MT_MODEL        model that translates in the experiments
   L10N_LLM_MODEL       fallback for both
   L10N_LLM_BASE_URL    override the endpoint (e.g. https://api.openai.com/v1 with OPENAI_API_KEY)
+  use_openai()         switch this process to the OpenAI API directly (OPENAI_API_KEY); used by benchmark/
   L10N_OFFLINE=1       answer only from the cache; a cache miss raises CacheMiss instead of calling an API.
                        Used to replay the study from results/cache/ (see `python -m common.cache`).
 
@@ -45,6 +46,8 @@ JUDGE_MODEL = os.environ.get("L10N_JUDGE_MODEL", _default) if REMOTE else _defau
 MT_MODEL = os.environ.get("L10N_MT_MODEL", _default) if REMOTE else _default
 REASONING_EFFORT = os.environ.get("L10N_REASONING_EFFORT", "low")
 
+OPENAI_URL = "https://api.openai.com/v1"
+
 _CACHE_PATH = Path(os.environ.get("L10N_CACHE_PATH",
                                   Path(__file__).resolve().parent.parent / ".cache" / "llm_cache.sqlite"))
 _lock = threading.Lock()
@@ -52,8 +55,21 @@ _client: OpenAI | None = None
 _db: sqlite3.Connection | None = None
 
 
+before_api_call = None   # optional callables around every uncached request (benchmark.budget sets them)
+after_api_call = None
+
+
 class CacheMiss(RuntimeError):
     """Raised in offline mode (L10N_OFFLINE=1) when a request is not in the cache."""
+
+
+def use_openai(reasoning_effort: str = "low") -> None:
+    """Send this process's calls straight to the OpenAI API. Cache keys then include the reasoning effort."""
+    global BASE_URL, API_KEY, REMOTE, REASONING_EFFORT, _client
+    BASE_URL, REMOTE, REASONING_EFFORT, _client = OPENAI_URL, True, reasoning_effort, None
+    API_KEY = os.environ.get("OPENAI_API_KEY", "")
+    if not API_KEY and not OFFLINE:
+        raise RuntimeError("OPENAI_API_KEY is not set (put it in .env), or set L10N_OFFLINE=1 to replay from the cache")
 
 
 def describe() -> str:
@@ -63,7 +79,7 @@ def describe() -> str:
 def _get_client() -> OpenAI:
     global _client
     if _client is None:
-        _client = OpenAI(base_url=BASE_URL, api_key=API_KEY, timeout=600, max_retries=4)
+        _client = OpenAI(base_url=BASE_URL, api_key=API_KEY, timeout=600, max_retries=8)
     return _client
 
 
@@ -73,6 +89,8 @@ def _get_db() -> sqlite3.Connection:
         _CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
         _db = sqlite3.connect(_CACHE_PATH, check_same_thread=False)
         _db.execute("CREATE TABLE IF NOT EXISTS cache (k TEXT PRIMARY KEY, v TEXT)")
+        _db.execute("CREATE TABLE IF NOT EXISTS usage (k TEXT PRIMARY KEY, model TEXT, prompt INTEGER, "
+                    "cached INTEGER, completion INTEGER, reasoning INTEGER)")
     return _db
 
 
@@ -84,6 +102,7 @@ def chat(
     temperature: float = 0.0,
     max_tokens: int = 1024,
     use_cache: bool = True,
+    reasoning_effort: str | None = None,
 ) -> str:
     model = model or MODEL
     if isinstance(messages, str):
@@ -91,9 +110,10 @@ def chat(
     if system:
         messages = [{"role": "system", "content": system}, *messages]
 
-    key = hashlib.sha256(
-        json.dumps([model, BASE_URL, messages, temperature, max_tokens], ensure_ascii=False).encode()
-    ).hexdigest()
+    direct = BASE_URL == OPENAI_URL
+    effort = reasoning_effort or REASONING_EFFORT
+    key_parts = [model, BASE_URL, messages, temperature, max_tokens] + ([effort] if direct else [])
+    key = hashlib.sha256(json.dumps(key_parts, ensure_ascii=False).encode()).hexdigest()
     if use_cache:
         with _lock:
             row = _get_db().execute("SELECT v FROM cache WHERE k=?", (key,)).fetchone()
@@ -102,9 +122,26 @@ def chat(
 
     if OFFLINE:
         raise CacheMiss(f"not in cache (model={model}): {json.dumps(messages, ensure_ascii=False)[:200]}")
+    if before_api_call is not None:
+        before_api_call()   # e.g. a spending cap; runs only when a request will actually reach the API
+    try:
+        return _call_api(model, messages, temperature, max_tokens, effort, direct, key, use_cache)
+    finally:
+        if after_api_call is not None:
+            after_api_call()
+
+
+def _call_api(model, messages, temperature, max_tokens, effort, direct, key, use_cache) -> str:
 
     kw: dict = {"model": model, "messages": messages, "temperature": temperature}
-    if REMOTE:
+    if direct:
+        # OpenAI reasoning models: temperature is fixed at 1 unless reasoning is off; reasoning tokens count
+        # against max_completion_tokens, so leave headroom
+        kw = {"model": model, "messages": messages, "reasoning_effort": effort,
+              "max_completion_tokens": max_tokens + 16000}
+        if effort == "none":
+            kw["temperature"] = temperature
+    elif REMOTE:
         # reasoning models spend tokens thinking before answering: leave them headroom
         kw["max_tokens"] = max(max_tokens, 4000)
         if REASONING_EFFORT and REASONING_EFFORT != "none":
@@ -112,7 +149,7 @@ def chat(
     else:
         kw["max_tokens"] = max_tokens
 
-    out = ""
+    out, resp = "", None
     for attempt in range(3):
         resp = _get_client().chat.completions.create(**kw)
         out = (resp.choices[0].message.content or "").strip() if resp.choices else ""
@@ -120,10 +157,30 @@ def chat(
             break
         time.sleep(2 * (attempt + 1))  # empty completion (provider hiccup): retry
     if use_cache and out:
+        u = getattr(resp, "usage", None)
         with _lock:
             _get_db().execute("INSERT OR REPLACE INTO cache VALUES (?, ?)", (key, out))
+            if u is not None:
+                pd, cd = getattr(u, "prompt_tokens_details", None), getattr(u, "completion_tokens_details", None)
+                _get_db().execute("INSERT OR REPLACE INTO usage VALUES (?, ?, ?, ?, ?, ?)", (
+                    key, model, u.prompt_tokens, getattr(pd, "cached_tokens", 0) or 0, u.completion_tokens,
+                    getattr(cd, "reasoning_tokens", 0) or 0))
             _get_db().commit()
     return out
+
+
+def cache_key(messages: list[dict] | str, *, system: str | None = None, model: str | None = None,
+              temperature: float = 0.0, max_tokens: int = 1024, reasoning_effort: str | None = None) -> str:
+    """The cache key chat() would use for these arguments (to look up recorded token usage)."""
+    model = model or MODEL
+    if isinstance(messages, str):
+        messages = [{"role": "user", "content": messages}]
+    if system:
+        messages = [{"role": "system", "content": system}, *messages]
+    parts = [model, BASE_URL, messages, temperature, max_tokens]
+    if BASE_URL == OPENAI_URL:
+        parts.append(reasoning_effort or REASONING_EFFORT)
+    return hashlib.sha256(json.dumps(parts, ensure_ascii=False).encode()).hexdigest()
 
 
 _JSON_RE = re.compile(r"\{.*\}|\[.*\]", re.DOTALL)
