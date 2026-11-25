@@ -1,4 +1,4 @@
-"""Sentence embeddings, local (sentence-transformers) or hosted (OpenRouter).
+"""Sentence embeddings for the pilot's coverage check, local (sentence-transformers) or hosted (OpenRouter).
 
 Model names prefixed with "openrouter:" are embedded via the OpenRouter embeddings API,
 e.g. "openrouter:baai/bge-m3". Anything else is loaded locally with sentence-transformers.
@@ -14,14 +14,6 @@ import numpy as np
 
 from . import env  # noqa: F401  (loads .env)
 
-_HAS_KEY = bool(os.environ.get("OPENROUTER_API_KEY", "").strip())
-# Retrieval (TM search / RAG). Hosted BGE-M3 when a key is present, else local BGE-M3.
-RETRIEVAL_MODEL = os.environ.get("L10N_RETRIEVAL_MODEL",
-                                 "openrouter:baai/bge-m3" if _HAS_KEY else "BAAI/bge-m3")
-if RETRIEVAL_MODEL.startswith("openrouter:") and not _HAS_KEY:
-    RETRIEVAL_MODEL = "BAAI/bge-m3"
-EXTRA_RETRIEVAL_MODELS = [m.strip() for m in os.environ.get("L10N_EXTRA_RETRIEVAL_MODELS", "").split(",")
-                          if m.strip() and (_HAS_KEY or not m.strip().startswith("openrouter:"))]
 # LaBSE: trained specifically for translation-pair (bitext) detection → alignment. Small; stays local.
 ALIGN_MODEL = os.environ.get("L10N_ALIGN_MODEL", "sentence-transformers/LaBSE")
 
@@ -52,7 +44,7 @@ def _embed_remote(texts: list[str], model: str, batch_size: int = 128, show_prog
     return v / np.linalg.norm(v, axis=1, keepdims=True)
 
 
-def embed(texts: list[str], model: str = RETRIEVAL_MODEL, batch_size: int = 32,
+def embed(texts: list[str], model: str = ALIGN_MODEL, batch_size: int = 32,
           show_progress: bool = False) -> np.ndarray:
     """Return L2-normalised embeddings, shape (n, d), float32."""
     if model.startswith("openrouter:"):

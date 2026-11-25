@@ -13,7 +13,7 @@ import random
 import re
 from dataclasses import dataclass
 
-from .model import Document, Suite, split_sentences
+from .model import Document, Suite
 from .runner import run_suite, summarise
 
 

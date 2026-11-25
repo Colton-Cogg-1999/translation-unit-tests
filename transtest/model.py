@@ -52,13 +52,15 @@ class Document:
         return split_sentences(self.text)
 
     @classmethod
-    def load(cls, path: str | Path, lang: str) -> "Document":
+    def load(cls, path: str | Path, lang: str) -> Document:
         p = Path(path)
         return cls(text=p.read_text(encoding="utf-8"), lang=lang, path=str(p))
 
 
 @dataclass
 class TestSpec:
+    __test__ = False   # not a pytest test class
+
     type: str
     id: str
     severity: str = "major"
@@ -91,7 +93,7 @@ class Suite:
     path: str | None = None
 
     @classmethod
-    def load(cls, path: str | Path) -> "Suite":
+    def load(cls, path: str | Path) -> Suite:
         p = Path(path)
         raw = yaml.safe_load(p.read_text(encoding="utf-8"))
         src_path = (p.parent / raw["source"]).resolve()

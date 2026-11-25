@@ -1,36 +1,40 @@
 """Verify the API setup:  uv run python -m common.check
 
-Makes one tiny call per role (judge, MT, embeddings), bypassing the cache.
+Makes one tiny call to each model the main study uses (generator/judge/QE, gold, adjudicator, engines),
+bypassing the cache.
 """
 
 from __future__ import annotations
 
+import os
 import sys
 
 from common import llm
-from common.embed import EXTRA_RETRIEVAL_MODELS, RETRIEVAL_MODEL, embed
 
 
 def main() -> int:
+    from mtunit.adjudicate import ADJ_MODEL
+    from mtunit.generate import GEN_MODEL, GOLD_MODEL
+    from mtunit.run import DEFAULT_ENGINES
+
     print(llm.describe())
+    if llm.OFFLINE:
+        print("L10N_OFFLINE is set: nothing to check, every call is answered from the cache.")
+        return 0
     if not llm.REMOTE:
-        print("OPENROUTER_API_KEY is blank in .env → using the local llama.cpp server (must be running).")
+        print("OPENROUTER_API_KEY is blank in .env → using the local OpenAI-compatible server (must be running).")
+    engines = os.environ.get("L10N_MTUNIT_ENGINES", DEFAULT_ENGINES).split(",")
+    roles = [("generator", GEN_MODEL), ("judge/QE", llm.JUDGE_MODEL), ("gold", GOLD_MODEL), ("adjudicator", ADJ_MODEL)]
+    roles += [("engine", e.strip()) for e in engines if e.strip()]
     ok = True
-    for role, model in [("judge", llm.JUDGE_MODEL), ("mt", llm.MT_MODEL)]:
+    for role, model in dict.fromkeys(roles):
         try:
             out = llm.chat("Translate to Spanish, output only the translation: Keep out of the reach of children.",
                            model=model, max_tokens=60, use_cache=False)
-            print(f"  ✓ {role:9} {model:40} → {out!r}")
+            print(f"  ✓ {role:11} {model:40} → {out!r}")
         except Exception as e:
             ok = False
-            print(f"  ✗ {role:9} {model:40} → {type(e).__name__}: {e}")
-    for model in [RETRIEVAL_MODEL, *EXTRA_RETRIEVAL_MODELS]:
-        try:
-            v = embed(["Do not take with alcohol.", "No tomar con alcohol.", "Store below 25 °C."], model)
-            print(f"  ✓ embed     {model:40} → dim {v.shape[1]}, sim(en,es)={v[0] @ v[1]:.2f}, sim(en,other)={v[0] @ v[2]:.2f}")
-        except Exception as e:
-            ok = False
-            print(f"  ✗ embed     {model:40} → {type(e).__name__}: {e}")
+            print(f"  ✗ {role:11} {model:40} → {type(e).__name__}: {e}")
     print("all good" if ok else "some checks failed (see above)")
     return 0 if ok else 1
 

@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Callable
 
 from ..model import Document, Result, Suite, TestSpec
 
-REGISTRY: dict[str, Callable[["TestSpec", "Context"], Result]] = {}
+REGISTRY: dict[str, Callable[[TestSpec, Context], Result]] = {}
 
 
 def check(name: str):
@@ -43,4 +43,4 @@ def run_check(spec: TestSpec, ctx: Context) -> Result:
 
 
 # register built-in checks
-from . import deterministic, alignment, semantic  # noqa: E402,F401
+from . import alignment, deterministic, semantic  # noqa: E402,F401

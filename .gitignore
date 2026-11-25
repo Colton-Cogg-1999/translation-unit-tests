@@ -8,7 +8,7 @@ __pycache__/
 .pytest_cache/
 .cache/
 
-# downloaded corpora and generated data (rebuild with scripts/download_emea.sh + prepare scripts)
+# local data (not used by the study)
 data/
 
 # optional local llama.cpp binaries / models

@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --locked
+      - name: Lint
+        run: uv run ruff check .
+      - name: Unit tests (no network)
+        run: uv run pytest -q
+      - name: README matches the committed results
+        run: uv run python -m analysis --check
+
+  replay:
+    # Re-run the whole study from the shipped LLM responses and require byte-identical results.
+    runs-on: ubuntu-latest
+    env:
+      L10N_OFFLINE: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --locked
+      - run: uv run python -m common.cache restore
+      - name: Regenerate the suite, run all engines and QE, adjudicate
+        run: |
+          rm results/mtunit/suite.generated.json results/mtunit/suite.json results/mtunit/validation.json
+          uv run python -m mtunit.run
+          uv run python -m mtunit.adjudicate
+      - name: Outputs are unchanged
+        run: git diff --exit-code --stat results/

@@ -1,27 +1,49 @@
 [project]
 name = "translation-unit-tests"
-version = "0.1.0"
-description = "AI-generated unit tests for MT/LLM translation engines, compared with segment-level QE"
+version = "0.2.0"
+description = "Exploratory study: translation errors segment-level QE can't see, measured with AI-generated document-level unit tests (EN→ES)"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.12"
 dependencies = [
+    "matplotlib>=3.10",
     "numpy>=2.5.4",
     "openai>=2.54.0",
-    "pandas>=3.1.1",
-    "pytest>=9.2.0",
     "pyyaml>=6.0.3",
     "rapidfuzz>=3.14.6",
     "rich>=15.0.0",
-    "sacrebleu>=2.6.0",
-    "sentence-transformers>=6.3.0",
-    "torch>=2.15.0",
+    "scipy>=1.16",
+    "statsmodels>=0.14",
 ]
 
-# CPU-only PyTorch wheels (local embedding models run on CPU)
+[project.optional-dependencies]
+# Only the pilot's LaBSE coverage check embeds text locally. The main study needs none of this.
+pilot = ["sentence-transformers>=6.3.0", "torch>=2.15.0"]
+
+[dependency-groups]
+dev = ["pytest>=9.2.0", "ruff>=0.14"]
+
 [[tool.uv.index]]
+name = "pytorch-cpu"
 url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = [".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = [
+    "E741",  # short loop names (l, i) are used deliberately in table-building code
+    "B905",  # zip() over parallel lists of equal length by construction
+    "E501",  # prompt templates are kept verbatim: rewrapping them would change the LLM cache keys
+]

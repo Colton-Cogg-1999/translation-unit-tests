@@ -12,11 +12,10 @@ import json
 from pathlib import Path
 
 import numpy as np
-import yaml
 
 from common.embed import ALIGN_MODEL, embed
 from common.llm import JUDGE_MODEL, MT_MODEL, chat, chat_json, describe
-from transtest.model import Document, Suite, split_sentences
+from transtest.model import Document, Suite
 from transtest.runner import run_suite, summarise, write_reports
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -180,11 +179,13 @@ def main():
         md.append(f"| {n} | {s['verdict']} | {s['passed']} | {s['failed']} | {s['critical_failures']} |")
     md += ["", "## Injected-error detection (target_flawed)", "",
            "| error | doc-level? | transtest | LaBSE seg-QE (<0.80) | LLM seg-QE GEMBA (<75) |", "|---|---|---|---|---|"]
-    yn = lambda b: "✅" if b else "—"
+    def yn(b):
+        return "✅" if b else "—"
     for r in rows:
         md.append(f"| {r['error']} | {'yes' if r['doc_level'] else 'no'} | {yn(r['transtest'])} "
                   f"{', '.join(r['transtest_tests'])} | {yn(r['labse_flag'])} | {yn(r['gemba_flag'])} |")
-    tot = lambda k: sum(r[k] for r in rows)
+    def tot(k):
+        return sum(r[k] for r in rows)
     md += [f"| **total** | | **{tot('transtest')}/9** | **{tot('labse_flag')}/9** | **{tot('gemba_flag')}/9** |", "",
            "## False positives on the good translation", "", f"```\n{json.dumps(fp, indent=2)}\n```", "",
            "Models: " + describe(), "", "Mean segment-QE scores (good vs flawed): " + json.dumps(report["segment_qe_mean"])]
