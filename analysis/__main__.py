@@ -17,6 +17,7 @@ from collections import Counter
 
 from mtunit.capabilities import CAPABILITIES
 
+from . import benchmark as bench
 from . import figures
 from .data import ENGINES, MODES, ROOT, load_failures, load_pilot, load_runs, load_validation
 from .stats import bootstrap_mode_effects, did_from_replicates, fisher, gee_logit, holm, mode_delta, sign_test
@@ -129,6 +130,9 @@ def compute() -> dict:
                         for t, n in sorted(types.items())}
     s["error_types_by_mode"] = {t: dict(Counter(f["mode"] for f in real if f["error_type"] == t))
                                 for t in sorted(types)}
+
+    if bench.available():
+        s["benchmark"] = bench.compute()
 
     passing = [r for r in runs if r["status"] == "pass"]
     s["qe_noise"] = {"passing_cases": len(passing), "qe_flagged": sum(r["qe_flagged_any"] for r in passing)}
@@ -254,6 +258,8 @@ def table_rq3(s) -> str:
 
 TABLES = {"rq1_table": table_rq1, "rq1_tests": table_rq1_tests, "rq1_caps": table_rq1_caps,
           "rq2_table": table_rq2, "rq2_types": table_rq2_types, "rq3_table": table_rq3}
+if bench.available():
+    TABLES |= {name: (lambda s, fn=fn: fn(s["benchmark"])) for name, fn in bench.TABLES.items()}
 
 
 # --------------------------------------------------------------------------------------------- prose claims
@@ -263,7 +269,8 @@ def claims(s) -> list[str]:
     f, et, pr, me, pl = s["failures"], s["error_types"], s["paired"], s["mode_effect"], s["pilot"]
     pc, pl_ = s["pass_pooled"]["cross"], s["pass_pooled"]["local"]
     v = s["validation"]
-    return [
+    extra = bench.claims(s["benchmark"]) if "benchmark" in s else []
+    return extra + [
         f"QE identified **{et['gender_agreement_cross_segment']['qe_identified']} of "
         f"{et['gender_agreement_cross_segment']['n']}**",
         f"**{s['by_cap']['list_inheritance']['qe_identified']} of {s['by_cap']['list_inheritance']['real']}**",
@@ -321,7 +328,14 @@ def make_figures(s: dict) -> None:
                    for c, b in s["by_cap"].items() if b["failures"]]),
                  key=lambda r: -r["artifacts"] / r["failures"])
     figures.artifact_rate(art, FIG)
-
+    if "benchmark" in s:
+        b, m = s["benchmark"], bench.DETECT_MODELS[0]
+        series = [("detected", "any flag on the error"), ("detected_major", "major/critical flag on the error")]
+        rows = [{"label": bench.DET_LABEL[d],
+                 "cross": {k: b["recall"][f"{m}|{d}|cross|all"][k] for k, _ in series},
+                 "local": {k: b["recall"][f"{m}|{d}|local|all"][k] for k, _ in series}}
+                for d in ("segment_qe", "context_qe", "document_qe", "checklist")]
+        figures.bench_recall(rows, series, FIG)
 
 def _jsonable(o):
     if isinstance(o, dict):

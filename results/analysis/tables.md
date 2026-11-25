@@ -92,3 +92,53 @@ GEE logistic regression on all 548 decided engine × mode × case rows, clustere
 | numbers & locale formats | 10 | 2 | 8 |
 | do-not-translate terms | 14 | 5 | 9 |
 | **total** | **133** | **31 (23%)** | **102 (77%)** |
+
+## bench_stacks
+
+| checks run | cross-segment errors, any flag | cross-segment errors, major/critical flag | segment-local errors, major/critical flag | clean segments flagged major/critical | cost per 100 segments |
+|---|---|---|---|---|---|
+| segment QE alone | 17% [6–32] | **2% [0–6]** | 98% [95–100] | 15% | $0.10 |
+| segment QE + checklist | 65% [50–78] | **62% [49–76]** | 98% [95–100] | 18% | $0.15 |
+| context QE alone | 62% [52–73] | **8% [0–18]** | 90% [80–98] | 10% | $0.22 |
+| context QE + checklist | 69% [56–81] | **62% [49–76]** | 93% [85–100] | 12% | $0.28 |
+
+## bench_recall
+
+| detector | model | cross-segment errors | segment-local errors |
+|---|---|---|---|
+| segment QE | gpt-5.4-mini | 17% [6–32] | 98% [95–100] |
+| segment QE + document context | gpt-5.4-mini | 62% [52–73] | 97% [91–100] |
+| whole-document QE | gpt-5.4-mini | 40% [27–52] | 88% [79–96] |
+| document checklist (7 unit tests) | gpt-5.4-mini | 62% [49–76] | 83% [73–92] |
+
+## bench_types
+
+| error type | evidence | n | segment QE | segment QE + document context | whole-document QE | document checklist (7 unit tests) |
+|---|---|---|---|---|---|---|
+| agreement | other segment | 12 | 17% | 33% | 17% | 33% |
+| register | other segment | 12 | 33% | 100% | 92% | 100% |
+| terminology | other segment | 12 | 0% | 17% | 0% | 17% |
+| list_fit | other segment | 12 | 17% | 100% | 50% | 100% |
+| negation | same segment | 12 | 100% | 100% | 100% | 100% |
+| number | same segment | 12 | 100% | 100% | 100% | 100% |
+| omission | same segment | 12 | 100% | 100% | 75% | 58% |
+| mistranslation | same segment | 12 | 100% | 100% | 100% | 92% |
+| condition | same segment | 12 | 92% | 83% | 67% | 67% |
+
+## bench_false_alarms
+
+| detector | model | clean segments flagged, any severity | major/critical | cost per 100 segments (leaflets) |
+|---|---|---|---|---|
+| segment QE | gpt-5.4-mini | 32% | 15% | $0.10 |
+| segment QE + document context | gpt-5.4-mini | 26% | 10% | $0.22 |
+| whole-document QE | gpt-5.4-mini | 9% | 4% | $0.01 |
+| document checklist (7 unit tests) | gpt-5.4-mini | 11% | 11% | $0.05 |
+
+## bench_pilot
+
+| detector | gpt-5.4: any flag | gpt-5.4: major/critical | gpt-5.4-mini: any flag | gpt-5.4-mini: major/critical |
+|---|---|---|---|---|
+| segment QE | 4/13 | 0/13 | 2/13 | 0/13 |
+| segment QE + document context | 11/13 | 1/13 | 7/13 | 0/13 |
+| whole-document QE | 10/13 | 3/13 | 6/13 | 0/13 |
+| document checklist (7 unit tests) | 6/13 | 6/13 | 7/13 | 7/13 |

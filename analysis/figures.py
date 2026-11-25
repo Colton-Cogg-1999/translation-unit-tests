@@ -163,3 +163,46 @@ def artifact_rate(rows: list[dict], out: Path):
         _title(fig, ax, t, "Where generated tests were wrong",
                "Unit-test failures by capability, all engines and modes")
         _save(fig, out, "artifact_rate", theme)
+
+
+def bench_recall(rows: list[dict], models: list[tuple[str, str]], out: Path):
+    """Two panels (cross-segment | segment-local errors): recall per detector, one dot + 95% CI per model.
+
+    rows: [{"label", "cross": {model: ci-dict}, "local": {model: ci-dict}}], top to bottom.
+    models: [(key, display name)] in series order."""
+    for theme, t in THEMES.items():
+        h = 0.78 * len(rows) + 1.75
+        fig, axes = plt.subplots(1, 2, figsize=(9.6, h), sharey=True)
+        fig.patch.set_facecolor(t["surface"])
+        fig.subplots_adjust(left=0.27, right=0.97, top=1 - 1.25 / h, bottom=0.62 / h, wspace=0.08)
+        colors = [t["s1"], t["s2"]]
+        for ax, fam, title in ((axes[0], "cross", "Error evidence in another segment"),
+                               (axes[1], "local", "Error visible in its own segment")):
+            _style(ax, t)
+            for i, r in enumerate(rows):
+                y = len(rows) - 1 - i
+                for j, (m, _) in enumerate(models):
+                    d = r[fam].get(m)
+                    if not d or d.get("rate") is None:
+                        continue
+                    yy = y + (0.14 if j == 0 else -0.14)
+                    ax.plot([100 * d["ci_low"], 100 * d["ci_high"]], [yy, yy], color=colors[j], linewidth=2,
+                            solid_capstyle="round", zorder=2)
+                    ax.plot(100 * d["rate"], yy, "o", color=colors[j], markersize=8, markeredgecolor=t["surface"],
+                            markeredgewidth=1.5, zorder=3)
+                    above = j == 0
+                    ax.text(100 * d["rate"], yy + (0.17 if above else -0.17), f"{100 * d['rate']:.0f}%", ha="center",
+                            va="bottom" if above else "top", fontsize=8.5, color=t["ink"])
+            ax.set_xlim(0, 104)
+            ax.set_xticks([0, 25, 50, 75, 100], ["0%", "25%", "50%", "75%", "100%"])
+            ax.set_ylim(-0.6, len(rows) - 0.25)
+            ax.set_title(title, fontsize=10, color=t["ink"], loc="left")
+        axes[0].set_yticks(range(len(rows) - 1, -1, -1), [r["label"] for r in rows], color=t["ink"])
+        fig.text(0.62, 0.2 / h, "Planted errors found and correctly described (recall)", ha="center", fontsize=9,
+                 color=t["ink2"])
+        _legend(fig, t, [Line2D([], [], marker="o", color=c, linewidth=2, markersize=7, label=name)
+                         for c, (_, name) in zip(colors, models)], 1 - 0.62 / h)
+        _title(fig, axes[0], t, "QE with context notices cross-segment errors but rates them minor",
+               "108 planted errors in 20 real patient leaflets, gpt-5.4-mini; line = 95% CI resampling documents")
+        _save(fig, out, "bench_recall", theme)
+

@@ -775,6 +775,1131 @@
    "segment": 5
   }
  },
+ "benchmark": {
+  "planting": {
+   "proposed": 144,
+   "verified": 141,
+   "rejected": {
+    "not exactly one error of this type": 2,
+    "visible from its own segment": 1
+   },
+   "variants": 108,
+   "by_cell": {
+    "synthetic:agreement": 0,
+    "synthetic:register": 0,
+    "synthetic:terminology": 0,
+    "synthetic:list_fit": 0,
+    "synthetic:negation": 0,
+    "synthetic:number": 0,
+    "synthetic:omission": 0,
+    "synthetic:mistranslation": 0,
+    "synthetic:condition": 0,
+    "leaflet:agreement": 12,
+    "leaflet:register": 12,
+    "leaflet:terminology": 12,
+    "leaflet:list_fit": 12,
+    "leaflet:negation": 12,
+    "leaflet:number": 12,
+    "leaflet:omission": 12,
+    "leaflet:mistranslation": 12,
+    "leaflet:condition": 12
+   },
+   "documents": {
+    "synthetic": 0,
+    "leaflet": 20
+   }
+  },
+  "recall": {
+   "gpt-5.4-mini-2026-03-17|segment_qe|cross|all": {
+    "detected": {
+     "k": 8,
+     "n": 48,
+     "rate": 0.166667,
+     "ci_low": 0.056604,
+     "ci_high": 0.318182
+    },
+    "detected_major": {
+     "k": 1,
+     "n": 48,
+     "rate": 0.020833,
+     "ci_low": 0.0,
+     "ci_high": 0.06383
+    },
+    "flagged": {
+     "k": 15,
+     "n": 48,
+     "rate": 0.3125,
+     "ci_low": 0.16,
+     "ci_high": 0.488889
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|cross|leaflet": {
+    "detected": {
+     "k": 8,
+     "n": 48,
+     "rate": 0.166667,
+     "ci_low": 0.056604,
+     "ci_high": 0.318182
+    },
+    "detected_major": {
+     "k": 1,
+     "n": 48,
+     "rate": 0.020833,
+     "ci_low": 0.0,
+     "ci_high": 0.06383
+    },
+    "flagged": {
+     "k": 15,
+     "n": 48,
+     "rate": 0.3125,
+     "ci_low": 0.16,
+     "ci_high": 0.488889
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|local|all": {
+    "detected": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "flagged": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|local|leaflet": {
+    "detected": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "flagged": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|agreement|all": {
+    "detected": {
+     "k": 2,
+     "n": 12,
+     "rate": 0.166667,
+     "ci_low": 0.0,
+     "ci_high": 0.416667
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|register|all": {
+    "detected": {
+     "k": 4,
+     "n": 12,
+     "rate": 0.333333,
+     "ci_low": 0.083333,
+     "ci_high": 0.583333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|terminology|all": {
+    "detected": {
+     "k": 0,
+     "n": 12,
+     "rate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|list_fit|all": {
+    "detected": {
+     "k": 2,
+     "n": 12,
+     "rate": 0.166667,
+     "ci_low": 0.0,
+     "ci_high": 0.416667
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|negation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|number|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|omission|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|mistranslation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment_qe|condition|all": {
+    "detected": {
+     "k": 11,
+     "n": 12,
+     "rate": 0.916667,
+     "ci_low": 0.75,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|cross|all": {
+    "detected": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.52,
+     "ci_high": 0.734694
+    },
+    "detected_major": {
+     "k": 4,
+     "n": 48,
+     "rate": 0.083333,
+     "ci_low": 0.0,
+     "ci_high": 0.18
+    },
+    "flagged": {
+     "k": 32,
+     "n": 48,
+     "rate": 0.666667,
+     "ci_low": 0.565149,
+     "ci_high": 0.764706
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|cross|leaflet": {
+    "detected": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.52,
+     "ci_high": 0.734694
+    },
+    "detected_major": {
+     "k": 4,
+     "n": 48,
+     "rate": 0.083333,
+     "ci_low": 0.0,
+     "ci_high": 0.18
+    },
+    "flagged": {
+     "k": 32,
+     "n": 48,
+     "rate": 0.666667,
+     "ci_low": 0.565149,
+     "ci_high": 0.764706
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|local|all": {
+    "detected": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.910714,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 54,
+     "n": 60,
+     "rate": 0.9,
+     "ci_low": 0.8,
+     "ci_high": 0.983333
+    },
+    "flagged": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.910714,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|local|leaflet": {
+    "detected": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.910714,
+     "ci_high": 1.0
+    },
+    "detected_major": {
+     "k": 54,
+     "n": 60,
+     "rate": 0.9,
+     "ci_low": 0.8,
+     "ci_high": 0.983333
+    },
+    "flagged": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.910714,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|agreement|all": {
+    "detected": {
+     "k": 4,
+     "n": 12,
+     "rate": 0.333333,
+     "ci_low": 0.083333,
+     "ci_high": 0.583333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|register|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|terminology|all": {
+    "detected": {
+     "k": 2,
+     "n": 12,
+     "rate": 0.166667,
+     "ci_low": 0.0,
+     "ci_high": 0.416667
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|list_fit|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|negation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|number|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|omission|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|mistranslation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|condition|all": {
+    "detected": {
+     "k": 10,
+     "n": 12,
+     "rate": 0.833333,
+     "ci_low": 0.583333,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|cross|all": {
+    "detected": {
+     "k": 19,
+     "n": 48,
+     "rate": 0.395833,
+     "ci_low": 0.27451,
+     "ci_high": 0.519231
+    },
+    "detected_major": {
+     "k": 0,
+     "n": 48,
+     "rate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0
+    },
+    "flagged": {
+     "k": 19,
+     "n": 48,
+     "rate": 0.395833,
+     "ci_low": 0.27451,
+     "ci_high": 0.519231
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|cross|leaflet": {
+    "detected": {
+     "k": 19,
+     "n": 48,
+     "rate": 0.395833,
+     "ci_low": 0.27451,
+     "ci_high": 0.519231
+    },
+    "detected_major": {
+     "k": 0,
+     "n": 48,
+     "rate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0
+    },
+    "flagged": {
+     "k": 19,
+     "n": 48,
+     "rate": 0.395833,
+     "ci_low": 0.27451,
+     "ci_high": 0.519231
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|local|all": {
+    "detected": {
+     "k": 53,
+     "n": 60,
+     "rate": 0.883333,
+     "ci_low": 0.786885,
+     "ci_high": 0.958333
+    },
+    "detected_major": {
+     "k": 51,
+     "n": 60,
+     "rate": 0.85,
+     "ci_low": 0.746032,
+     "ci_high": 0.94032
+    },
+    "flagged": {
+     "k": 53,
+     "n": 60,
+     "rate": 0.883333,
+     "ci_low": 0.786885,
+     "ci_high": 0.958333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|local|leaflet": {
+    "detected": {
+     "k": 53,
+     "n": 60,
+     "rate": 0.883333,
+     "ci_low": 0.786885,
+     "ci_high": 0.958333
+    },
+    "detected_major": {
+     "k": 51,
+     "n": 60,
+     "rate": 0.85,
+     "ci_low": 0.746032,
+     "ci_high": 0.94032
+    },
+    "flagged": {
+     "k": 53,
+     "n": 60,
+     "rate": 0.883333,
+     "ci_low": 0.786885,
+     "ci_high": 0.958333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|agreement|all": {
+    "detected": {
+     "k": 2,
+     "n": 12,
+     "rate": 0.166667,
+     "ci_low": 0.0,
+     "ci_high": 0.416667
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|register|all": {
+    "detected": {
+     "k": 11,
+     "n": 12,
+     "rate": 0.916667,
+     "ci_low": 0.75,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|terminology|all": {
+    "detected": {
+     "k": 0,
+     "n": 12,
+     "rate": 0.0,
+     "ci_low": 0.0,
+     "ci_high": 0.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|list_fit|all": {
+    "detected": {
+     "k": 6,
+     "n": 12,
+     "rate": 0.5,
+     "ci_low": 0.25,
+     "ci_high": 0.75
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|negation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|number|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|omission|all": {
+    "detected": {
+     "k": 9,
+     "n": 12,
+     "rate": 0.75,
+     "ci_low": 0.5,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|mistranslation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|condition|all": {
+    "detected": {
+     "k": 8,
+     "n": 12,
+     "rate": 0.666667,
+     "ci_low": 0.416667,
+     "ci_high": 0.916667
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|cross|all": {
+    "detected": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    },
+    "detected_major": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    },
+    "flagged": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.510638,
+     "ci_high": 0.773585
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|cross|leaflet": {
+    "detected": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    },
+    "detected_major": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    },
+    "flagged": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.510638,
+     "ci_high": 0.773585
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|local|all": {
+    "detected": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    },
+    "detected_major": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    },
+    "flagged": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|local|leaflet": {
+    "detected": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    },
+    "detected_major": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    },
+    "flagged": {
+     "k": 50,
+     "n": 60,
+     "rate": 0.833333,
+     "ci_low": 0.731343,
+     "ci_high": 0.923106
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|agreement|all": {
+    "detected": {
+     "k": 4,
+     "n": 12,
+     "rate": 0.333333,
+     "ci_low": 0.083333,
+     "ci_high": 0.583333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|register|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|terminology|all": {
+    "detected": {
+     "k": 2,
+     "n": 12,
+     "rate": 0.166667,
+     "ci_low": 0.0,
+     "ci_high": 0.416667
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|list_fit|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|negation|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|number|all": {
+    "detected": {
+     "k": 12,
+     "n": 12,
+     "rate": 1.0,
+     "ci_low": 1.0,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|omission|all": {
+    "detected": {
+     "k": 7,
+     "n": 12,
+     "rate": 0.583333,
+     "ci_low": 0.333333,
+     "ci_high": 0.833333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|mistranslation|all": {
+    "detected": {
+     "k": 11,
+     "n": 12,
+     "rate": 0.916667,
+     "ci_low": 0.75,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|condition|all": {
+    "detected": {
+     "k": 8,
+     "n": 12,
+     "rate": 0.666667,
+     "ci_low": 0.416667,
+     "ci_high": 0.916667
+    }
+   }
+  },
+  "paired": {
+   "gpt-5.4-mini-2026-03-17|cross|context_qe>segment_qe": {
+    "only_a": 23,
+    "only_b": 1,
+    "p": 3e-06,
+    "p_holm": 3.6e-05
+   },
+   "gpt-5.4-mini-2026-03-17|cross|document_qe>segment_qe": {
+    "only_a": 14,
+    "only_b": 3,
+    "p": 0.012726,
+    "p_holm": 0.089081
+   },
+   "gpt-5.4-mini-2026-03-17|cross|checklist>segment_qe": {
+    "only_a": 23,
+    "only_b": 1,
+    "p": 3e-06,
+    "p_holm": 3.6e-05
+   },
+   "gpt-5.4-mini-2026-03-17|cross|context_qe>document_qe": {
+    "only_a": 11,
+    "only_b": 0,
+    "p": 0.000977,
+    "p_holm": 0.009766
+   },
+   "gpt-5.4-mini-2026-03-17|cross|context_qe>checklist": {
+    "only_a": 3,
+    "only_b": 3,
+    "p": 1.0,
+    "p_holm": 1.0
+   },
+   "gpt-5.4-mini-2026-03-17|cross|document_qe>checklist": {
+    "only_a": 0,
+    "only_b": 11,
+    "p": 0.000977,
+    "p_holm": 0.009766
+   },
+   "gpt-5.4-mini-2026-03-17|local|context_qe>segment_qe": {
+    "only_a": 0,
+    "only_b": 1,
+    "p": 1.0,
+    "p_holm": 1.0
+   },
+   "gpt-5.4-mini-2026-03-17|local|document_qe>segment_qe": {
+    "only_a": 0,
+    "only_b": 6,
+    "p": 0.03125,
+    "p_holm": 0.15625
+   },
+   "gpt-5.4-mini-2026-03-17|local|checklist>segment_qe": {
+    "only_a": 0,
+    "only_b": 9,
+    "p": 0.003906,
+    "p_holm": 0.03125
+   },
+   "gpt-5.4-mini-2026-03-17|local|context_qe>document_qe": {
+    "only_a": 6,
+    "only_b": 1,
+    "p": 0.125,
+    "p_holm": 0.5
+   },
+   "gpt-5.4-mini-2026-03-17|local|context_qe>checklist": {
+    "only_a": 9,
+    "only_b": 1,
+    "p": 0.021484,
+    "p_holm": 0.128906
+   },
+   "gpt-5.4-mini-2026-03-17|local|document_qe>checklist": {
+    "only_a": 4,
+    "only_b": 1,
+    "p": 0.375,
+    "p_holm": 1.0
+   }
+  },
+  "false_alarms": {
+   "gpt-5.4-mini-2026-03-17|segment_qe|leaflet": {
+    "segments": 240,
+    "flagged": 77,
+    "flagged_major": 37
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|leaflet": {
+    "segments": 240,
+    "flagged": 62,
+    "flagged_major": 24
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|leaflet": {
+    "segments": 1012,
+    "flagged": 91,
+    "flagged_major": 41
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|leaflet": {
+    "segments": 1012,
+    "flagged": 111,
+    "flagged_major": 111
+   },
+   "gpt-5.4-mini-2026-03-17|case_tests|synthetic": {
+    "documents": 0,
+    "failed": 0
+   }
+  },
+  "cost": {
+   "gpt-5.4-mini-2026-03-17|segment_qe|leaflet": {
+    "usd_per_100_segments": 0.095687,
+    "segments": 240,
+    "calls": 240
+   },
+   "gpt-5.4-mini-2026-03-17|context_qe|leaflet": {
+    "usd_per_100_segments": 0.223325,
+    "segments": 240,
+    "calls": 240
+   },
+   "gpt-5.4-mini-2026-03-17|document_qe|leaflet": {
+    "usd_per_100_segments": 0.011692,
+    "segments": 1012,
+    "calls": 20
+   },
+   "gpt-5.4-mini-2026-03-17|checklist|leaflet": {
+    "usd_per_100_segments": 0.054205,
+    "segments": 1012,
+    "calls": 140
+   }
+  },
+  "stacks": {
+   "gpt-5.4-mini-2026-03-17|segment QE alone|cross": {
+    "any": {
+     "k": 8,
+     "n": 48,
+     "rate": 0.166667,
+     "ci_low": 0.056604,
+     "ci_high": 0.318182
+    },
+    "major": {
+     "k": 1,
+     "n": 48,
+     "rate": 0.020833,
+     "ci_low": 0.0,
+     "ci_high": 0.06383
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE alone|local": {
+    "any": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE alone|false_alarm_major": {
+    "k": 37,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE alone|usd": 0.095687,
+   "gpt-5.4-mini-2026-03-17|segment QE + checklist|cross": {
+    "any": {
+     "k": 31,
+     "n": 48,
+     "rate": 0.645833,
+     "ci_low": 0.5,
+     "ci_high": 0.784314
+    },
+    "major": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE + checklist|local": {
+    "any": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE + checklist|false_alarm_major": {
+    "k": 42,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|segment QE + checklist|usd": 0.149892,
+   "gpt-5.4-mini-2026-03-17|context QE alone|cross": {
+    "any": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.52,
+     "ci_high": 0.734694
+    },
+    "major": {
+     "k": 4,
+     "n": 48,
+     "rate": 0.083333,
+     "ci_low": 0.0,
+     "ci_high": 0.18
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context QE alone|local": {
+    "any": {
+     "k": 58,
+     "n": 60,
+     "rate": 0.966667,
+     "ci_low": 0.910714,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 54,
+     "n": 60,
+     "rate": 0.9,
+     "ci_low": 0.8,
+     "ci_high": 0.983333
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context QE alone|false_alarm_major": {
+    "k": 24,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|context QE alone|usd": 0.223325,
+   "gpt-5.4-mini-2026-03-17|context QE + checklist|cross": {
+    "any": {
+     "k": 33,
+     "n": 48,
+     "rate": 0.6875,
+     "ci_low": 0.55814,
+     "ci_high": 0.808536
+    },
+    "major": {
+     "k": 30,
+     "n": 48,
+     "rate": 0.625,
+     "ci_low": 0.488372,
+     "ci_high": 0.755102
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context QE + checklist|local": {
+    "any": {
+     "k": 59,
+     "n": 60,
+     "rate": 0.983333,
+     "ci_low": 0.945455,
+     "ci_high": 1.0
+    },
+    "major": {
+     "k": 56,
+     "n": 60,
+     "rate": 0.933333,
+     "ci_low": 0.850746,
+     "ci_high": 1.0
+    }
+   },
+   "gpt-5.4-mini-2026-03-17|context QE + checklist|false_alarm_major": {
+    "k": 29,
+    "n": 240
+   },
+   "gpt-5.4-mini-2026-03-17|context QE + checklist|usd": 0.27753
+  },
+  "pilot": {
+   "gpt-5.4-2026-03-05|checklist|local": [
+    35,
+    35,
+    38
+   ],
+   "gpt-5.4-2026-03-05|context_qe|local": [
+    36,
+    36,
+    38
+   ],
+   "gpt-5.4-2026-03-05|document_qe|local": [
+    34,
+    34,
+    38
+   ],
+   "gpt-5.4-2026-03-05|segment_qe|local": [
+    38,
+    38,
+    38
+   ],
+   "gpt-5.4-2026-03-05|checklist|cross": [
+    6,
+    6,
+    13
+   ],
+   "gpt-5.4-2026-03-05|context_qe|cross": [
+    11,
+    1,
+    13
+   ],
+   "gpt-5.4-2026-03-05|document_qe|cross": [
+    10,
+    3,
+    13
+   ],
+   "gpt-5.4-2026-03-05|segment_qe|cross": [
+    4,
+    0,
+    13
+   ],
+   "gpt-5.4-2026-03-05|case_tests|local": [
+    3,
+    3,
+    8
+   ],
+   "gpt-5.4-2026-03-05|case_tests|cross": [
+    0,
+    0,
+    1
+   ],
+   "gpt-5.4-mini-2026-03-17|checklist|local": [
+    33,
+    33,
+    38
+   ],
+   "gpt-5.4-mini-2026-03-17|context_qe|local": [
+    37,
+    34,
+    38
+   ],
+   "gpt-5.4-mini-2026-03-17|document_qe|local": [
+    33,
+    33,
+    38
+   ],
+   "gpt-5.4-mini-2026-03-17|segment_qe|local": [
+    38,
+    38,
+    38
+   ],
+   "gpt-5.4-mini-2026-03-17|checklist|cross": [
+    7,
+    7,
+    13
+   ],
+   "gpt-5.4-mini-2026-03-17|context_qe|cross": [
+    7,
+    0,
+    13
+   ],
+   "gpt-5.4-mini-2026-03-17|document_qe|cross": [
+    6,
+    0,
+    13
+   ],
+   "gpt-5.4-mini-2026-03-17|segment_qe|cross": [
+    2,
+    0,
+    13
+   ],
+   "gpt-5.4-mini-2026-03-17|case_tests|local": [
+    3,
+    3,
+    8
+   ],
+   "gpt-5.4-mini-2026-03-17|case_tests|cross": [
+    0,
+    0,
+    1
+   ]
+  },
+  "detection_mismatch": {
+   "gpt-5.4-mini-2026-03-17|segment_qe": [
+    7,
+    74
+   ],
+   "gpt-5.4-mini-2026-03-17|context_qe": [
+    2,
+    90
+   ],
+   "gpt-5.4-mini-2026-03-17|document_qe": [
+    0,
+    72
+   ],
+   "gpt-5.4-mini-2026-03-17|checklist": [
+    1,
+    81
+   ],
+   "gpt-5.4-mini-2026-03-17|case_tests": [
+    0,
+    0
+   ]
+  }
+ },
  "qe_noise": {
   "passing_cases": 464,
   "qe_flagged": 10
